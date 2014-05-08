@@ -285,6 +285,14 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
 //                (long)ev->state, (long)m_altModMask);
            }
 
+#if CONFIG_DONT_USE_FKEYS
+           if (key >= XK_1 && key <= XK_9 &&
+		CONFIG_CHANNEL_SURF && CONFIG_USE_CHANNEL_KEYS) {
+
+		int channel = key - XK_1 + 1;
+
+		gotoChannel(channel, 0);
+#else
            if (key >= XK_F1 && key <= XK_F12 &&
 		CONFIG_CHANNEL_SURF && CONFIG_USE_CHANNEL_KEYS) {
 
@@ -292,6 +300,7 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
 
 		gotoChannel(channel, 0);
 		
+#endif // CONFIG_DONT_USE_FKEYS
 	    } else {
 
 		// These key names also appear in Client::manage(), so

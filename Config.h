@@ -239,6 +239,10 @@ private:
 #define CONFIG_MENU_SELECT_KEY	XK_Return
 #define CONFIG_MENU_CANCEL_KEY	XK_Escape
 
+// If DONT_USE_FKEYS is True, then the numbers on the top row will be
+// used instead of of the function keys.
+#define CONFIG_DONT_USE_FKEYS	False
+
 // Useful for fortunate people with Sun Type-5 keyboards.  These don't
 // require the modifier to be pressed.
 #define CONFIG_WANT_SUNKEYS	True
