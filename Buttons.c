@@ -4,6 +4,7 @@
 #include "Client.h"
 #include "Menu.h"
 #include <X11/keysym.h>
+#include <X11/XKBlib.h>
 #include <sys/time.h>
 
 #if CONFIG_WANT_SUNKEYS
@@ -204,7 +205,7 @@ void WindowManager::circulate(Boolean activeFirst)
 void WindowManager::eventKeyPress(XKeyEvent *ev)
 {
     enum {Vertical, Maximum, Horizontal};
-    KeySym key = XKeycodeToKeysym(display(), ev->keycode, 0);
+    KeySym key = XkbKeycodeToKeysym(display(), ev->keycode, 0, 0);
     
     if (CONFIG_USE_KEYBOARD) {
 
@@ -404,7 +405,7 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
 
 void WindowManager::eventKeyRelease(XKeyEvent *ev)
 {
-    KeySym key = XKeycodeToKeysym(display(), ev->keycode, 0);
+    KeySym key = XkbKeycodeToKeysym(display(), ev->keycode, 0, 0);
     
     if (key == CONFIG_ALT_KEY) {
         m_altPressed = False;

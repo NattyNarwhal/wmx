@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <X11/keysym.h>
+#include <X11/XKBlib.h>
 
 Boolean       Menu::m_initialised = False;
 GC           *Menu::m_menuGC;
@@ -482,7 +483,7 @@ int Menu::getSelection()
 	{
 	    if (!isKeyboardMenu) break;
 
-	    KeySym key = XKeycodeToKeysym(display(), event.xkey.keycode, 0);
+	    KeySym key = XkbKeycodeToKeysym(display(), event.xkey.keycode, 0, 0);
 
 	    if (key == CONFIG_MENU_SELECT_KEY) {
 
