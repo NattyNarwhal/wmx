@@ -1,5 +1,5 @@
 
-# wmx * another window manager
+# wmx: another window manager
 
 wmx is another window manager for X.  It is based on wm2 and provides
 a similarly unusual style of window decoration; but in place of wm2's
@@ -80,8 +80,8 @@ Available window manipulations are:
  * To start a new application of your choice: use the middle mouse
     button on the root window, anywhere other than the top-right
     corner of the root window.  If you have any executable programs in
-    your $HOME/.wmx directory * or other directory named in
-    CONFIG_COMMAND_MENU * they will be listed on a menu and you can
+    your $HOME/.wmx directory or other directory named in
+    `CONFIG_COMMAND_MENU` they will be listed on a menu and you can
     choose one to be started up.  (You can add and remove programs
     while wmx is running.)  REMEMBER, $HOME/.wmx IS A DIRECTORY, not
     a file, so please don't write to me asking what the file format is.
@@ -205,9 +205,9 @@ delay time in ms.
 
 For example,
 
-  amyl > ~ > ls -l ~/.wmx/options
-  lrwxrwxrwx   1 cannam   cannam         39 Jan 12 10:16 /home/cannam/.wmx/options -> menu:full/new:off/focus:delay-raise,100
-  amyl > ~ > 
+    amyl > ~ > ls -l ~/.wmx/options
+    lrwxrwxrwx   1 cannam   cannam         39 Jan 12 10:16 /home/cannam/.wmx/options -> menu:full/new:off/focus:delay-raise,100
+    amyl > ~ > 
 
 The real problem with this scheme is that it makes Config.h harder to
 read, because the defaults for the dynamically configurable options
