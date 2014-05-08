@@ -10,10 +10,10 @@ imaginable.
 ## Building wmx
 
 wmx should build on any Unix machine with X11. In particular, it uses
-Xpm, Xkb, and Freetype.
+Xpm, Xkb, Freetype, and strl\* functions.
 
 You might want to change the settings for wmx to suit your desires.
-After that, you should be able to simply do a `./configure; make`.
+After that, you should be able to simply do a `./configure; gmake`.
 
 ## Using wmx
 
@@ -52,7 +52,7 @@ Available window manipulations are:
     button on the tab, hold the mouse button for at least a
     second and a half until the cursor changes to a cross, then
     release.  (I know, it's not very easy.  On the other hand,
-    things like Windows-95 tend to obscure the fact that most
+    most modern window managers tend to obscure the fact that most
     windows already have a perfectly good Close option.  If the
     default delay doesn't suit you, change it in Config.h and
     recompile.)
@@ -87,9 +87,9 @@ Available window manipulations are:
     a file, so please don't write to me asking what the file format is.
 
  * To exit from wmx: move the mouse pointer to the very edge of the
-    screen at the extreme lower-right corner, and click left button on
-    the root window for the root menu.  The menu should have an extra
-    option labelled "Exit wmx"; select this.
+    screen at the bottom corner, and click left button on the root
+    window for the root menu.  The menu should have an extra option
+    labelled "Exit wmx"; select this.
 
 All move and resize operations are opaque.
 
@@ -98,7 +98,11 @@ All move and resize operations are opaque.
 
 By popular request, there are now some keyboard controls available.
 The key combinations are configurable in Config.h * the most
-important one is that for the Alt modifier.  The default bindings are:
+important one is that for the Alt modifier. By default, this is bound
+to `Super_L`, usually the left Windows key on your keyboard, but can
+be changed to something else.
+
+The default bindings are:
 
  * To raise the focused window in the stacking order: Alt/cursor-Up
 
@@ -129,23 +133,26 @@ important one is that for the Alt modifier.  The default bindings are:
     Alt/KP_Subtract (numeric pad -)
 
  * If you want the same key to maximise/unmaximise set
-    CONFIG_SAME_KEY_MAX_UNMAX to True
+    `CONFIG_SAME_KEY_MAX_UNMAX` to True
 
  * To switch channels: Alt/cursor-Left and Alt/cursor-Right
 
  * To switch directly to channel number N, provided there is
     a channel N (i.e. some client has been created there already):
     Alt plus F-key N.  Thus for channel 2 press Alt/F2 and so on.
+    You can choose not to use the function keys for channel
+    switching, and instead use the top row of numbers, set by
+    `CONFIG_DONT_USE_FKEYS`
 
  * To make the currently focused window "sticky", so it appears on
     all channels: Alt/Pause.  Repeat to unstick the window.
 
  * To pop up a keyboard-powered client menu: Alt/Menu; for a
-    keyboard-powered new-application menu: Alt/Multi_Key.  (On my
-    PC, Menu is bound to the rightmost Windows-95-specific key and
-    Multi_Key to the one next to it.)  You can then use cursor-Up
-    and cursor-Down, Return, and Escape to choose, select or cancel
-    from the menu.
+    keyboard-powered new-application menu: Alt/Multi_Key.  (On most
+    modern keyboards, the menu key is right next to the right Windows
+    and Control keys.) You can then use cursor-Up and cursor-Down and
+    cursor-Down, Return, and Escape to choose, select or cancel from
+    the menu.
 
 Some of these bindings (notably the keyboard menu) can be switched off
 altogether in Config.h.
@@ -260,7 +267,7 @@ resize handle doesn't obscure any of the text area.
 ## NETWM and desktop environments
 
 As of this release, wmx now includes a significant amount of support
-for the NETWM extended window manager hints * enough to make it
+for the NETWM extended window manager hints, enough to make it
 usable as the primary window manager with a GNOME or KDE desktop.
 This support is incomplete; fixes and improvements will be welcomed
 (more than bug reports will).
@@ -302,6 +309,8 @@ Oliver Moll, Richard Sharman, Martin Andrews, Glyn Faulkner, Zvezdan
 Petkovic, Damion Yates, Teemu Voipio, Ben Stern and, well, probably
 several other people.
 
+This wmx fork is currently maintained by Calvin Buckley.
+
 If you want to hack the code into something else for your own
 amusement, please go ahead.  Feel free to modify and redistribute, as
 long as you retain the original copyrights as appropriate.
@@ -314,6 +323,9 @@ majordomo at 42.org.  To subscribe, send email to majordomo@42.org
 with "subscribe wmx" in the body of the mail.  The list is archived on
 the web at http://ml.42.org/wmx/.
 
+## Footer
+Chris Cannam <cannam@all-day-breakfast.com>
 
-Chris Cannam, cannam@all-day-breakfast.com
-January 2009
+Calvin Buckley <calvin@openmailbox.org>
+
+May 2014
