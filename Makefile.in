@@ -42,6 +42,8 @@ install:
 	-mv -f @bindir@/wmx @bindir@/wmx.old
 	cp wmx @bindir@/wmx
 	-chmod 0755 @bindir@/wmx
+	cp wmx.desktop @datadir@/wmx.desktop
+	-chmod 0644 @datadir@/wmx.desktop
 	-chown root:wheel @bindir@/wmx
 	-rm -f @bindir@/wmx.old
 

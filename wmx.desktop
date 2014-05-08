@@ -8,3 +8,4 @@ X-GNOME-WMName=wmx
 X-GNOME-Autostart-Phase=WindowManager
 X-GNOME-Provides=windowmanager
 X-GNOME-Autostart-Notify=true
+Type=XSession
