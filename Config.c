@@ -182,7 +182,7 @@ void DynamicConfig::update(char *string)
 
 	if (*s != '\0') {
 	    fprintf(stderr, "\nwmx: Dynamic configuration error: "
-		    "`%s' @ position %d", s, string - s);
+		    "`%s' @ position %ld", s, string - s);
 	}
 
     } while ((s = strtok(NULL, "/")));
