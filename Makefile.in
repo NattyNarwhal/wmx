@@ -30,7 +30,7 @@ wmx:	$(OBJECTS)
 depend:
 	-awk '{print;} /^# DO NOT DELETE/{exit}' Makefile>Makefile.dep
 	test -s Makefile.dep
-	mv Makefile.dep Makefile;g++ -MM $(CXXFLAGS) *.cpp>>Makefile
+	mv Makefile.dep Makefile; $(CCC) -MM $(CXXFLAGS) *.cpp>>Makefile
 
 clean:
 	rm -f *.o core wmx wmx.old
