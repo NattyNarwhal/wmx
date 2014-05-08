@@ -303,10 +303,10 @@ void Border::initialiseStatics(WindowManager *wm)
             char *pixMapPath = (char *) malloc (sizeof (char) * (strlen (home)
                                                                  + strlen (CONFIG_COMMAND_MENU) + 20));
             if (pixMapPath) {
-                strcpy (pixMapPath, home);
-                strcat (pixMapPath, "/");
-                strcat (pixMapPath, CONFIG_COMMAND_MENU);
-                strcat (pixMapPath, "/border.xpm");
+                strncpy (pixMapPath, home, strlen(pixMapPath));
+                strncat (pixMapPath, "/", 1);
+                strncat (pixMapPath, CONFIG_COMMAND_MENU, strlen(CONFIG_COMMAND_MENU));
+                strncat (pixMapPath, "/border.xpm", 11);
                 
                 // look for background pixmap file in
                 // the users .wmx directory. It is *not*

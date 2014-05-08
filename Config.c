@@ -42,19 +42,19 @@ DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
 
 	if (!home) m_impl->path[0] = 0;
 	else {
-	    strcpy(m_impl->path, getenv("HOME"));  // Path to Options-Link
-	    strcat(m_impl->path, "/" CONFIG_COMMAND_MENU "/options");
+	    strlcpy(m_impl->path, getenv("HOME"), 1000);  // Path to Options-Link
+	    strlcat(m_impl->path, "/" CONFIG_COMMAND_MENU "/options", 1000);
 	}
 
     } else {
 
 	if (*wmxdir == '/') strcpy(m_impl->path, wmxdir);
 	else {
-	    strcpy(m_impl->path, home);
-	    strcat(m_impl->path, "/");
-	    strcat(m_impl->path, wmxdir);
+	    strlcpy(m_impl->path, home, 1000);
+	    strlcat(m_impl->path, "/", 1000);
+	    strlcat(m_impl->path, wmxdir, 1000);
 	}
-	strcat(m_impl->path, "/options");
+	strlcat(m_impl->path, "/options", 1000);
     }
 
     m_impl->focus = 0;	// 1 = Click , 2 = Raise, 4 = Autoraise
