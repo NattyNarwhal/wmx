@@ -1,0 +1,79 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(Border.C)
+
+dnl Checks for programs.
+AC_PROG_MAKE_SET
+AC_PROG_CXX
+AC_LANG_CPLUSPLUS
+
+AC_PATH_X
+
+dnl libX11 _is_ necessary
+dnl and some systems do find it without any path.
+
+if test ! "$no_x" = "yes" ; then
+	if test ! X"$x_libraries" = X ; then
+		LDFLAGS="$LDFLAGS -L$x_libraries"
+	fi
+	if test ! X"$x_includes" = X ; then
+		CXXFLAGS="$CXXFLAGS -I$x_includes"
+	fi
+else
+	AC_MSG_ERROR(X11 is necessary.)
+fi
+
+AC_CHECK_LIB(X11, XOpenDisplay, [], [
+    echo "You need the X11 libraries."
+    exit 1
+    ])
+
+dnl Shape extension is necessary.
+AC_CHECK_LIB(Xext, XShapeQueryExtension, [], [
+    echo "You need the X11 Shape extension."
+    exit 1
+    ])
+
+dnl Xpm is not strictly necessary
+AC_CHECK_LIB(Xpm, XpmCreatePixmapFromData, [], [
+    echo "Warning: Xpm library not found"
+    echo "Please either install the Xpm library and headers, or ensure you have CONFIG_USE_PIXMAPS set to False in Config.h"
+    ])
+
+dnl Composite is necessary if CONFIG_USE_COMPOSITE
+AC_CHECK_LIB(Xcomposite, XCompositeQueryExtension, [], [
+    echo "Warning: Xcomposite library not found"
+    echo "Please either install the Xcomposite library and headers, or ensure you have CONFIG_USE_COMPOSITE set to False in Config.h"
+    ])
+
+dnl SM and ICE are necessary if CONFIG_USE_SESSION_MANAGER
+AC_CHECK_LIB(SM, SmcOpenConnection)
+AC_CHECK_LIB(ICE, IceConnectionNumber)
+
+dnl Freetype: actually only needed if CONFIG_USE_XFT
+PKG_CHECK_MODULES([FT],[freetype2],[],[
+    echo "Warning: Freetype library not found"
+    echo "Please either install Freetype, or ensure you have CONFIG_USE_XFT set to False in Config.h"
+    ])
+PKG_CHECK_MODULES([XFT],[xft],[],[
+    echo "Warning: Xft library not found"
+    echo "Please either install Xft, or ensure you have CONFIG_USE_XFT set to False in Config.h"
+    ])
+PKG_CHECK_MODULES([FC],[fontconfig],[],[
+    echo "Warning: Fontconfig library not found"
+    echo "Please either install Fontconfig, or ensure you have CONFIG_USE_XFT set to False in Config.h"
+    ])
+AC_SUBST(FT_CFLAGS)
+AC_SUBST(FT_LIBS)
+AC_SUBST(XFT_CFLAGS)
+AC_SUBST(XFT_LIBS)
+AC_SUBST(FC_CFLAGS)
+AC_SUBST(FC_LIBS)
+
+dnl We want to put wmx where twm lies.
+AC_PREFIX_PROGRAM(twm)
+
+AC_MSG_CHECKING([whether you're still watching])
+AC_MSG_RESULT([probably not :-)])
+
+dnl Now we can go home.
+AC_OUTPUT(Makefile)

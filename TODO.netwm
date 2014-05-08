@@ -1,0 +1,12 @@
+
+* update window state properties to use netwm atoms
+* full-screen windows
+* support for properties such as always-on-current-desktop and actions such as
+  "reveal desktop"
+* clicking on a splash screen window should make it go away
+* support for struts -- set effective display area to display area minus strut
+  areas -- for maximise etc
+* alt + left/right cursor on desktop window (as well as true desktop) needs
+  to switch channel
+* window type for tearoff menus doesn't seem to work right
+

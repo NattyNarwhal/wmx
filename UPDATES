@@ -1,0 +1,122 @@
+/* vim:set ts=4 ai: ,e to add info */
+
+- 2008/05/22
+	significant fix to handling of client list for desktop taskbars
+
+- 2008/05/07
+	major fixes to various parts of NETWM code
+
+- 2008/03/07
+	make it possible to "bump" windows against neighbouring
+	windows as well as screen edges
+
+- 2008/02/27
+	NETWM extended window manager protocols -- partial support.
+	Based on a patch submitted by Jamie Montgomery in November
+	2000, with substantial overhaul to take it from the GNOME
+	era into the NETWM one and to add some new features.  This
+	covers only the very basics necessary for pleasant use in
+	a modern desktop environment -- the main things missing at
+	the moment are support for full-screen windows and struts.
+
+- 2007/12/12
+	Xft support for antialiased text in frame and menu
+
+- 2003/08/12
+	permit alt-drag in middle of window to move it (from Damion
+	Yates and Teemu Voipio)
+
+- 2003/08/12
+	permit recolouring frames from dynamic config (from Zvezdan
+	Petkovic)
+
+- 2003/08/12
+	permit remapping mouse buttons in config (from Glyn Faulkner)
+
+- 2000/05/12
+	added Zvezdan Petkovic's patch for horizontal and full-
+	screen maximise as well as vertical, and to make maximise
+	and unmaximise optionally use the same key (toggle).
+
+wmx-6pre4:
+
+- 2000/05/11
+        change so as to use alt-modifier keysym instead of
+        coding the mask straight in to Config.h.  now Manager.C
+        looks up the mask itself.  this is so we can also use
+        the keysym to keep the Alt state up-to-date for the new
+        circulation stuff (besides, it makes configuration easier)
+        ... plus bugfix in isKeyboardMenuEvent
+
+wmx-6pre3:
+
+- 2000/05/11
+        Added Lasse's channel menu
+
+wmx-6pre2:
+
+- 2000/05/11
+        attempted to merge Henri's wmx-6pre1+gnome+group, with
+        SvOlli's wmx-6mh1 for multiheaded displays, plus Lasse's
+        hack to make exit optional on the keyboard menu, a fix
+        to Rotated.C's charset handling, and my own channel
+        button-event patch and circulation-direction stuff
+
+wmx-6pre1:
+
+- 1999/09/01 03:55
+	restart wmx on SIGHUP
+
+- 1999/09/01 03:32
+	auto-raise fix (from fabian)
+
+- 1999/09/01 00:54
+	added shaped window support (from henri)
+	some minor robustness fixes (from henri)
+
+wmx-5sec6:
+
+- 1999/05/18 00:17
+	add CONFIG_COMMAND_MENU_KEY (from Lasse)
+	
+- 1999/05/17 22:54
+	sun openwin compile fix (from O'Shaughnessy Evans)
+
+wmx-5sec5:
+
+- 1999/05/16 00:49
+	fix minor graphics nit
+	fix coredump when mapping exited windows
+	leak less memory (from Lasse)
+
+wmx-5sec4:
+
+- 1999/02/23 03:13
+	Pixmap from .wmx/border.xpm
+	From: Johannes Zellner <joze@krisal.physik.uni-karlsruhe.de>
+
+- 1999/02/23 02:32
+	Bugfix for Pixmap handling
+	from: Andrew Chadwick <andyc@durge.org>
+
+- 1999/02/09 00:10
+	Menu modifications
+	from: Lasse Rasinen <lrasinen@iki.fi>
+
+wmx-5sec3:
+
+- 1999/01/21 02:02
+	first try at autoconf. <sec>
+	setup local cvs tree.
+
+wmx-5sec2:
+
+- 1999/01/16 21:50
+	Fixed I18N support
+	from: Mr. Asaki Takumi <asataku@osk3.3web.ne.jp>
+
+wmx-5sec1:
+
+- 1999/01/15 04:40
+	config't feedbackdelay and right mousbutton (circulate/lower/off)
+	idea from: Sven Oliver Moll <smol0999@rz.uni-hildesheim.de>
