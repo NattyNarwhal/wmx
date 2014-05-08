@@ -561,7 +561,7 @@ PACKAGE_STRING=
 PACKAGE_BUGREPORT=
 PACKAGE_URL=
 
-ac_unique_file="Border.c"
+ac_unique_file="Border.cpp"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 ac_prefix_program

@@ -18,7 +18,7 @@ CXXFLAGS=@CXXFLAGS@ @XFT_CFLAGS@ @FT_CFLAGS@ @FC_CFLAGS@ -Wall
 
 OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Main.o Manager.o Menu.o Rotated.o Session.o
 
-.c.o:
+.cpp.o:
 	$(CCC) -c $(CXXFLAGS) $<
 
 all:	wmx
@@ -30,7 +30,7 @@ wmx:	$(OBJECTS)
 depend:
 	-awk '{print;} /^# DO NOT DELETE/{exit}' Makefile>Makefile.dep
 	test -s Makefile.dep
-	mv Makefile.dep Makefile;g++ -MM $(CXXFLAGS) *.c>>Makefile
+	mv Makefile.dep Makefile;g++ -MM $(CXXFLAGS) *.cpp>>Makefile
 
 clean:
 	rm -f *.o core
@@ -51,22 +51,22 @@ install-rpm:
 
 
 # DO NOT DELETE -- make depend depends on it
-Border.o: Border.c Border.h General.h Config.h Rotated.h Client.h \
+Border.o: Border.cpp Border.h General.h Config.h Rotated.h Client.h \
  Manager.h listmacro.h background.xpm
-Buttons.o: Buttons.c Manager.h General.h Config.h listmacro.h Client.h \
+Buttons.o: Buttons.cpp Manager.h General.h Config.h listmacro.h Client.h \
  Border.h Rotated.h Menu.h
-Channel.o: Channel.c Manager.h General.h Config.h listmacro.h Client.h \
+Channel.o: Channel.cpp Manager.h General.h Config.h listmacro.h Client.h \
  Border.h Rotated.h
-Client.o: Client.c Manager.h General.h Config.h listmacro.h Client.h \
+Client.o: Client.cpp Manager.h General.h Config.h listmacro.h Client.h \
  Border.h Rotated.h
-Config.o: Config.c Config.h
-Events.o: Events.c Manager.h General.h Config.h listmacro.h Client.h \
+Config.o: Config.cpp Config.h
+Events.o: Events.cpp Manager.h General.h Config.h listmacro.h Client.h \
  Border.h Rotated.h
-Main.o: Main.c Manager.h General.h Config.h listmacro.h Client.h \
+Main.o: Main.cpp Manager.h General.h Config.h listmacro.h Client.h \
  Border.h Rotated.h
-Manager.o: Manager.c Manager.h General.h Config.h listmacro.h Menu.h \
+Manager.o: Manager.cpp Manager.h General.h Config.h listmacro.h Menu.h \
  Client.h Border.h Rotated.h Cursors.h
-Menu.o: Menu.c Menu.h General.h Config.h Manager.h listmacro.h \
+Menu.o: Menu.cpp Menu.h General.h Config.h Manager.h listmacro.h \
  Client.h Border.h Rotated.h
-Rotated.o: Rotated.c Config.h Rotated.h
-Session.o: Session.c Manager.h General.h Config.h listmacro.h
+Rotated.o: Rotated.cpp Config.h Rotated.h
+Session.o: Session.cpp Manager.h General.h Config.h listmacro.h
