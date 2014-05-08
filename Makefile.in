@@ -33,7 +33,7 @@ depend:
 	mv Makefile.dep Makefile;g++ -MM $(CXXFLAGS) *.cpp>>Makefile
 
 clean:
-	rm -f *.o core
+	rm -f *.o core wmx wmx.old
 
 distclean: clean
 	rm -f wmx wmx.old *~ *.bak *.org *.orig config.* Makefile

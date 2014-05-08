@@ -72,8 +72,5 @@ AC_SUBST(FC_LIBS)
 dnl We want to put wmx where twm lies.
 AC_PREFIX_PROGRAM(twm)
 
-AC_MSG_CHECKING([whether you're still watching])
-AC_MSG_RESULT([probably not :-)])
-
 dnl Now we can go home.
 AC_OUTPUT(Makefile)
