@@ -1,0 +1,319 @@
+
+# wmx * another window manager
+
+wmx is another window manager for X.  It is based on wm2 and provides
+a similarly unusual style of window decoration; but in place of wm2's
+minimal functionality it offers many of the features of more
+conventional managers, often in the most simplistic implementations
+imaginable.
+
+## Building wmx
+
+wmx should build on any Unix machine with X11. In particular, it uses
+Xpm, Xkb, and Freetype.
+
+You might want to change the settings for wmx to suit your desires.
+After that, you should be able to simply do a `./configure; make`.
+
+## Using wmx
+
+To run wmx, make sure you're not already running a window manager,
+make sure the DISPLAY variable is correctly set and the X server is
+running, and then execute the file "wmx".  There are no command-line
+options or X resources, and there is no start-up file.  If your X
+server doesn't support the Shape extension, wmx will exit (and will
+never work on your server); if it can't find the required fonts or
+allocate the required colours, it will also exit (but you should be
+able to fix this by changing the definitions in Config.h and
+recompiling).
+
+Available window manipulations are:
+
+ * To focus a window: depends on the focus policy you selected
+    in Config.h before compiling.  See "Focus policy", below.
+
+ * To raise a window: click on its tab or frame, unless you have
+    auto-raise on focus set in Config.h.
+
+ * To move a window: make sure it's in focus, then click and drag
+    on its tab, or Alt-click and drag anywhere on it (see Keyboard
+    controls, below, for more about Alt combinations).
+
+ * To hide a window: make sure it's in focus, then click on the
+    button at the top of its tab.
+
+ * To recover a hidden window: hold down left button on the root
+    window for the root menu, and choose the window you want.
+
+ * To start a new xterm: use the first item on the left-button root
+    menu ("New"), unless you've disabled it in Config.h.
+
+ * To delete a window: make sure it's in focus, click on the
+    button on the tab, hold the mouse button for at least a
+    second and a half until the cursor changes to a cross, then
+    release.  (I know, it's not very easy.  On the other hand,
+    things like Windows-95 tend to obscure the fact that most
+    windows already have a perfectly good Close option.  If the
+    default delay doesn't suit you, change it in Config.h and
+    recompile.)
+
+ * To resize a window: make sure it's in focus, then click and
+    drag on its bottom-right corner.  For a constrained resize,
+    click and drag on the bottom-left or top-right corner of
+    the enclosing window frame.
+
+ * To flip around amongst the windows on-screen: click with the right
+    mouse button on the root window or on any window's frame or tab.
+
+ * To switch between desktops (or "Channels"): click with the middle
+    mouse button towards the top-right corner of the root window.  A
+    big green number will be displayed showing which channel you are
+    currently on.  Click again before this number disappears to change
+    to the next channel.  If you click with the left button after the
+    first middle-button click, you will move down a channel instead
+    of up.
+
+ * To move a window from one channel to another: click with the
+    middle mouse button on its frame, and then keep clicking until you
+    reach the channel you want to move it to.
+
+ * To start a new application of your choice: use the middle mouse
+    button on the root window, anywhere other than the top-right
+    corner of the root window.  If you have any executable programs in
+    your $HOME/.wmx directory * or other directory named in
+    CONFIG_COMMAND_MENU * they will be listed on a menu and you can
+    choose one to be started up.  (You can add and remove programs
+    while wmx is running.)  REMEMBER, $HOME/.wmx IS A DIRECTORY, not
+    a file, so please don't write to me asking what the file format is.
+
+ * To exit from wmx: move the mouse pointer to the very edge of the
+    screen at the extreme lower-right corner, and click left button on
+    the root window for the root menu.  The menu should have an extra
+    option labelled "Exit wmx"; select this.
+
+All move and resize operations are opaque.
+
+
+# Keyboard controls
+
+By popular request, there are now some keyboard controls available.
+The key combinations are configurable in Config.h * the most
+important one is that for the Alt modifier.  The default bindings are:
+
+ * To raise the focused window in the stacking order: Alt/cursor-Up
+
+ * To lower the focused window: Alt/cursor-Down
+
+ * To flip through the windows on screen: Alt/Tab (equivalent to
+    clicking the right mouse-button on the focused window's frame)
+
+ * To hide the focused window: Alt/Return
+
+ * To delete the focused window: Alt/BackSpace
+
+ * To expand the focused window to the full height of the screen:
+    Alt/PageUp
+
+ * To contract the focused window after expanding it: Alt/PageDown
+
+ * To expand the focused window to the full screen (maximise):
+    Alt/Home
+
+ * To contract the focused window after expanding it (unmaximise): 
+    Alt/End
+
+ * To expand the focused window to the full width of the screen:
+    Alt/KP_Add (numeric pad +)
+
+ * To contract the focused window after expanding it:
+    Alt/KP_Subtract (numeric pad -)
+
+ * If you want the same key to maximise/unmaximise set
+    CONFIG_SAME_KEY_MAX_UNMAX to True
+
+ * To switch channels: Alt/cursor-Left and Alt/cursor-Right
+
+ * To switch directly to channel number N, provided there is
+    a channel N (i.e. some client has been created there already):
+    Alt plus F-key N.  Thus for channel 2 press Alt/F2 and so on.
+
+ * To make the currently focused window "sticky", so it appears on
+    all channels: Alt/Pause.  Repeat to unstick the window.
+
+ * To pop up a keyboard-powered client menu: Alt/Menu; for a
+    keyboard-powered new-application menu: Alt/Multi_Key.  (On my
+    PC, Menu is bound to the rightmost Windows-95-specific key and
+    Multi_Key to the one next to it.)  You can then use cursor-Up
+    and cursor-Down, Return, and Escape to choose, select or cancel
+    from the menu.
+
+Some of these bindings (notably the keyboard menu) can be switched off
+altogether in Config.h.
+
+
+## Wheel mouse
+
+If you have a wheel mouse, you can use the wheel to switch channels.
+Moving the wheel in the root window selects the next or previous
+channel; moving it in the tab of a window moves that window up or down
+a channel.
+
+
+## Focus policy
+
+Config.h contains settings for focus policy.  There are three things
+you can define to either True or False: `CONFIG_CLICK_TO_FOCUS`,
+`CONFIG_RAISE_ON_FOCUS` and `CONFIG_AUTO_RAISE`.  The first two are
+connected: together they define a focus policy.  The third is a
+separate focus policy on its own and will only work if the first two
+are both False. `CONFIG_AUTO_RAISE` differs from
+`(!CONFIG_CLICK_TO_FOCUS && CONFIG_RAISE_ON_FOCUS)` only in that it
+provides a short delay before raising each window.  The delay is also
+definable.
+
+
+## Skeletal feedback
+
+If you have `CONFIG_MAD_FEEDBACK` set to True in Config.h, you will get
+some natty feedback effects when using the left-button root menu (the
+Client menu).  Each window selected on the menu will be indicated with
+a half-frame at the correct position on the screen, to make it easier
+to distinguish between windows with similar names on the menu.  If you
+have `CONFIG_FEEDBACK_DELAY` set to zero or more, then the window itself
+will be shown on the screen after a delay.  You can use this to
+speculatively see what a hidden window is showing, without having to
+restore it and hide it again.
+
+
+## Dynamic configuration
+
+This release allows a certain degree of configuration at runtime.
+
+(I know, I'm sorry.)
+
+The configuration is held as the target of a symbolic link residing at
+~/.wmx/options (or in whichever directory the `CONFIG_COMMAND_MENU` is
+found).  This target should be a string of the form a:b/c:d/e:f etc,
+to set option a to value b, option c to value d, e to f and so on.
+The available options are currently "menu" (full or part), "new" (on
+or off), "keyboard" (on or off), "feedback" (on or off), and "focus"
+(click, raise, delay-raise or follow).  If click focus is used, 
+a "passclick" option can be set (on or off) to regulate whether 
+the focus-giving click is also sent to the newly raised client. 
+"focus:delay-raise" may be optionally followed by a comma and then a 
+delay time in ms.
+
+For example,
+
+  amyl > ~ > ls -l ~/.wmx/options
+  lrwxrwxrwx   1 cannam   cannam         39 Jan 12 10:16 /home/cannam/.wmx/options -> menu:full/new:off/focus:delay-raise,100
+  amyl > ~ > 
+
+The real problem with this scheme is that it makes Config.h harder to
+read, because the defaults for the dynamically configurable options
+are now held in Config.C instead.
+
+
+## Pixmaps
+
+wmx allows you to specify a background pixmap for the window frames.
+If you set `CONFIG_USE_PIXMAPS` to True in Config.h and supply a file
+./background.xpm which contains an Xpm pixmap called "background", wmx
+will use this to colour in the frames.  If you also set
+`CONFIG_USE_PIXMAP_MENUS`, the root menus will be filled in with the
+background too.
+
+An example file is included, although you may prefer to find your own.
+
+
+## Groups
+
+This release also supports user-definable window groupings.  To put a
+window in a group, press Alt/Ctrl/{0-9} (for the group of that
+number).  To ungroup a window group, press Alt/Shift/{0-9}.  Pressing
+Alt/{0-9} raises all the windows in the numbered group.  Like the
+"sticky" mode, there is no visual feedback for window groups.
+
+
+## Decoration-free windows
+
+wmx does not support borderless or undecorated windows, but there
+is a friendly utility by Vadim Kolontsov, called
+"[xnodecor](http://sb.123.org/xnodecor.html)", that you can use
+to circumvent this limitation if you want.
+
+xnodecor gives you absolutely stationary, sticky, fixed borderless
+windows for applications such as clocks that you feel you will never
+want to move or remove.
+
+
+## xterm
+
+Some versions of xterm and rxvt run badly with wmx.  If you use xterm
+and find that it refreshes the window excessively slowly, you might
+like to try experimenting with a different terminal emulation program.
+I think it might help to ensure that the scrollbar is on the
+right-hand side of the rxvt window and is thick enough that wmx's
+resize handle doesn't obscure any of the text area.
+
+
+## NETWM and desktop environments
+
+As of this release, wmx now includes a significant amount of support
+for the NETWM extended window manager hints * enough to make it
+usable as the primary window manager with a GNOME or KDE desktop.
+This support is incomplete; fixes and improvements will be welcomed
+(more than bug reports will).
+
+
+## Credits
+
+wmx was written by Chris Cannam, recycling a lot of code and structure
+from "9wm" by David Hogan.
+
+The sideways tabs on the window frames were Andy Green's idea.
+
+Alan Richardson's "xvertext" font-rotation routines are used for
+the window tabs.
+
+Kazushi (Jam) Marukawa provided internationalisation code, which I
+think is currently only tested for Japanese; see README.contrib for
+his notes and copyright notice.
+
+Jeremy Fitzhardinge provided the original application-menu code.
+
+The dynamic configuration code is mostly due to Stefan `Sec' Zehl.
+
+Multiheaded X support is due to Sven Oliver `SvOlli' Moll.
+
+NETWM support for use with desktop environments was based on a
+substantial patch from James Montgomery sent to the wmx mailing list
+in November 2000.  A mere seven years later, I got around to
+integrating and updating the patch, and only eight years and two
+months after the original patch, here it is in a release.  Sorry about
+that.
+
+Earlier Gnome support was mostly due to Henri Naccache, as is the
+support for shaped clients.
+
+This release contains code and bug fixes provided by Eric Marsden,
+Lasse Rasinen, Bill Spitzak, Jacques Garrigue, Stefan `Sec' Zehl, Sven
+Oliver Moll, Richard Sharman, Martin Andrews, Glyn Faulkner, Zvezdan
+Petkovic, Damion Yates, Teemu Voipio, Ben Stern and, well, probably
+several other people.
+
+If you want to hack the code into something else for your own
+amusement, please go ahead.  Feel free to modify and redistribute, as
+long as you retain the original copyrights as appropriate.
+
+
+## Mailing list
+
+There is a mailing list for discussion of wm2 and wmx, hosted by
+majordomo at 42.org.  To subscribe, send email to majordomo@42.org
+with "subscribe wmx" in the body of the mail.  The list is archived on
+the web at http://ml.42.org/wmx/.
+
+
+Chris Cannam, cannam@all-day-breakfast.com
+January 2009
