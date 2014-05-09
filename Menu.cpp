@@ -564,7 +564,7 @@ int Menu::getSelection()
 ClientMenu::ClientMenu(WindowManager *manager, XEvent *e)
     : Menu(manager, e), m_allowExit(False)
 {
-    if (SORT_CLIENTS) {
+    if (CONFIG_SORT_CLIENTS) {
        manager->sortClients();
     }
     //!!! this is effectively calling a pure virtual from a constructor,
@@ -605,7 +605,7 @@ ClientMenu::ClientMenu(WindowManager *manager, XEvent *e)
 ClientMenu::~ClientMenu()
 {
     //m_clients.remove_all();
-    if (CLASS_IN_MENU) {
+    if (CONFIG_CLASS_IN_MENU) {
 	for (int i = 0; i < m_nItems; i++) {
 	    free(m_items[i]);
 	}
@@ -672,19 +672,19 @@ char **ClientMenu::getItems(int *niR, int *nhR)
     int j = 0;
     for (i = 0; i < n; ++i) {
 	if (i == 0 && CONFIG_DISABLE_NEW_WINDOW_COMMAND == False) {
-	    if (CLASS_IN_MENU) {
+	    if (CONFIG_CLASS_IN_MENU) {
 		items[i] = NewString(CONFIG_NEW_WINDOW_LABEL);
 	    } else {
 		items[i] = CONFIG_NEW_WINDOW_LABEL;
 	    }
 	} else if (i == n-1 && m_allowExit) {
-	    if (CLASS_IN_MENU) {
+	    if (CONFIG_CLASS_IN_MENU) {
 		items[i] = NewString("[Exit wmx]");
 	    } else {
 		items[i] = "[Exit wmx]";
 	    }
 	} else {
-	    if (CLASS_IN_MENU) {
+	    if (CONFIG_CLASS_IN_MENU) {
 		items[i] = m_clients.item(j)->makeClassAndLabelName();
 	    } else {
 		items[i] = m_clients.item(j)->label();

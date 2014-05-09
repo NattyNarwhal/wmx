@@ -185,11 +185,11 @@ private:
 #define MENU_ENTRY_MAXLENGTH		80
 
 // If menus should have the client class displayed.
-#define CLASS_IN_MENU	False
+#define CONFIG_CLASS_IN_MENU	(DynamicConfig::config.classInMenu())
 
 // Should clients be sorted when displayed on menu or for the
 // clients command in remote control?
-#define SORT_CLIENTS	False
+#define CONFIG_SORT_CLIENTS	(DynamicConfig::config.sortClients())
 
 // ========================
 // Section II. Key bindings
