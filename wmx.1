@@ -1,0 +1,177 @@
+.Dd $Mdocdate: May 9 2014 $
+.Dt wmx 1
+.Os
+.Sh NAME
+.Nm wmx
+.Nd another window manager
+.Sh SYNOPSYS
+.Nm
+.Op Fl -sm-session-id Ar sm-id
+.Sh DESCRIPTION
+.Nm
+is another window manager for X. It is based on wm2 and provided a
+similarily unusual style of window decoration; but in place of wm2's
+minimal functionality, it offers many of the features of more
+convential window managers, often in the most simplistic implementations
+imaginable.
+.Sh CONFIGURATION
+.Nm
+is configured either by editing #define statements in Config.h or by
+a symbolic link in ~/.wmx/options arranged in a "key:value/key:value"
+fashion. See Config.h and Config.c for how to change these.
+.Pp
+The options changeable in Config.h are as follows:
+.Bl -tag -width xx -offset -indent
+.It CONFIG_EVERYTHING_ON_ROOT_MENU
+Boolean value to show non-hidden clients in the on the menu.
+.It CONFIG_EXEC_USING_SHELL
+If to use a shell to wrap the command - this will allow for things like
+escapes and pipes.
+.It CONFIG_NEW_WINDOW_LABEL
+.It CONFIG_NEW_WINDOW_COMMAND
+.It CONFIG_NEW_WINDOW_COMMAND_OPTIONS
+The arguments for the command given in CONFIG_NEW_WINDOW_COMMAND, e.g:
+\'CONFIG_NEW_WINDOW_COMMAND_OPTIONS "-ls","-sb","-sl","1024",0\'
+.It CONFIG_DISABLE_NEW_WINDOW_COMMAND
+.It CONFIG_EXIT_CLICK_SIZE_X
+.It CONFIG_EXIT_CLICK_SIZE_Y
+Area where the "[Exit wmx]" is shown.
+.It CONFIG_COMMAND_MENU
+The directory in which executables are shown for the middle-click menu.
+.It CONFIG_SYSTEM_COMMAND_MENU
+The other directory to find executables if CONFIG_COMMAND_MENU is invalid.
+.It CONFIG_ADD_SCREEN_TO_COMMAND_MENU
+.It CONFIG_CLICK_TO_FOCUS
+.It CONFIG_RAISE_ON_FOCUS
+.It CONFIG_AUTO_RAISE
+.It CONFIG_PASS_FOCUS_CLICK
+.It CONFIG_AUTO_RAISE_DELAY
+.It CONFIG_POINTER_STOPPED_DELAY
+.It CONFIG_DESTROY_WINDOW_DELAY
+.It CONFIG_BUMP_DISTANCE
+Maximum pixels of resistance before you can push a window off-screen.
+.It CONFIG_BUMP_EVERYWHERE
+Boolean value, if allowed, the resistance rule is to be applied to windows nearby as well.
+.It CONFIG_PROD_SHAPE
+Recalcuate the window frame shape - slow, but may be needed on some systems.
+.It CONFIG_RESIZE_UPDATE
+.It CONFIG_USE_COMPOSITE
+Use the Composite extension to speed up rendering.
+.It CONFIG_RAISELOWER_ON_CLICK
+.It CONFIG_USE_WINDOW_GROUPS
+Use window groups - a group leader's fellow grouped windows will have the same
+action applied to them as the leader does.
+.It CONFIG_USE_SESSION_MANAGER
+Boolean value, if a session manager is running WMX will try to talk to it.
+.It MENU_ENTRY_MAXLENGTH
+The maximum character length of a menu entry.
+.It CLASS_IN_MENU
+Show the class of a window in the menu.
+.It SORT_CLIENTS
+If to sort the windows in the menu.
+.It CONFIG_USE_KEYBOARD
+Boolean value, if the keyboard should be used.
+.It CONFIG_ALT_KEY
+What key to use for wmx's keyboard shortcuts. By default, this is XK_Super_L,
+usually bound to the left Windows key.
+.It CONFIG_FLIP_UP_KEY
+.It CONFIG_FLIP_DOWN_KEY
+.It CONFIG_HIDE_KEY
+.It CONFIG_STICKY_KEY
+.It CONFIG_RAISE_KEY
+.It CONFIG_LOWER_KEY
+.It CONFIG_FULLHEIGHT_KEY
+.It CONFIG_NORMALHEIGHT_KEY
+.It CONFIG_FULLWIDTH_KEY
+.It CONFIG_NORMALWIDTH_KEY
+.It CONFIG_MAXIMISE_KEY
+.It CONFIG_UNMAXIMISE_KEY
+.It CONFIG_SAME_KEY_MAX_UNMAX
+Boolean value if the the maximize/unmaximize key also toggles.
+.It CONFIG_DEBUG_KEY
+Print debug info to stdout when this key is pressed.
+.It CONFIG_CIRCULATE_KEY
+.It CONFIG_DESTROY_KEY
+.It CONFIG_WANT_KEYBOARD_MENU
+Boolean value if you want the menus to be controlled by the keyboard.
+.It CONFIG_CLIENT_MENU_KEY
+.It CONFIG_COMMAND_MENU_KEY
+.It CONFIG_EXIT_ON_KBD_MENU
+.It CONFIG_MENU_UP_KEY
+.It CONFIG_MENU_DOWN_KEY
+.It CONFIG_MENU_SELECT_KEY
+.It CONFIG_MENU_CANCEL_KEY
+.It CONFIG_DONT_USE_FKEYS
+.It CONFIG_WANT_SUNKEYS
+If you have a Sun keyboard, you can allow for more keys to be used.
+.It CONFIG_WANT_SUNPOWERKEY
+If you have a Sun keyboard, use the Power key.
+.It CONFIG_QUICKRAISE_KEY
+.It CONFIG_QUICKHIDE_KEY
+.It CONFIG_QUICKHEIGHT_KEY
+.It CONFIG_QUICKCLOSE_KEY
+.It CONFIG_QUICKRAISE_ALSO_LOWERS 
+.It CONFIG_SUNPOWER_EXEC
+If you have a Sun keyboard, the program to run when you hit the power key.
+.It CONFIG_SUNPOWER_OPTIONS
+The arguments to be passed to the program for CONFIG_SUNPOWER_EXEC.
+.It CONFIG_SUNPOWER_SHIFTOPTIONS
+The arguments to be passed to the program for CONFIG_SUNPOWER_EXEC when Shift is held.
+.It CONFIG_CLIENTMENU_BUTTON  Button1
+The menu full of windows.
+.It CONFIG_COMMANDMENU_BUTTON Button2
+The menu full of executables.
+.It CONFIG_CIRCULATE_BUTTON
+When you click a frame with the bound button, it switches to another window.
+.It CONFIG_PREVCHANNEL_BUTTON
+When hovering over the desktop, moves to the previous channel. When hoving over a frame, warp that frame to the previous channel.
+.It CONFIG_NEXTCHANNEL_BUTTON
+Ditto, but the other direction.
+.It CONFIG_USE_XFT
+Use nicer font rendering instead of the built-in bitmap font rendering.
+.It CONFIG_FRAME_FONT
+If using Xft, the font used for frames.
+.It CONFIG_FRAME_FONT_SIZE 12
+.It CONFIG_MENU_FONT "Bitstream Vera Sans,Lucida Sans Unicode"
+If using Xft, the font to use for menus.
+.It CONFIG_MENU_FONT_SIZE 12
+.It CONFIG_NICE_FONT
+If not using Xft, the font to use for frames.
+.It CONFIG_NICE_MENU_FONT
+If not using Xft, the font to use for menus.
+.It CONFIG_NASTY_FONT
+The font used as a fallback.
+.It CONFIG_TAB_MARGIN
+The padding of the fonts on a frame.
+.It CONFIG_USE_PLAIN_X_CURSORS
+Boolean value, if true, wmx won't install a custom set of cursors.
+.It CONFIG_TAB_FOREGROUND
+.It CONFIG_TAB_BACKGROUND
+.It CONFIG_FRAME_BACKGROUND
+.It CONFIG_BUTTON_BACKGROUND
+.It CONFIG_BORDERS
+.It CONFIG_CHANNEL_NUMBER
+.It CONFIG_CLOCK_NUMBER
+.It CONFIG_MENU_FOREGROUND
+.It CONFIG_MENU_BACKGROUND
+.It CONFIG_MENU_BORDERS
+.It CONFIG_FRAME_THICKNESS
+.It CONFIG_USE_PIXMAPS
+.It CONFIG_USE_PIXMAP_MENUS
+.It CONFIG_CHANNEL_SURF
+.It CONFIG_CHANNEL_CLICK_SIZE
+.It CONFIG_CHANNEL_NUMBER_SIZE
+.It CONFIG_USE_CHANNEL_KEYS
+.It CONFIG_USE_CHANNEL_MENU
+.It CONFIG_FLIP_DELAY
+.It CONFIG_QUICK_FLIP_DELAY
+.It CONFIG_MAD_FEEDBACK
+.It CONFIG_FEEDBACK_DELAY
+.It CONFIG_GEOMETRY_X_POS
+.It CONFIG_GEOMETRY_Y_POS
+.It CONFIG_GROUPS
+.It CONFIG_GROUP_ADD  
+.It CONFIG_GROUP_REMOVE_ALL
+.It CONFIG_CLOCK
+A clock that lives in the background.
+.El

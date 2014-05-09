@@ -43,8 +43,12 @@ install:
 	cp wmx @bindir@/wmx
 	-chmod 0755 @bindir@/wmx
 	cp wmx.desktop @datarootdir@/wmx.desktop
-	-chmod 0644 @datadir@/wmx.desktop
+	-chmod 0644 @datarootdir@/wmx.desktop
+	cp wmx.1 @datarootdir@/man/man1/wmx.1
+	-chmod 0644 @datarootdir@/man/man1/wmx.1
 	-chown root:wheel @bindir@/wmx
+	-chown root:wheel @datadir@/wmx.desktop
+	-chown root:wheel @datarootdir@/man/man1/wmx.1
 	-rm -f @bindir@/wmx.old
 
 # DO NOT DELETE -- make depend depends on it
