@@ -13,7 +13,7 @@ wmx should build on any Unix machine with X11. In particular, it uses
 Xpm, Xkb, Freetype, and strl\* functions.
 
 You might want to change the settings for wmx to suit your desires.
-After that, you should be able to simply do a `./configure; gmake`.
+After that, you should be able to simply run make.
 
 ## Using wmx
 
