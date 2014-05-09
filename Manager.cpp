@@ -988,12 +988,6 @@ Boolean WindowManager::raiseTransients(Client *c)
     }
 }
 
-#ifdef sgi
-extern "C" {
-extern int putenv(char *);	/* not POSIX */
-}
-#endif
-
 void WindowManager::spawn(char *name, char *file)
 {
     // strange code thieved from 9wm to avoid leaving zombies

@@ -178,10 +178,6 @@ void WindowManager::nextEvent(XEvent *e)
         int nfds = fd + 1;
         if (m_smFD > fd) nfds = m_smFD + 1;
 
-#ifdef hpux
-#define select(a,b,c,d,e) select((a),(int *)(b),(c),(d),(e))
-#endif
-
 	if (select(nfds, &rfds, NULL, NULL, &t) > 0) {
 
 	    //!!! This two-select structure is getting disgusting;
