@@ -180,7 +180,7 @@ private:
 #define CONFIG_USE_SESSION_MANAGER	True
 
 // Specify the maximum length of an entry in the client menu or the command
-// menu. Set this to zero if you want no limitation
+// menu.
 
 #define MENU_ENTRY_MAXLENGTH		80
 
