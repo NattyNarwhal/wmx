@@ -241,19 +241,6 @@ number).  To ungroup a window group, press Alt/Shift/{0-9}.  Pressing
 Alt/{0-9} raises all the windows in the numbered group.  Like the
 "sticky" mode, there is no visual feedback for window groups.
 
-
-## Decoration-free windows
-
-wmx does not support borderless or undecorated windows, but there
-is a friendly utility by Vadim Kolontsov, called
-"[xnodecor](http://sb.123.org/xnodecor.html)", that you can use
-to circumvent this limitation if you want.
-
-xnodecor gives you absolutely stationary, sticky, fixed borderless
-windows for applications such as clocks that you feel you will never
-want to move or remove.
-
-
 ## xterm
 
 Some versions of xterm and rxvt run badly with wmx.  If you use xterm
@@ -324,8 +311,8 @@ with "subscribe wmx" in the body of the mail.  The list is archived on
 the web at http://ml.42.org/wmx/.
 
 ## Footer
-Chris Cannam <cannam@all-day-breakfast.com>
 
-Calvin Buckley <calvin@openmailbox.org>
+The original wmx website can be found at
+[Chris Cannam's website](http://www.all-day-breakfast.com/wmx/).
 
-May 2014
+Calvin Buckley <calvin@openmailbox.org>, May 2014
