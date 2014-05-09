@@ -37,7 +37,7 @@ typedef char Boolean;
 
 #include "listmacro.h"
 
-#define NewString(x) (strcpy((char *)malloc(strlen(x)+1),(x)))
+#define NewString(x) (strncpy((char *)malloc(strlen(x) + 1), (x), strlen(x) + 1))
 
 #ifndef SIGNAL_CALLBACK_TYPE
 //#define SIGNAL_CALLBACK_TYPE (void (*)(...))
