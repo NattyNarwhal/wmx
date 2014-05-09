@@ -51,7 +51,7 @@ int WindowManager::shapeNumberWindow(Window w, int n, int minDigits)
     XRectangle r;
     Boolean first = True;
     char number[7];
-    sprintf(number, "%0*d", minDigits, n);
+    snprintf(number, 7, "%0*d", minDigits, n);
 
     for (i = 0; i < (int)strlen(number); ++i) {
 	for (y = 0; y < 7; ++y) {

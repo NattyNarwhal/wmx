@@ -472,10 +472,10 @@ int WindowManager::errorHandler(Display *d, XErrorEvent *e)
 
     char msg[100], number[30], request[100];
     XGetErrorText(d, e->error_code, msg, 100);
-    sprintf(number, "%d", e->request_code);
+    snprintf(number, 30, "%d", e->request_code);
     XGetErrorDatabaseText(d, "XRequest", number, "", request, 100);
 
-    if (request[0] == '\0') sprintf(request, "<request-code-%d>",
+    if (request[0] == '\0') snprintf(request, 100, "<request-code-%d>",
 				    e->request_code);
 
     fprintf(stderr, "wmx: %s (0x%lx): %s\n", request, e->resourceid, msg);
@@ -608,7 +608,7 @@ unsigned long WindowManager::allocateColour(int screen, const char *name,
 	 &nearest, &ideal)) {
 
 	char error[100];
-	sprintf(error, "couldn't load %s colour", desc);
+	snprintf(error, 100, "couldn't load %s colour", desc);
 	fatal(error);
     }
 
@@ -1006,10 +1006,11 @@ void WindowManager::spawn(char *name, char *file)
 		char *c;
 		char *pstring = (char *)malloc(strlen(displayName) + 11 +
 					       numdigits(screen()));
-		sprintf(pstring, "DISPLAY=%s", displayName);
+		snprintf(pstring, strlen(displayName) + 11 + numdigits(screen()),
+			 "DISPLAY=%s", displayName);
                 c = strrchr(pstring, '.');
                 if (c) {
-                  sprintf(c + 1, "%d", screen());
+                  snprintf(c + 1, numdigits(screen()), "%d", screen());
                   putenv(pstring);
                 }
 	    }
