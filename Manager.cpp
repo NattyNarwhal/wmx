@@ -1050,6 +1050,25 @@ void WindowManager::spawn(char *name, char *file)
     wait((int *) 0);
 }
 
+int compareClientNamesA(const void *p, const void *q)
+{
+    // This is necessary because we get called the parameter void *
+    // needs to be derefenced twice to get a Client type.
+    Client **x1 = (Client **) p;
+    Client **x2 = (Client **) q;
+
+    Client *c1 = *x1;
+    Client *c2 = *x2;
+
+    return compareClientNames(c1, c2);
+}
+
+void WindowManager::sortClients(void)
+{
+    m_clients.sort(compareClientNamesA);
+    m_hiddenClients.sort(compareClientNamesA);
+}
+
 void WindowManager::netwmInitialiseCompliance()
 {
     // NOTE that this has been altered to coexist with the

@@ -17,6 +17,16 @@ const char *const Client::m_defaultLabel = "incognito";
 
 implementList(EdgeRectList, EdgeRect);
 
+int compareClientNames(Client *c1, Client *c2)
+{
+    int n;
+
+    n = strcmp(c1->m_className, c2->m_className);
+    if (n == 0) {
+	n = strcmp(c1->m_label, c2->m_label);
+    }
+    return n;
+}
 
 Client::Client(WindowManager *const wm, Window w, Boolean shaped) :
     m_window(w),
@@ -75,6 +85,7 @@ Client::Client(WindowManager *const wm, Window w, Boolean shaped) :
     
     m_label = NewString(m_defaultLabel);
     m_border = new Border(this, w);
+    m_className = NewString("???");
 
     m_channel = wm->channel();
     m_unmappedForChannel = False;
@@ -379,6 +390,11 @@ void Client::manage(Boolean mapped)
 
     m_iconName = getProperty(XA_WM_ICON_NAME);
     m_name = getProperty(XA_WM_NAME);
+    m_className = getProperty(XA_WM_CLASS);
+    if (!m_className) {
+	printf("Setting default m_className\n");
+	m_className = NewString("??");
+    }
     setLabel();
 
     getColormaps();
@@ -979,6 +995,13 @@ void Client::gravitate(Boolean invert)
     m_y += h;
 }
 
+void Client::setLabel(char *label)
+{
+      if (m_label) {
+	    free((void *)m_label);
+      }
+      m_label = NewString(label);
+}
 
 Boolean Client::setLabel(void)
 {
@@ -1002,6 +1025,20 @@ Boolean Client::setLabel(void)
     } else return True;//False;// dammit!
 }
 
+char * Client::makeClassAndLabelName(void)
+{
+      /* Return "[res_name] label" */
+      char *p, *start;
+      int n;
+
+      n = 4 + strlen(m_className) + strlen(m_label);
+      start = p = (char *)malloc(n);
+      *p++ = '[';
+      strcpy(p, m_className);
+      strcat(start, "] ");
+      strcat(start, m_label);
+      return start;
+}
 
 void Client::getColormaps(void)
 {

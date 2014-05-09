@@ -146,6 +146,9 @@ public:
     
     void netwmUpdateChannel();
     Window window()        { return m_window; }
+    void setLabel(char *);
+    char * makeClassAndLabelName(void);
+    friend int compareClientNames(Client *c1, Client *c2);
 
     void appendEdges(EdgeRectList &);
 
@@ -210,6 +213,7 @@ private:
 
     char *m_name;
     char *m_iconName;
+    char *m_className;
     const char *m_label;	// alias: one of (instance,class,name,iconName)
     static const char *const m_defaultLabel;
 

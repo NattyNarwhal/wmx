@@ -57,6 +57,8 @@ public:
     char *tabForeground();
     char *tabBackground();
     char *frameBackground();
+    char classInMenu();
+    char sortClients();
 
     static DynamicConfig config;
 
@@ -182,6 +184,12 @@ private:
 
 #define MENU_ENTRY_MAXLENGTH		80
 
+// If menus should have the client class displayed.
+#define CLASS_IN_MENU	False
+
+// Should clients be sorted when displayed on menu or for the
+// clients command in remote control?
+#define SORT_CLIENTS	False
 
 // ========================
 // Section II. Key bindings
@@ -191,8 +199,8 @@ private:
 #define CONFIG_USE_KEYBOARD       (DynamicConfig::config.useKeyboard())
 
 // This is the key for wm controls: e.g. Alt/Left and Alt/Right to
-// flip channels, and Alt/Tab to switch windows.  (On my 105-key
-// PC keyboard, Meta_L corresponds to the left Windows key.)
+// flip channels, and Alt/Tab to switch windows. By default, it's bound
+// to Super_L, the Windows key on most modern keyboards.
 
 #define CONFIG_ALT_KEY            XK_Super_L
 

@@ -35,6 +35,7 @@ public: \
     void remove_all(); \
     void move_to_start(long index); \
     void move_to_end(long index); \
+    void sort( int (*func) (const void *, const void *) ); \
 \
 private: \
     bool range_check(long, const char *) const; \
@@ -91,12 +92,16 @@ void List::move_to_end(long index) { \
     if (index < m_count-1) memmove(m_items+index, m_items+index+1, \
 				   (m_count-index-1) * sizeof(T)); \
     new (&m_items[m_count-1], this) T(temp); \
-}\
+} \
 \
 bool List::range_check(long index, const char *fn) const { \
     if (index >= 0 && index < m_count) return true; \
     fprintf(stderr, "wmx: ERROR: Index %ld out of range for %ld-valued list in %s::%s\n", index, m_count, #List, fn); \
     return false; \
+} \
+\
+void List::sort( int (*func) (const void *, const void *) ) { \
+    qsort(m_items, m_count, sizeof(T), func); \
 }
 
 #endif

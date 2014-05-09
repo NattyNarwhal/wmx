@@ -29,6 +29,8 @@ struct DynamicConfigImpl
     char tabfg[COLOR_LEN];     // black
     char tabbg[COLOR_LEN];     // gray80
     char framebg[COLOR_LEN];   // gray95
+    char className;	// 0 = no,  1 = yes (add class name to menu)
+    char sortClients;	// 0 = no, 1 = yes
 };  
 
 DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
@@ -67,6 +69,8 @@ DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
     m_impl->rightBt = 1;	// 0 = disable, 1 = circulate, 2 = lower
     m_impl->passfocusclick = 1;
     m_impl->tabmargin = 2;
+    m_impl->className = 0;
+    m_impl->sortClients = 0;
     strcpy(m_impl->tabfg, "black");
     strcpy(m_impl->tabbg, "gray80");
     strcpy(m_impl->framebg, "gray95");
@@ -96,6 +100,8 @@ int  DynamicConfig::tabMargin() { return m_impl->tabmargin; }
 char *DynamicConfig::tabForeground() { return m_impl->tabfg; }
 char *DynamicConfig::tabBackground() { return m_impl->tabbg; }
 char *DynamicConfig::frameBackground() { return m_impl->framebg; }
+char DynamicConfig::classInMenu() { return m_impl->className & 1; }
+char DynamicConfig::sortClients() { return m_impl->sortClients & 1; }
 
 void DynamicConfig::scan(char startup)
 {
@@ -188,6 +194,16 @@ void DynamicConfig::update(char *string)
 	    strncpy(m_impl->framebg, s, COLOR_LEN);
 	    m_impl->framebg[COLOR_LEN-1] = '\0';
 	    s += strlen(m_impl->framebg);
+	}
+
+	if (OPTION("class:")) {
+	    if (OPTION("on")) m_impl->className = 1;
+	    else if (OPTION("off")) m_impl->className = 0;
+	}
+
+	if (OPTION("sort:")) {
+	    if (OPTION("on")) m_impl->sortClients = 1;
+	    else if (OPTION("off")) m_impl->sortClients = 0;
 	}
 
 	if (*s != '\0') {

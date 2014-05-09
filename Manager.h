@@ -111,6 +111,8 @@ public:
     // Stupid little helper function
     static int numdigits(int);
 
+    void sortClients(void);
+
 private:
     int loop();
     void release();
