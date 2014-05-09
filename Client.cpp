@@ -1337,6 +1337,32 @@ void Client::kill()
 #endif
 }
 
+void Client::move(int x, int y, Boolean relative)
+{
+    int width = DisplayWidth(display(), 0);
+    int height = DisplayHeight(display(), 0);
+
+    if (relative) {
+	m_x += x;
+	m_y += y;
+    } else {
+	m_x = x;
+	m_y = y;
+    }
+    if (m_x < 0) {
+	m_x = 0;
+    } else if (m_x + m_w > width) {
+	m_x = width - m_w;
+    }
+    if (m_y < 0) {
+	m_y = 0;
+    } else if (m_y + m_h > height) {
+	m_y = height - m_h;
+    }
+    // printf("moving to %d %d\n", m_x, m_y);
+    m_border->moveTo(m_x, m_y);
+    sendConfigureNotify();
+}
 
 void Client::ensureVisible()
 {
@@ -1355,6 +1381,7 @@ void Client::ensureVisible()
 	sendConfigureNotify();
     }
 }
+
 
 
 void Client::lower()

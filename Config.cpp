@@ -119,9 +119,10 @@ void DynamicConfig::scan(char startup)
 }
 
 
-void DynamicConfig::update(char *string)
+int DynamicConfig::update(char *string)
 {
     char *s;
+    int errors = 0;
 
 #define OPTION(x) ( (!strncasecmp(s, x, strlen(x))) && (s += strlen(x)) )
 
@@ -209,11 +210,13 @@ void DynamicConfig::update(char *string)
 	if (*s != '\0') {
 	    fprintf(stderr, "\nwmx: Dynamic configuration error: "
 		    "`%s' @ position %ld", s, string - s);
+	    errors++;
 	}
 
     } while ((s = strtok(NULL, "/")));
 
     fprintf(stderr, "\n");
+    return errors;
 
 #undef OPTION
 }

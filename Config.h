@@ -60,11 +60,13 @@ public:
     char classInMenu();
     char sortClients();
 
+    int update(char *);
+
     static DynamicConfig config;
 
 private:
     DynamicConfigImpl *m_impl;
-    void update(char *);
+    //void update(char *);
 };
 
 

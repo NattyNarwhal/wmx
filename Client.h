@@ -40,6 +40,7 @@ public:
 				// otherwise lower.
 
     void move(XButtonEvent *);		// event for grab timestamp & coords
+    void move(int, int, Boolean);
     void resize(XButtonEvent *, Boolean, Boolean);
     void moveOrResize(XButtonEvent *);
     void ensureVisible();	// make sure x, y are on-screen

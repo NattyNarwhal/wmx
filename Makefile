@@ -10,9 +10,10 @@ MANDIR	= $(PREFIX)/share/man/1
 BINDIR	= $(PREFIX)/bin
 APPLDIR	= $(PREFIX)/share/applications
 
+# Clang doesn't work as of yet
 CCC	= g++
 CFLAGS	= -O2 -g -Wall $(INCS)
-OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Main.o Manager.o Menu.o Rotated.o Session.o
+OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Keybinding.o Main.o Manager.o Menu.o Remote.o Rotated.o Session.o
 
 .cpp.o:
 	$(CCC) -c $(CFLAGS) $<
