@@ -2,7 +2,7 @@
 
 #include "Manager.h"
 #include "Client.h"
-
+#include "Remote.h"
 
 int WindowManager::loop()
 {
@@ -208,7 +208,7 @@ void WindowManager::nextEvent(XEvent *e)
 	}
 
 	XFlush(m_display);
-	FD_SET(fd, &rfds);
+	memcpy((void *)&rfds, (void *)&active_fds, sizeof(rfds));
 	t.tv_sec = 0; t.tv_usec = 20000;
 
 #if CONFIG_USE_SESSION_MANAGER != False
@@ -217,30 +217,55 @@ void WindowManager::nextEvent(XEvent *e)
         }
 #endif
 
-	if ((r = select(nfds, &rfds, NULL, NULL,
+	if ((r = select(max_fd, &rfds, NULL, NULL,
 			(m_channelChangeTime > 0 || m_focusChanging) ? &t :
 			(struct timeval *)NULL)) > 0) {
 
+	    int f;
+	    int did_something = 0;
+	    for (f=0; f < max_fd; f++) {
+		  if (FD_ISSET(f, &rfds)) {
+			// fprintf(stderr, "%d is set\n", f);
 #if CONFIG_USE_SESSION_MANAGER != False
-	    if (m_smFD >= 0 && FD_ISSET(m_smFD, &rfds)) {
-		Bool rep;
-                if (IceProcessMessages(m_smIceConnection, NULL, &rep)
-                    == IceProcessMessagesIOError) {
-                    fprintf(stderr, "wmx: Error processing ICE message: closing session manager connection [2]\n");
-                    SmcCloseConnection(m_smConnection, 0, NULL);
-		    m_smIceConnection = NULL;
-		    m_smConnection = NULL;
-                }
-		goto waiting;
-	    }
+			// if (m_smFD >= 0 && FD_ISSET(m_smFD, &rfds)) {
+			if (f == m_smFD) {
+			      Bool rep;
+			      if (IceProcessMessages(m_smIceConnection, NULL, &rep)
+				  == IceProcessMessagesIOError) {
+				    fprintf(stderr, "wmx: Error processing ICE message: closing session manager connection [2]\n");
+				    SmcCloseConnection(m_smConnection, 0, NULL);
+				    m_smIceConnection = NULL;
+				    m_smConnection = NULL;
+			      }
+			      // goto waiting;
+			      did_something++;
+			}
 #endif
-	    if (FD_ISSET(fd, &rfds)) {
-		XNextEvent(m_display, e);
-		return;
+
+			if (remote_control->isRemoteControlFd(f)) {
+			      did_something++;
+			      if (! remote_control->doRemoteControl(f) ) {
+				    // fprintf(stderr, "doRemoteControl(%d) ??\n", f);
+				    // If a connection has closed,  the
+				    // active_fd set has changed
+				    goto waiting;
+			      }
+			}
+
+			// if (FD_ISSET(fd, &rfds)) {
+			if (f == fd) {
+			      XNextEvent(m_display, e);
+			      return;
+			}
+
+		  }
+	    } // for all fds in the set
+	    if (did_something) {
+		  goto waiting;
 	    }
 
 //	    return;
-	}
+	} // if select found something
 
 	if (CONFIG_AUTO_RAISE && m_focusChanging) { // timeout on select
 	    checkDelaysForFocus();

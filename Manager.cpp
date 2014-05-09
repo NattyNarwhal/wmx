@@ -71,6 +71,8 @@ implementPList(ListList, ClientList);
 
 implementList(AtomList, Atom);
 
+#define DEFAULT_PORT 6999
+
 WindowManager::WindowManager(int argc, char **argv) :
     m_focusChanging(False),
 #ifdef CONFIG_USE_SESSION_MANAGER
@@ -83,7 +85,10 @@ WindowManager::WindowManager(int argc, char **argv) :
 {
     char *home = getenv("HOME");
     char *wmxdir = getenv("WMXDIR");
-    
+    // needed for remote
+    max_fd = 0;
+    memset((void *)&active_fds, 0, sizeof(fd_set));
+
     fprintf(stderr, "\nwmx: Copyright (c) 1996-2008 Chris Cannam."
 	    "  Not a release\n"
 	    "     Parts derived from 9wm Copyright (c) 1994-96 David Hogan\n"
@@ -108,23 +113,59 @@ WindowManager::WindowManager(int argc, char **argv) :
     char *oldSessionId = 0;
 #endif
     
+    // remote_control = NULL;
+    remote_control = new Remote(this);
+
     if (argc > 1) {
 
+	    {
+		int	c;
+		int	port = DEFAULT_PORT;
+		Boolean	useRemoting = False;
+		int	verbose = 0;
+
+		port = 0;
+		while ( (c = getopt(argc, argv, "s:rp:v")) != EOF ) {
+		    switch(c) {
+		    case 's':
 #if CONFIG_USE_SESSION_MANAGER != False
-	// Damn!  This means we have to support a command-line argument
-	if (argc == 3 && !strcmp(argv[1], "--sm-client-id")) {
-	    oldSessionId = argv[2];
-	} else {
+			oldSessionId = optarg;
+#else
+			fprintf(stderr, "wmx: a session ID was passed, but session management wasn't enabled\n");
 #endif
+			break;
+		    case 'r':
+			useRemoting = True;
+			break ;
+		    case 'p':
+			port = atoi(optarg);
+			break ;
+		    case 'v':
+			verbose++ ;
+			break ;
+		    case '?':
+		    default:
+			fprintf(stderr, "wmx: bad option\n") ;
+			exit(1) ;
+		    }
+		}
 
-	for (i = strlen(argv[0])-1; i > 0 && argv[0][i] != '/'; --i);
-	fprintf(stderr, "\nwmx: Usage: %s [--sm-client-id id]\n",
-		argv[0] + (i > 0) + i);
-	exit(2);
+		if (useRemoting == True) {
+		    //remote_control_socket = setup_socket("localhost", port);
+		    // remote_control = Remote::Remote(this, port);
+		    fprintf(stdout, "wmx: will listen on %d for remoting\n", port);
+		    remote_control->setup_port(port, verbose);
+		}
 
-#if CONFIG_USE_SESSION_MANAGER != False
+
+	    }
+
+	if (optind < argc) {
+		for (i = strlen(argv[0])-1; i > 0 && argv[0][i] != '/'; --i);
+		fprintf(stderr, "\nwmx: Usage: %s [-s session-id] [-r] [-p port] [-v]\n",
+			argv[0] + (i > 0) + i);
+		exit(2);
 	}
-#endif
     }
 
     if (!setlocale(LC_ALL, ""))
@@ -229,6 +270,11 @@ WindowManager::WindowManager(int argc, char **argv) :
 
     fprintf(stderr, "\n     NETWM compliant.");
 
+    if (remote_control->RemoteControlIsOn()) {
+	  fprintf(stderr, "\n     Remote control on port %d.",
+		  remote_control->RemoteControlIsOn());
+    }
+
     fprintf(stderr, "\n     Command menu taken from ");
     if (wmxdir == NULL) {
 	fprintf(stderr, "%s/%s.\n", home, CONFIG_COMMAND_MENU);
@@ -244,6 +290,8 @@ WindowManager::WindowManager(int argc, char **argv) :
 
     m_display = XOpenDisplay(NULL);
     if (!m_display) fatal("can't open display");
+
+    add_fd_to_watch(ConnectionNumber(m_display));
 
     m_shell = (char *)getenv("SHELL");
     if (!m_shell) m_shell = NewString("/bin/sh");
@@ -278,6 +326,9 @@ WindowManager::WindowManager(int argc, char **argv) :
     m_initialising = True;
     XSetErrorHandler(errorHandler);
     ignoreBadWindowErrors = False;
+
+    key_binding_with_mod = new Keybinding(this, wmxdir, true);
+    key_binding_without_mod = new Keybinding(this, wmxdir, false);
 
     // 9wm does more, I think for nohup
     signal(SIGTERM, sigHandler);
@@ -988,7 +1039,8 @@ Boolean WindowManager::raiseTransients(Client *c)
     }
 }
 
-void WindowManager::spawn(char *name, char *file)
+//void WindowManager::spawn(char *name, char *file)
+void WindowManager::spawn(char *name, char *file, char *arg1 /* = NULL*/)
 {
     // strange code thieved from 9wm to avoid leaving zombies
 
@@ -1001,6 +1053,9 @@ void WindowManager::spawn(char *name, char *file)
 
 	    // if you don't have putenv, miss out this next
 	    // conditional and its contents
+	    if (remote_control->RemoteControlIsOn()) {
+		  remote_control->close_all_sockets();
+	    }
 
 	    if (displayName && (displayName[0] != '\0')) {
 		char *c;
@@ -1016,14 +1071,15 @@ void WindowManager::spawn(char *name, char *file)
 	    }
 
 	    if (CONFIG_EXEC_USING_SHELL) {
-		if (file) execl(m_shell, m_shell, "-c", file, NULL);
-		else execl(m_shell, m_shell, "-c", name, NULL);
+		// The patch uses 0, but that's probably archaic - nowadays, use NULL
+		if (file) execl(m_shell, m_shell, "-c", file, arg1, NULL);
+		else execl(m_shell, m_shell, "-c", name, arg1, NULL);
 		fprintf(stderr, "wmx: exec %s", m_shell);
 		perror(" failed");
 	    }
 
 	    if (file) {
-		execl(file, name, NULL);
+		execl(file, name, arg1, NULL);
 	    }
 	    else {
 		if (strcmp(CONFIG_NEW_WINDOW_COMMAND, name)) {
@@ -1062,6 +1118,59 @@ void WindowManager::sortClients(void)
 {
     m_clients.sort(compareClientNamesA);
     m_hiddenClients.sort(compareClientNamesA);
+}
+
+void WindowManager::print_clients(int fd) {
+      int i;
+      char buff[1024];
+      Client *c;
+      XTextProperty text_prop;
+      char *res_name = "?";
+
+      //      if (SORT_CLIENTS) {
+      //	  this->sort_clients();
+      //}
+
+      // printf("Number of clients: %d\n", m_clients.count());
+      // sprintf(buff, "Number of clients: %d\n", clients().count());
+      // write(fd, buff, strlen(buff));
+      if (m_clients.count() == 0) {
+	  sprintf(buff, "No clients!\n");
+	  write(fd, buff, strlen(buff));
+      }
+      for (i = 0; i < m_clients.count(); ++i) {
+	  // printf("%s\n", m_clients.item(i)->label());
+	  c = clients().item(i);
+	  if (XGetTextProperty(c->display(), c->window(), 
+			       &text_prop, XA_WM_CLASS)) {
+	      res_name = (char *)text_prop.value;
+	  }
+	  sprintf(buff,
+		  "0x%x %d %c%c%c (%s) \"%s\"\n", 
+		  c->window(),
+		  c->channel(),
+		  c->isHidden() ? 'H' :  '-',
+		  c->isWithdrawn() ? 'W' :  '-',
+		  c->isSticky() ? 'S' : '-',
+		  res_name,
+		  c->label() );
+      write(fd, buff, strlen(buff));
+      }
+}
+
+void WindowManager::add_fd_to_watch(int fd)
+{
+    // fprintf(stderr, "adding fd %d to read_set\n", fd);
+    if (fd >= max_fd) {
+	max_fd = fd+1;
+    }
+    FD_SET(fd, &active_fds);
+}
+
+void WindowManager::remove_fd_from_watch(int fd)
+{
+    // fprintf(stderr, "removing fd %d from read_set\n", fd);
+    FD_CLR(fd, &active_fds);
 }
 
 void WindowManager::netwmInitialiseCompliance()

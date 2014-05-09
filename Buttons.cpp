@@ -207,6 +207,8 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
     enum {Vertical, Maximum, Horizontal};
     KeySym key = XkbKeycodeToKeysym(display(), ev->keycode, 0, 0);
     
+    char *command;
+
     if (CONFIG_USE_KEYBOARD) {
 
 	Client *c = windowToClient(ev->window);
@@ -285,15 +287,18 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
 //                (long)ev->state, (long)m_altModMask);
            }
 
+	   command = key_binding_with_mod->command_for_keysym(key);
+	   if (command) {
+		 key_binding_with_mod->spawn(command, c ? c->window() : 0);
 #if CONFIG_DONT_USE_FKEYS
-           if (key >= XK_1 && key <= XK_9 &&
+           } else if (key >= XK_1 && key <= XK_9 &&
 		CONFIG_CHANNEL_SURF && CONFIG_USE_CHANNEL_KEYS) {
 
 		int channel = key - XK_1 + 1;
 
 		gotoChannel(channel, 0);
 #else
-           if (key >= XK_F1 && key <= XK_F12 &&
+           } else if (key >= XK_F1 && key <= XK_F12 &&
 		CONFIG_CHANNEL_SURF && CONFIG_USE_CHANNEL_KEYS) {
 
 		int channel = key - XK_F1 + 1;
@@ -403,6 +408,13 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
 		    return;
 		}
 	    }
+	} else {
+
+	    command = key_binding_without_mod->command_for_keysym(key);
+	    if (command) {
+	      key_binding_without_mod->spawn(command, c ? c->window() : 0);
+	    }
+
 	}
 
 	XSync(display(), False);
