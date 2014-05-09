@@ -50,7 +50,7 @@ DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
 
     } else {
 
-	if (*wmxdir == '/') strcpy(m_impl->path, wmxdir);
+	if (*wmxdir == '/') strlcpy(m_impl->path, wmxdir, 1000);
 	else {
 	    strlcpy(m_impl->path, home, 1000);
 	    strlcat(m_impl->path, "/", 1000);
@@ -110,7 +110,7 @@ void DynamicConfig::scan(char startup)
 
     if (m_impl->path[0] && readlink(m_impl->path, temp, 999) > 0) {
 	if (strcmp(temp, m_impl->options) != 0) { // Did it change ?
-	    strcpy(m_impl->options, temp);
+	    strlcpy(m_impl->options, temp, 1000);
 	    update(temp);
 	}
     } else if (startup) {
