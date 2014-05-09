@@ -1035,7 +1035,7 @@ char * Client::makeClassAndLabelName(void)
       start = p = (char *)malloc(n);
       *p++ = '[';
       strcpy(p, m_className);
-      strcat(start, "] ");
+      strncat(start, "] ", 1);
       strcat(start, m_label);
       return start;
 }
