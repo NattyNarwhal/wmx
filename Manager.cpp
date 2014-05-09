@@ -138,7 +138,7 @@ WindowManager::WindowManager(int argc, char **argv) :
 			useRemoting = True;
 			break ;
 		    case 'p':
-			port = atoi(optarg) ;
+			port = atoi(optarg);
 			break ;
 		    case 'v':
 			verbose++ ;
@@ -153,6 +153,7 @@ WindowManager::WindowManager(int argc, char **argv) :
 		if (useRemoting == True) {
 		    //remote_control_socket = setup_socket("localhost", port);
 		    // remote_control = Remote::Remote(this, port);
+		    fprintf(stdout, "wmx: will listen on %d for remoting\n", port);
 		    remote_control->setup_port(port, verbose);
 		}
 
