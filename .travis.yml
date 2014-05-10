@@ -1,0 +1,8 @@
+language: cpp
+compiler:
+  - gcc
+# not clang yet
+before-script:
+  - sudo apt-get update -q
+  - sudo apt-get install -y libxpm-dev libfreetype6-dev libxcomposite-dev libsm-dev libxext-dev libxft-dev
+script: make
