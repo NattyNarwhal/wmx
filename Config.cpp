@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "Portable.h"
+
 // 32 is enough to fit even "light goldenrod yellow" comfortably
 #define COLOR_LEN 32
 
