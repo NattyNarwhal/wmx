@@ -6,7 +6,10 @@
 .Nd another window manager
 .Sh SYNOPSYS
 .Nm
-.Op Fl -sm-session-id Ar sm-id
+.Op Fl s Ar sm-id
+.Op Fl r
+.Op Fl p Ar port
+.Op Fl v
 .Sh DESCRIPTION
 .Nm
 is another window manager for X. It is based on wm2 and provided a
@@ -14,25 +17,207 @@ similarily unusual style of window decoration; but in place of wm2's
 minimal functionality, it offers many of the features of more
 convential window managers, often in the most simplistic implementations
 imaginable.
+.Pp
+The options are as follows:
+.Bl -tag -offset -indent
+.It Fl s Ar sm-id
+The ID of the session manager.
+.It Fl r
+Turn on remote. By default, it will listen on port 6999.
+.It Fl p Ar port
+A custom port to use when -r is given.
+.It Fl v
+Turn on verbosity of output.
+.El
+.Sh USING WMX
+To run wmx, make sure you're not already running a window manager,
+make sure the DISPLAY variable is correctly set and the X server is
+running, and then execute the file "wmx".  There are no command-line
+options or X resources, and there is no start-up file.  If your X
+server doesn't support the Shape extension, wmx will exit (and will
+never work on your server); if it can't find the required fonts or
+allocate the required colours, it will also exit (but you should be
+able to fix this by changing the definitions in Config.h and
+recompiling).
+.Pp
+Available window manipulations are:
+.Bl
+.It
+To focus a window: depends on the focus policy you selected
+in Config.h before compiling.  See "Focus policy", below.
+.It
+To raise a window: click on its tab or frame, unless you have
+auto-raise on focus set in Config.h.
+.It
+To move a window: make sure it's in focus, then click and drag
+on its tab, or Alt-click and drag anywhere on it (see Keyboard
+controls, below, for more about Alt combinations).
+.It
+To hide a window: make sure it's in focus, then click on the
+button at the top of its tab.
+.It
+To recover a hidden window: hold down left button on the root
+window for the root menu, and choose the window you want.
+.It
+To start a new xterm: use the first item on the left-button root
+menu ("New"), unless you've disabled it in Config.h.
+.It
+To delete a window: make sure it's in focus, click on the
+button on the tab, hold the mouse button for at least a
+second and a half until the cursor changes to a cross, then
+release.  (I know, it's not very easy.  On the other hand,
+most modern window managers tend to obscure the fact that most
+windows already have a perfectly good Close option.  If the
+default delay doesn't suit you, change it in Config.h and
+recompile.)
+.It
+To resize a window: make sure it's in focus, then click and
+drag on its bottom-right corner.  For a constrained resize,
+click and drag on the bottom-left or top-right corner of
+the enclosing window frame.
+.It
+To flip around amongst the windows on-screen: click with the right
+mouse button on the root window or on any window's frame or tab.
+.It
+To switch between desktops (or "Channels"): click with the middle
+mouse button towards the top-right corner of the root window.  A
+big green number will be displayed showing which channel you are
+currently on.  Click again before this number disappears to change
+to the next channel.  If you click with the left button after the
+first middle-button click, you will move down a channel instead
+of up.
+.It
+To move a window from one channel to another: click with the
+middle mouse button on its frame, and then keep clicking until you
+reach the channel you want to move it to.
+.It
+To start a new application of your choice: use the middle mouse
+button on the root window, anywhere other than the top-right
+corner of the root window.  If you have any executable programs in
+your $HOME/.wmx directory or other directory named in
+CONFIG_COMMAND_MENU they will be listed on a menu and you can
+choose one to be started up.  (You can add and remove programs
+while wmx is running.)  REMEMBER, $HOME/.wmx IS A DIRECTORY, not
+a file, so please don't write to me asking what the file format is.
+.It
+To exit from wmx: move the mouse pointer to the very edge of the
+screen at the bottom corner, and click left button on the root
+window for the root menu.  The menu should have an extra option
+labelled "Exit wmx"; select this.
+.El
+.Pp
+All move and resize operations are opaque.
+.Sh KEYBOARD CONTROLS
+By popular request, there are now some keyboard controls available.
+The key combinations are configurable in Config.h -- the most
+important one is that for the Alt modifier. By default, this is bound
+to Super_L, usually the left Windows key on your keyboard, but can
+be changed to something else.
+.Pp
+The default bindings are:
+.Bl
+.It
+To raise the focused window in the stacking order: Alt/cursor-Up
+.It
+To lower the focused window: Alt/cursor-Down
+.It
+To flip through the windows on screen: Alt/Tab (equivalent to
+clicking the right mouse-button on the focused window's frame)
+.It
+To hide the focused window: Alt/Return
+.It
+To delete the focused window: Alt/BackSpace
+.It
+To expand the focused window to the full height of the screen:
+Alt/PageUp
+.It
+To contract the focused window after expanding it: Alt/PageDown
+.It
+To expand the focused window to the full screen (maximise):
+Alt/Home
+.It
+To contract the focused window after expanding it (unmaximise): 
+Alt/End
+.It
+To expand the focused window to the full width of the screen:
+Alt/KP_Add (numeric pad +)
+.It
+To contract the focused window after expanding it:
+Alt/KP_Subtract (numeric pad -)
+.It
+If you want the same key to maximise/unmaximise set
+CONFIG_SAME_KEY_MAX_UNMAX to True in Config.h.
+.It
+To switch channels: Alt/cursor-Left and Alt/cursor-Right
+.It
+To switch directly to channel number N, provided there is
+a channel N (i.e. some client has been created there already):
+Alt plus F-key N.  Thus for channel 2 press Alt/F2 and so on.
+You can choose not to use the function keys for channel
+switching, and instead use the top row of numbers, set by
+CONFIG_DONT_USE_FKEYS.
+.It
+To make the currently focused window "sticky", so it appears on
+all channels: Alt/Pause.  Repeat to unstick the window.
+.It
+To pop up a keyboard-powered client menu: Alt/Menu; for a
+keyboard-powered new-application menu: Alt/Multi_Key.  (On most
+modern keyboards, the menu key is right next to the right Windows
+and Control keys.) You can then use cursor-Up and cursor-Down and
+cursor-Down, Return, and Escape to choose, select or cancel from
+the menu.
+.El
+.Pp
+Some of these bindings (notably the keyboard menu) can be switched off
+altogether in Config.h.
+.Pp
+If you have a wheel mouse, you can use the wheel to change channels
+when moved over the root window, and to warp a window to a channel when
+the tab of a window is hovered over.
 .Sh CONFIGURATION
 .Nm
 is configured either by editing #define statements in Config.h or by
 a symbolic link in ~/.wmx/options arranged in a "key:value/key:value"
-fashion. See Config.h and Config.c for how to change these.
-.Pp
+fashion. See Config.h and Config.cpp for how to change these.
+.Ss CONFIGURATION AT RUNTIME
+The configuration is held as the target of a symbolic link residing at
+~/.wmx/options (or in whichever directory the CONFIG_COMMAND_MENU is
+found).  This target should be a string of the form a:b/c:d/e:f etc,
+to set option a to value b, option c to value d, e to f and so on.
+The available options are currently "menu" (full or part), "new" (on
+or off), "keyboard" (on or off), "feedback" (on or off), and "focus"
+(click, raise, delay-raise or follow).  If click focus is used, 
+a "passclick" option can be set (on or off) to regulate whether 
+the focus-giving click is also sent to the newly raised client. 
+"focus:delay-raise" may be optionally followed by a comma and then a 
+delay time in ms.
+
+For example,
+
+    amyl > ~ > ls -l ~/.wmx/options
+    lrwxrwxrwx   1 cannam   cannam         39 Jan 12 10:16 /home/cannam/.wmx/options -> menu:full/new:off/focus:delay-raise,100
+    amyl > ~ > 
+
+The real problem with this scheme is that it makes Config.h harder to
+read, because the defaults for the dynamically configurable options
+are now held in Config.cpp instead.
+.Ss CONFIGURATION IN CONFIG.H
 The options changeable in Config.h are as follows:
 .Bl -tag -width xx -offset -indent
 .It CONFIG_EVERYTHING_ON_ROOT_MENU
-Boolean value to show non-hidden clients in the on the menu.
+If True, show non-hidden clients in the on the menu.
 .It CONFIG_EXEC_USING_SHELL
 If to use a shell to wrap the command - this will allow for things like
 escapes and pipes.
 .It CONFIG_NEW_WINDOW_LABEL
+The label of the New window command.
 .It CONFIG_NEW_WINDOW_COMMAND
+The command used to launch a new window, usually xterm or x-terminal-emulator.
 .It CONFIG_NEW_WINDOW_COMMAND_OPTIONS
 The arguments for the command given in CONFIG_NEW_WINDOW_COMMAND, e.g:
-\'CONFIG_NEW_WINDOW_COMMAND_OPTIONS "-ls","-sb","-sl","1024",0\'
+'CONFIG_NEW_WINDOW_COMMAND_OPTIONS "-ls","-sb","-sl","1024",0'
 .It CONFIG_DISABLE_NEW_WINDOW_COMMAND
+If True, the New window command won't be shown on the menu.
 .It CONFIG_EXIT_CLICK_SIZE_X
 .It CONFIG_EXIT_CLICK_SIZE_Y
 Area where the "[Exit wmx]" is shown.
@@ -41,20 +226,30 @@ The directory in which executables are shown for the middle-click menu.
 .It CONFIG_SYSTEM_COMMAND_MENU
 The other directory to find executables if CONFIG_COMMAND_MENU is invalid.
 .It CONFIG_ADD_SCREEN_TO_COMMAND_MENU
-.It CONFIG_CLICK_TO_FOCUS
-.It CONFIG_RAISE_ON_FOCUS
-.It CONFIG_AUTO_RAISE
+If True, adds the screen number to the command menu.
+.It CONFIG_CLICK_TO_FOCUS ,CONFIG_RAISE_ON_FOCUS, CONFIG_AUTO_RAISE
+Focus policy options.
+.Pp
+Config.h contains settings for focus policy.  There are three things
+you can define to either True or False: CONFIG_CLICK_TO_FOCUS,
+CONFIG_RAISE_ON_FOCUS and CONFIG_AUTO_RAISE.  The first two are
+connected: together they define a focus policy.  The third is a
+separate focus policy on its own and will only work if the first two
+are both False. CONFIG_AUTO_RAISE differs from
+(!CONFIG_CLICK_TO_FOCUS && CONFIG_RAISE_ON_FOCUS) only in that it
+provides a short delay before raising each window.  The delay is also
+definable.
 .It CONFIG_PASS_FOCUS_CLICK
-.It CONFIG_AUTO_RAISE_DELAY
-.It CONFIG_POINTER_STOPPED_DELAY
-.It CONFIG_DESTROY_WINDOW_DELAY
+.It CONFIG_AUTO_RAISE_DELAY, CONFIG_POINTER_STOPPED_DELAY, CONFIG_DESTROY_WINDOW_DELAY
+Delays when using the auto raise focus method..
 .It CONFIG_BUMP_DISTANCE
 Maximum pixels of resistance before you can push a window off-screen.
 .It CONFIG_BUMP_EVERYWHERE
-Boolean value, if allowed, the resistance rule is to be applied to windows nearby as well.
+If True, the resistance rule is to be applied to windows nearby as well.
 .It CONFIG_PROD_SHAPE
 Recalcuate the window frame shape - slow, but may be needed on some systems.
 .It CONFIG_RESIZE_UPDATE
+If True, properly do opaque resizing.
 .It CONFIG_USE_COMPOSITE
 Use the Composite extension to speed up rendering.
 .It CONFIG_RAISELOWER_ON_CLICK
@@ -62,7 +257,7 @@ Use the Composite extension to speed up rendering.
 Use window groups - a group leader's fellow grouped windows will have the same
 action applied to them as the leader does.
 .It CONFIG_USE_SESSION_MANAGER
-Boolean value, if a session manager is running WMX will try to talk to it.
+If True and a session manager is running WMX will try to talk to it.
 .It MENU_ENTRY_MAXLENGTH
 The maximum character length of a menu entry.
 .It CLASS_IN_MENU
@@ -74,38 +269,43 @@ Boolean value, if the keyboard should be used.
 .It CONFIG_ALT_KEY
 What key to use for wmx's keyboard shortcuts. By default, this is XK_Super_L,
 usually bound to the left Windows key.
-.It CONFIG_FLIP_UP_KEY
-.It CONFIG_FLIP_DOWN_KEY
+.It CONFIG_FLIP_UP_KEY, CONFIG_FLIP_DOWN_KEY
+Move to the previous/next channel when pressed.
 .It CONFIG_HIDE_KEY
+Hides the window when pressed.
 .It CONFIG_STICKY_KEY
-.It CONFIG_RAISE_KEY
-.It CONFIG_LOWER_KEY
-.It CONFIG_FULLHEIGHT_KEY
-.It CONFIG_NORMALHEIGHT_KEY
-.It CONFIG_FULLWIDTH_KEY
-.It CONFIG_NORMALWIDTH_KEY
-.It CONFIG_MAXIMISE_KEY
-.It CONFIG_UNMAXIMISE_KEY
+Makes the window persisent on all channels when pressed.
+.It CONFIG_RAISE_KEY, CONFIG_LOWER_KEY
+Moves the window up/down when pressed.
+.It CONFIG_FULLHEIGHT_KEY, CONFIG_NORMALHEIGHT_KEY
+Maximize/unmaximize the window's height when pressed.
+.It CONFIG_FULLWIDTH_KEY, CONFIG_NORMALWIDTH_KEY
+Maximize/unmaximize the window's width when pressed.
+.It CONFIG_MAXIMISE_KEY, CONFIG_UNMAXIMISE_KEY
+Maximize/unmaximize the window when pressed.
 .It CONFIG_SAME_KEY_MAX_UNMAX
-Boolean value if the the maximize/unmaximize key also toggles.
+If True, the the maximize/unmaximize key also toggles.
 .It CONFIG_DEBUG_KEY
 Print debug info to stdout when this key is pressed.
 .It CONFIG_CIRCULATE_KEY
+Cycles windows when pressed.
 .It CONFIG_DESTROY_KEY
+Closes the window when pressed.
 .It CONFIG_WANT_KEYBOARD_MENU
-Boolean value if you want the menus to be controlled by the keyboard.
+If true, wmx menus can be controlled by the keyboard.
 .It CONFIG_CLIENT_MENU_KEY
+Shows the client menu when pressed.
 .It CONFIG_COMMAND_MENU_KEY
+Shows the command menu when pressed.
 .It CONFIG_EXIT_ON_KBD_MENU
-.It CONFIG_MENU_UP_KEY
-.It CONFIG_MENU_DOWN_KEY
-.It CONFIG_MENU_SELECT_KEY
-.It CONFIG_MENU_CANCEL_KEY
+.It CONFIG_MENU_UP_KEY, CONFIG_MENU_DOWN_KEY, CONFIG_MENU_SELECT_KEY, CONFIG_MENU_CANCEL_KEY
+Moves around the menu when pressed.
 .It CONFIG_DONT_USE_FKEYS
+If True, waps the function of the Function keys and the number keys.
 .It CONFIG_WANT_SUNKEYS
-If you have a Sun keyboard, you can allow for more keys to be used.
+If True and you have a Sun keyboard, you can allow for more keys to be used.
 .It CONFIG_WANT_SUNPOWERKEY
-If you have a Sun keyboard, use the Power key.
+If True and you have a Sun keyboard, use the Power key.
 .It CONFIG_QUICKRAISE_KEY
 .It CONFIG_QUICKHIDE_KEY
 .It CONFIG_QUICKHEIGHT_KEY
@@ -123,18 +323,15 @@ The menu full of windows.
 The menu full of executables.
 .It CONFIG_CIRCULATE_BUTTON
 When you click a frame with the bound button, it switches to another window.
-.It CONFIG_PREVCHANNEL_BUTTON
-When hovering over the desktop, moves to the previous channel. When hoving over a frame, warp that frame to the previous channel.
-.It CONFIG_NEXTCHANNEL_BUTTON
-Ditto, but the other direction.
+.It CONFIG_PREVCHANNEL_BUTTON, CONFIG_NEXTCHANNEL_BUTTON
+When hovering over the desktop, moves to the previous/next channel.
+When hoving over a frame, warp that frame to the previous/next channel.
 .It CONFIG_USE_XFT
 Use nicer font rendering instead of the built-in bitmap font rendering.
-.It CONFIG_FRAME_FONT
+.It CONFIG_FRAME_FONT, CONFIG_FRAME_FONT_SIZE
 If using Xft, the font used for frames.
-.It CONFIG_FRAME_FONT_SIZE 12
-.It CONFIG_MENU_FONT "Bitstream Vera Sans,Lucida Sans Unicode"
+.It CONFIG_MENU_FONT, CONFIG_MENU_FONT_SIZE
 If using Xft, the font to use for menus.
-.It CONFIG_MENU_FONT_SIZE 12
 .It CONFIG_NICE_FONT
 If not using Xft, the font to use for frames.
 .It CONFIG_NICE_MENU_FONT
@@ -146,32 +343,70 @@ The padding of the fonts on a frame.
 .It CONFIG_USE_PLAIN_X_CURSORS
 Boolean value, if true, wmx won't install a custom set of cursors.
 .It CONFIG_TAB_FOREGROUND
+The colour of tab text.
 .It CONFIG_TAB_BACKGROUND
+The colour of the tab.
 .It CONFIG_FRAME_BACKGROUND
+The colour of the space between the tab and the window contents.
 .It CONFIG_BUTTON_BACKGROUND
+The colour of the window button.
 .It CONFIG_BORDERS
+The colour of the 1 pixel border around decorations.
 .It CONFIG_CHANNEL_NUMBER
+The colour of the popup when channel surfing.
 .It CONFIG_CLOCK_NUMBER
+The colour of the numbers of the clock.
 .It CONFIG_MENU_FOREGROUND
+The colour of the menu text.
 .It CONFIG_MENU_BACKGROUND
+The colour of the 
 .It CONFIG_MENU_BORDERS
+The size of the menu borders.
 .It CONFIG_FRAME_THICKNESS
+The size the space between the tab and the window contents.
 .It CONFIG_USE_PIXMAPS
+Use background images for window frames. The pixmap is from ./background.xpm.
 .It CONFIG_USE_PIXMAP_MENUS
+Use background images for menus.
 .It CONFIG_CHANNEL_SURF
+If True, you can change channels by middle-button-clicking the top-right
+corner.
 .It CONFIG_CHANNEL_CLICK_SIZE
+How big the area for channel switching with the mouse is.
 .It CONFIG_CHANNEL_NUMBER_SIZE
+The size of the channel change window.
 .It CONFIG_USE_CHANNEL_KEYS
+If True, allows the keyboard to change channels.
 .It CONFIG_USE_CHANNEL_MENU
+If True, uses a menu to change channels.
 .It CONFIG_FLIP_DELAY
+How long the channel display stays on-screen before windows are redrawn.
 .It CONFIG_QUICK_FLIP_DELAY
-.It CONFIG_MAD_FEEDBACK
-.It CONFIG_FEEDBACK_DELAY
-.It CONFIG_GEOMETRY_X_POS
-.It CONFIG_GEOMETRY_Y_POS
+How long the channel display stays on-screen before windows are redrawn,
+when the channel is changed via keyboard/wheel.
+.It CONFIG_MAD_FEEDBACK, CONFIG_FEEDBACK_DELAY
+If you have CONFIG_MAD_FEEDBACK set to True, you will get
+some natty feedback effects when using the left-button root menu (the
+Client menu).  Each window selected on the menu will be indicated with
+a half-frame at the correct position on the screen, to make it easier
+to distinguish between windows with similar names on the menu.  If you
+have CONFIG_FEEDBACK_DELAY set to zero or more, then the window itself
+will be shown on the screen after a delay.  You can use this to
+speculatively see what a hidden window is showing, without having to
+restore it and hide it again.
+.It CONFIG_GEOMETRY_X_POS, CONFIG_GEOMETRY_Y_POS
+The relative position of the geometry change window.
+0 is centre.
 .It CONFIG_GROUPS
-.It CONFIG_GROUP_ADD  
+If True, enables window grouping.
+.It CONFIG_GROUP_ADD
+The modifier used in addition to Alt to add a window to a group.
 .It CONFIG_GROUP_REMOVE_ALL
+The modifier used in addition to Alt to remove all windows from a group.
 .It CONFIG_CLOCK
 A clock that lives in the background.
 .El
+.Sh AUTHORS
+wmx was created by Chris Cannam. This fork is maintained by Calvin Buckley.
+.Pp
+See README.md for credits and more informations.
