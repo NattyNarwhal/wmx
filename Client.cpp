@@ -1028,16 +1028,11 @@ Boolean Client::setLabel(void)
 char * Client::makeClassAndLabelName(void)
 {
       /* Return "[res_name] label" */
-      char *p, *start;
-      int n;
-
-      n = 4 + strlen(m_className) + strlen(m_label);
-      start = p = (char *)malloc(n);
-      *p++ = '[';
-      strlcpy(p, m_className, MENU_ENTRY_MAXLENGTH);
-      strlcat(start, "] ", MENU_ENTRY_MAXLENGTH);
-      strlcat(start, m_label, MENU_ENTRY_MAXLENGTH);
-      return start;
+      char *newLabel;
+      int n = 4 + strlen(m_className) + strlen(m_label);
+      newLabel = (char *)malloc(n);
+      snprintf(newLabel, n, "[%s] %s", m_className, m_label);
+      return newLabel;
 }
 
 void Client::getColormaps(void)
