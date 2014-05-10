@@ -3,7 +3,7 @@
 # * Xft (-lXft -lfreetype -lfontconfig, -I/usr/X11R6/include/freetype2)
 # * Pixmaps (-lXpm)
 LIBS	= -L/usr/X11R6/lib -lXext -lX11 -lXt -lXmu -lSM -lICE -lm -lXcomposite -lXpm -lXft -lfreetype -lz -lfontconfig
-INCS	= -I/usr/X11R6/include -I/usr/X11R6/include/freetype2
+INCS	= -I/usr/X11R6/include $(shell freetype-config --cflags)
 
 PREFIX	= /usr/local
 MANDIR	= $(PREFIX)/share/man/1
