@@ -390,6 +390,21 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
 #endif
 
 #if CONFIG_GROUPS != False
+#if CONFIG_DONT_USE_FKEYS
+		// f-keys are used for channels with this
+		// so just switch groups to fkeys
+		// this doesn't allow for group 0 though -
+		// maybe make F10 a special case?
+		case XK_F1:
+		case XK_F2:
+		case XK_F3:
+		case XK_F4:
+		case XK_F5:
+		case XK_F6:
+		case XK_F7:
+		case XK_F8:
+		case XK_F9: {
+#else
 		case XK_0:
 		case XK_1:
 		case XK_2:
@@ -400,6 +415,7 @@ void WindowManager::eventKeyPress(XKeyEvent *ev)
 		case XK_7:
 		case XK_8:
 		case XK_9: {
+#endif
 		    windowGrouping(ev, key, c);
 		    break;
 		}
@@ -441,7 +457,11 @@ void WindowManager::eventKeyRelease(XKeyEvent *ev)
 #if CONFIG_GROUPS != False
 void WindowManager::windowGrouping(XKeyEvent *ev, KeySym key, Client *c) {
 
+#if CONFIG_DONT_USE_FKEYS
+    int group = key - XK_F1; // doesn't allow for group 0 though?
+#else
     int group = key - XK_0;
+#endif
     Client *x;
 
     if (ev->state & ShiftMask) {
