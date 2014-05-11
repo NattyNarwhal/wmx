@@ -125,8 +125,11 @@ WindowManager::WindowManager(int argc, char **argv) :
 		int	verbose = 0;
 
 		port = 0;
-		while ( (c = getopt(argc, argv, "s:rp:v")) != EOF ) {
+		while ( (c = getopt(argc, argv, "o:s:rp:v")) != EOF ) {
 		    switch(c) {
+		    case 'o':
+			printf("wmx: loading config from getopt: %s\n", optarg);
+			DynamicConfig::config.update(optarg);
 		    case 's':
 #if CONFIG_USE_SESSION_MANAGER != False
 			oldSessionId = optarg;
@@ -146,6 +149,7 @@ WindowManager::WindowManager(int argc, char **argv) :
 		    case '?':
 		    default:
 			fprintf(stderr, "wmx: bad option\n") ;
+			fprintf(stderr, "usage: wmx [-o options] [-s session-id] [-r] [-p port] [-v]\n");
 			exit(1) ;
 		    }
 		}

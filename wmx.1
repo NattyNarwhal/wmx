@@ -20,6 +20,8 @@ imaginable.
 .Pp
 The options are as follows:
 .Bl -tag -offset -indent
+.It Fl o Ar options
+Pass options to wmx.
 .It Fl s Ar sm-id
 The ID of the session manager.
 .It Fl r
@@ -182,7 +184,11 @@ fashion. See Config.h and Config.cpp for how to change these.
 .Ss CONFIGURATION AT RUNTIME
 The configuration is held as the target of a symbolic link residing at
 ~/.wmx/options (or in whichever directory the CONFIG_COMMAND_MENU is
-found).  This target should be a string of the form a:b/c:d/e:f etc,
+found) or passed via the -o option. When both are used at the same time,
+the options given by -o take precendence. In addition, configuration can
+also be set through the remote protocol.
+.Pp
+This target should be a string of the form a:b/c:d/e:f etc,
 to set option a to value b, option c to value d, e to f and so on.
 The available options are currently "menu" (full or part), "new" (on
 or off), "keyboard" (on or off), "feedback" (on or off), and "focus"
@@ -191,13 +197,13 @@ a "passclick" option can be set (on or off) to regulate whether
 the focus-giving click is also sent to the newly raised client. 
 "focus:delay-raise" may be optionally followed by a comma and then a 
 delay time in ms.
-
+.Pp
 For example,
-
-    amyl > ~ > ls -l ~/.wmx/options
-    lrwxrwxrwx   1 cannam   cannam         39 Jan 12 10:16 /home/cannam/.wmx/options -> menu:full/new:off/focus:delay-raise,100
-    amyl > ~ > 
-
+.Bd
+$ ls -l ~/.wmx/options
+~/.wmx/options -> menu:full/new:off/focus:delay-raise,100
+$ wmx -o tabfg:blue
+.Ed
 The real problem with this scheme is that it makes Config.h harder to
 read, because the defaults for the dynamically configurable options
 are now held in Config.cpp instead.
