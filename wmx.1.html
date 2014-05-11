@@ -31,6 +31,10 @@ wmx(1)</td>
 <h1 id="x4445534352495054494f4e">DESCRIPTION</h1> <b class="name">wmx</b> is another window manager for X. It is based on wm2 and provided a similarily unusual style of window decoration; but in place of wm2's minimal functionality, it offers many of the features of more convential window managers, often in the most simplistic implementations imaginable.<p>
 The options are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 7.00ex;" class="list list-tag">
 <dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;o</b> <i class="arg">options</i></dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+Pass options to wmx.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
 <b class="flag">&#45;s</b> <i class="arg">sm-id</i></dt>
 <dd class="list-tag" style="margin-left: 10.00ex;">
 The ID of the session manager.</dd>
@@ -121,15 +125,11 @@ Some of these bindings (notably the keyboard menu) can be switched off altogethe
 If you have a wheel mouse, you can use the wheel to change channels when moved over the root window, and to warp a window to a channel when the tab of a window is hovered over.</div>
 <div class="section">
 <h1 id="x434f4e46494755524154494f4e">CONFIGURATION</h1> <b class="name">wmx</b> is configured either by editing #define statements in Config.h or by a symbolic link in ~/.wmx/options arranged in a "key:value/key:value" fashion. See Config.h and Config.cpp for how to change these.<div class="subsection">
-<h2 id="x434f4e46494755524154494f4e2041542052554e54494d45">CONFIGURATION AT RUNTIME</h2> The configuration is held as the target of a symbolic link residing at ~/.wmx/options (or in whichever directory the CONFIG_COMMAND_MENU is found).  This target should be a string of the form a:b/c:d/e:f etc, to set option a to value b, option c to value d, e to f and so on. The available options are currently "menu" (full or part), "new" (on or off), "keyboard" (on or off), "feedback" (on or off), and "focus" (click, raise, delay-raise or follow).  If click focus is used, a "passclick" option can be set (on or off) to regulate whether the focus-giving click is also sent to the newly raised client. "focus:delay-raise" may be optionally followed by a comma and then a delay time in ms.<div style="height: 1.00em;">
-&#160;</div>
-For example,<div style="height: 1.00em;">
-&#160;</div>
-<br>
-    amyl &gt; ~ &gt; ls -l ~/.wmx/options<br>
-    lrwxrwxrwx   1 cannam   cannam         39 Jan 12 10:16 /home/cannam/.wmx/options -&gt; menu:full/new:off/focus:delay-raise,100<br>
-    amyl &gt; ~ &gt;<div style="height: 1.00em;">
-&#160;</div>
+<h2 id="x434f4e46494755524154494f4e2041542052554e54494d45">CONFIGURATION AT RUNTIME</h2> The configuration is held as the target of a symbolic link residing at ~/.wmx/options (or in whichever directory the CONFIG_COMMAND_MENU is found) or passed via the -o option. When both are used at the same time, the options given by -o take precendence. In addition, configuration can also be set through the remote protocol.<p>
+This target should be a string of the form a:b/c:d/e:f etc, to set option a to value b, option c to value d, e to f and so on. The available options are currently "menu" (full or part), "new" (on or off), "keyboard" (on or off), "feedback" (on or off), and "focus" (click, raise, delay-raise or follow).  If click focus is used, a "passclick" option can be set (on or off) to regulate whether the focus-giving click is also sent to the newly raised client. "focus:delay-raise" may be optionally followed by a comma and then a delay time in ms.<p>
+For example,<p>
+<div style="margin-left: 0.00ex;" class="display">
+$ ls -l ~/.wmx/options ~/.wmx/options -&gt; menu:full/new:off/focus:delay-raise,100 $ wmx -o tabfg:blue</div>
 The real problem with this scheme is that it makes Config.h harder to read, because the defaults for the dynamically configurable options are now held in Config.cpp instead.</div>
 <div class="subsection">
 <h2 id="x434f4e46494755524154494f4e20494e20434f4e4649472e48">CONFIGURATION IN CONFIG.H</h2> The options changeable in Config.h are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 7.00ex;" class="list list-tag">
