@@ -2,13 +2,20 @@
 # * Composite (remove -lXcomposite)
 # * Xft (-lXft -lfreetype -lfontconfig, -I/usr/X11R6/include/freetype2)
 # * Pixmaps (-lXpm)
-LIBS	= -L/usr/local/lib -L/usr/X11R6/lib -lXext -lX11 -lXt -lXmu -lSM -lICE -lm -lXcomposite -lXpm -lXft $(shell freetype-config --libs) -lfontconfig
-INCS	= -L/usr/local/include -I/usr/X11R6/include $(shell freetype-config --cflags)
 
-PREFIX	= /usr/local
-MANDIR	= $(PREFIX)/share/man/1
+PREFIX  = /usr/local
+XPREFIX = /usr/X11R6
+LIBDIR	= $(PREFIX)/lib
+XLIBDIR	= $(XPREFIX)/lib
+INCDIR	= $(PREFIX)/include
+XINCDIR	= $(XPREFIX)/include
+MANDIR	= $(PREFIX)/man/man1
 BINDIR	= $(PREFIX)/bin
 APPLDIR	= $(PREFIX)/share/applications
+
+LIBS	= -L$(LIBDIR) -L$(XLIBDIR) -lXext -lX11 -lXt -lXmu -lSM -lICE -lm -lXcomposite -lXpm -lXft $(shell freetype-config --libs) -lfontconfig
+INCS	= -I$(INCDIR) -I$(XINCDIR) $(shell freetype-config --cflags)
+
 
 # Clang doesn't work as of yet
 CCC	= g++
@@ -30,3 +37,4 @@ install: wmx
 
 clean:
 	rm -f *.o *.core wmx wmx.old
+
