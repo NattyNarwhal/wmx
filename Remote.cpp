@@ -763,7 +763,6 @@ void Remote::close_all_sockets(void) {
 
 Boolean Remote::doRemoteControl(int fd)
 {
-    char buff[128];
     int n;
     int new_fd;
     char welcome_msg[] = 

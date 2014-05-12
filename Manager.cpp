@@ -1149,7 +1149,7 @@ void WindowManager::print_clients(int fd) {
 			       &text_prop, XA_WM_CLASS)) {
 	      res_name = (char *)text_prop.value;
 	  }
-	  sprintf(buff,
+	  snprintf(buff, 1024,
 		  "0x%x %d %c%c%c (%s) \"%s\"\n", 
 		  c->window(),
 		  c->channel(),
@@ -1379,7 +1379,7 @@ void WindowManager::netwmUpdateStackingOrder()
 
 void WindowManager::netwmUpdateChannelList()
 {
-    int     i;
+    unsigned int     i;
     char  **names, s[1024];
     CARD32  chan;
    
@@ -1395,7 +1395,7 @@ void WindowManager::netwmUpdateChannelList()
     names = new char*[chan];
     
     for (i = 0; i < chan; i++) {
-        snprintf(s, sizeof(s), "Channel %i", i + 1);
+        snprintf(s, 1024, "Channel %i", i + 1);
         names[i] = new char [strlen(s) + 1];
         strcpy(names[i], s);
     }

@@ -40,7 +40,7 @@ int Keybinding::scan_directory(char *dir_name, bool with_modifier)
 	count = 0;
 	while ((ent = readdir(dir))) {
 	    // printf("%s type: %d\n", ent->d_name, ent->d_type);
-	    sprintf(filename, "%s/%s", dir_name, ent->d_name);
+	    snprintf(filename, 1024, "%s/%s", dir_name, ent->d_name);
 	    n = stat(filename, &buf);
 	    // printf("type 0%o\n", buf.st_mode);
 	    if (n != 0) {
@@ -111,14 +111,13 @@ int Keybinding::scan_directory(char *dir_name, bool with_modifier)
     }
 
     closedir(dir);
-
+    return 0;
 }
 
 Keybinding::Keybinding(WindowManager *const w_mgr, char *dir, 
 		       bool with_modifier)
 {
     char key_dir_name[1024];
-    int n;
     char *home = getenv("HOME");
     const char *keys_name = with_modifier ? ".mkeys" : ".keys";
 
@@ -128,7 +127,7 @@ Keybinding::Keybinding(WindowManager *const w_mgr, char *dir,
     } else {
 	snprintf(key_dir_name, 1024, "%s/%s/%s", home, CONFIG_COMMAND_MENU, keys_name);
     }
-    n = scan_directory(key_dir_name, with_modifier);
+    scan_directory(key_dir_name, with_modifier);
 
 }
 
