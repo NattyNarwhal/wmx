@@ -95,9 +95,7 @@ Remote::Remote(WindowManager *const w_mgr)
     wm = w_mgr;
 
     verbose = 0;
-    // FD_ZERO(&remote_control_connections);
-    memset((void *)&remote_control_connections, 0, 
-	   sizeof(remote_control_connections)); // SGI's FD_ZERO is fucked
+    FD_ZERO(&remote_control_connections);
     remote_control_port = 0;
     remote_control_socket = -1;
     max_connection = 0;
@@ -183,9 +181,7 @@ int Remote::setup_socket(char *host, int port)
 void Remote::setup_port(int port, int v)
 {
     verbose = v;
-    // FD_ZERO(&remote_control_connections);
-    memset((void *)&remote_control_connections, 0, 
-	   sizeof(remote_control_connections)); // SGI's FD_ZERO is fucked
+    FD_ZERO(&remote_control_connections);
     remote_control_socket = -1;
 
     remote_control_port = port;

@@ -165,7 +165,7 @@ void WindowManager::nextEvent(XEvent *e)
 	}
 
 	fd = ConnectionNumber(m_display);
-	memset((void *)&rfds, 0, sizeof(fd_set)); // SGI's FD_ZERO is fucked
+	FD_ZERO(&rfds);
 	FD_SET(fd, &rfds);
 	t.tv_sec = t.tv_usec = 0;
 
