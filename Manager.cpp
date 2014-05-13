@@ -1139,7 +1139,7 @@ void WindowManager::print_clients(int fd) {
       // sprintf(buff, "Number of clients: %d\n", clients().count());
       // write(fd, buff, strlen(buff));
       if (m_clients.count() == 0) {
-	  sprintf(buff, "No clients!\n");
+	  snprintf(buff, 1024, "No clients!\n");
 	  write(fd, buff, strlen(buff));
       }
       for (i = 0; i < m_clients.count(); ++i) {
