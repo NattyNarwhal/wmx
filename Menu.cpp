@@ -739,6 +739,7 @@ CommandMenu::CommandMenu(WindowManager *manager, XEvent *e, char* otherdir)
 {
     const char *home = getenv("HOME");
     const char *wmxdir = getenv("WMXDIR");
+    DIR *testdir;
 
     m_commandDir = NULL;
     m_hasSubmenus = True;
@@ -771,8 +772,21 @@ CommandMenu::CommandMenu(WindowManager *manager, XEvent *e, char* otherdir)
     else // otherdir != NULL
     {
 	m_commandDir = (char *)malloc(strlen(otherdir) + 1);
-	strcpy(m_commandDir, otherdir);
+	strncpy(m_commandDir, otherdir, strlen(otherdir));
     }
+
+    // see if the directory it managed to pick actually can be opened,
+    // otherwise fall back to the system one - if that fails later,
+    // we just don't have a list of items to give back later
+    testdir = opendir(m_commandDir);
+    if (testdir == NULL) {
+        free(m_commandDir);
+        m_commandDir =
+	    (char *)malloc(strlen(CONFIG_SYSTEM_COMMAND_MENU) + 1);
+        snprintf(m_commandDir, strlen(CONFIG_SYSTEM_COMMAND_MENU),
+           CONFIG_SYSTEM_COMMAND_MENU);
+    }
+    closedir(testdir);
 
     int i = getSelection();
 	
@@ -834,18 +848,7 @@ char **CommandMenu::getItems(int *niR, int *nhR)
     dir = opendir(m_commandDir);
 
     if (dir == NULL) {
-
-        free(m_commandDir);
-        m_commandDir =
-	    (char *)malloc(strlen(CONFIG_SYSTEM_COMMAND_MENU) + 1);
-        sprintf(m_commandDir, CONFIG_SYSTEM_COMMAND_MENU);
-
-        dirlen = strlen(m_commandDir);
-        dir = opendir(m_commandDir);
-
-        if (dir == NULL) {
-	    return NULL;
-	}
+        return NULL;
     }
 
     dirpath = (char *)malloc(dirlen + 1024 + 2); // NAME_MAX guess
