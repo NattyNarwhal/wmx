@@ -522,7 +522,7 @@ void Border::fixTabHeight(int maxHeight)
     do {
 	// (incorrect for utf8)
 	strncpy(newLabel, m_label, len - 1);
-	strcpy(newLabel + len - 1, "...");
+	strncpy(newLabel + len - 1, "...", 3);
 	m_tabHeight = getRotatedTextWidth(newLabel) + 6 + m_tabWidth[screen()];
 	--len;
 

@@ -1397,7 +1397,7 @@ void WindowManager::netwmUpdateChannelList()
     for (i = 0; i < chan; i++) {
         snprintf(s, 1024, "Channel %i", i + 1);
         names[i] = new char [strlen(s) + 1];
-        strcpy(names[i], s);
+        strlcpy(names[i], s, chan);
     }
     
     XTextProperty textProp;

@@ -37,7 +37,7 @@ struct DynamicConfigImpl
 
 DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
 {
-    strcpy(m_impl->options, "");
+    strncpy(m_impl->options, "", 0);
     
     char *home = getenv("HOME");
     char *wmxdir = getenv("WMXDIR");
@@ -73,9 +73,9 @@ DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
     m_impl->tabmargin = 2;
     m_impl->className = 0;
     m_impl->sortClients = 0;
-    strcpy(m_impl->tabfg, "black");
-    strcpy(m_impl->tabbg, "gray80");
-    strcpy(m_impl->framebg, "gray95");
+    strlcpy(m_impl->tabfg, "black", COLOR_LEN);
+    strlcpy(m_impl->tabbg, "gray80", COLOR_LEN);
+    strlcpy(m_impl->framebg, "gray95", COLOR_LEN);
 
     scan(1);
 }
