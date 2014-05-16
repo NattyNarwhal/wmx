@@ -751,7 +751,7 @@ CommandMenu::CommandMenu(WindowManager *manager, XEvent *e, char* otherdir)
 	    if (home == NULL) return;
 	    m_commandDir =
 		(char *)malloc(strlen(home) + strlen(CONFIG_COMMAND_MENU) + 2);
-	    sprintf(m_commandDir, "%s/%s", home, CONFIG_COMMAND_MENU);
+	    snprintf(m_commandDir, strlen(home) + strlen(CONFIG_COMMAND_MENU) + 2,"%s/%s", home, CONFIG_COMMAND_MENU);
 	}
 	else // wmxdir != NULL
 	{
@@ -759,20 +759,20 @@ CommandMenu::CommandMenu(WindowManager *manager, XEvent *e, char* otherdir)
 	    {
 		m_commandDir =
 		    (char *)malloc(strlen(wmxdir) + 1);
-		strcpy(m_commandDir, wmxdir);
+		strlcpy(m_commandDir, wmxdir, strlen(wmxdir) + 1);
 	    }
 	    else // wmxdir doesn't start with /
 	    {
 		m_commandDir =
 		    (char *)malloc(strlen(home) + strlen(wmxdir) + 2);
-		sprintf(m_commandDir, "%s/%s", home, wmxdir);
+		snprintf(m_commandDir, strlen(home) + strlen(wmxdir) + 2,"%s/%s", home, wmxdir);
 	    }
 	}
     }
     else // otherdir != NULL
     {
 	m_commandDir = (char *)malloc(strlen(otherdir) + 1);
-	strncpy(m_commandDir, otherdir, strlen(otherdir));
+	strlcpy(m_commandDir, otherdir, strlen(otherdir) + 1);
     }
 
     // see if the directory it managed to pick actually can be opened,
@@ -783,7 +783,7 @@ CommandMenu::CommandMenu(WindowManager *manager, XEvent *e, char* otherdir)
         free(m_commandDir);
         m_commandDir =
 	    (char *)malloc(strlen(CONFIG_SYSTEM_COMMAND_MENU) + 1);
-        snprintf(m_commandDir, strlen(CONFIG_SYSTEM_COMMAND_MENU),
+        snprintf(m_commandDir, strlen(CONFIG_SYSTEM_COMMAND_MENU) + 1,
            CONFIG_SYSTEM_COMMAND_MENU);
     }
     closedir(testdir);
@@ -799,7 +799,7 @@ CommandMenu::CommandMenu(WindowManager *manager, XEvent *e, char* otherdir)
 	char *commandFile =
 	    (char *)malloc(strlen(m_commandDir) + STRLEN_MITEMS(i) + 2);
 
-	sprintf(commandFile, "%s/%s", m_commandDir, m_items[i]);
+	snprintf(commandFile, strlen(m_commandDir) + STRLEN_MITEMS(i) + 2,"%s/%s", m_commandDir, m_items[i]);
 	m_windowManager->spawn(m_items[i], commandFile);
 	free(commandFile);
     }
@@ -825,12 +825,9 @@ void CommandMenu::createSubmenu (XEvent *e, int i)
 {
     char *new_directory;
     int dirlen = strlen (m_commandDir);
-    
-    new_directory = (char *)malloc (dirlen + STRLEN_MITEMS(i) + 2);
-    strcpy (new_directory, m_commandDir);
-    new_directory[dirlen] = '/';
-    strcpy (new_directory + dirlen + 1, m_items[i]);
-    
+    int newdirlen = dirlen + STRLEN_MITEMS(i) + 2;
+    new_directory = (char *)malloc (newdirlen);
+    snprintf(new_directory, newdirlen + STRLEN_MITEMS(i) + 2,"%s/%s", m_commandDir, m_items[i]);
     CommandMenu menu (m_windowManager, e, new_directory);
     free(new_directory);
 }
@@ -851,8 +848,9 @@ char **CommandMenu::getItems(int *niR, int *nhR)
         return NULL;
     }
 
-    dirpath = (char *)malloc(dirlen + 1024 + 2); // NAME_MAX guess
-    strcpy(dirpath, m_commandDir);
+    int dirpathlen = dirlen + 1024 + 2; // NAME_MAX guess
+    dirpath = (char *)malloc(dirpathlen);
+    strlcpy(dirpath, m_commandDir, dirpathlen);
 
     int count = 0;
     struct dirent *ent;
@@ -865,7 +863,7 @@ char **CommandMenu::getItems(int *niR, int *nhR)
     while ((ent = readdir(dir)) != NULL) {
 
 	struct stat st;
-	sprintf(dirpath + dirlen, "/%s", ent->d_name);
+	snprintf(dirpath + dirlen, 256, "/%s", ent->d_name);
 		
 	if (stat(dirpath, &st) == -1) continue;
 	if (!S_ISDIR(st.st_mode) || !(st.st_mode & 0444)) continue;
@@ -885,7 +883,7 @@ char **CommandMenu::getItems(int *niR, int *nhR)
     while ((ent = readdir(dir)) != NULL) {
 
 	struct stat st;
-	sprintf(dirpath + dirlen, "/%s", ent->d_name);
+	snprintf(dirpath + dirlen, 256, "/%s", ent->d_name);
 		
 	if (stat(dirpath, &st) == -1) continue;
 	if (!S_ISREG(st.st_mode) || !(st.st_mode & 0111)) continue;
@@ -959,7 +957,7 @@ void ShowGeometry::update(int x, int y)
 {
     char string[20];
 
-    sprintf(string, "%d %d", x, y);
+    snprintf(string, 20, "%d %d", x, y);
     int width = getTextWidth(string, strlen(string)) + 8;
 #ifdef CONFIG_USE_XFT
     int height = m_font->ascent + m_font->descent + 8;

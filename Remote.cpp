@@ -83,7 +83,7 @@ int Connection::store_input(Remote *r)
 	    return n;
 	}
 	// for next time:
-	strcpy(buff, next);
+	strlcpy(buff, next, size);
 	room = size - strlen(buff) - 1;
     }
     return 0;
@@ -612,7 +612,7 @@ cmd_errors go_to_channel_cmd(WindowManager * mgr, char *buff, int fd) {
 
     if (strlen(buff) == 0) {
 	// no channel specified,  show current one
-	sprintf(temp, "Current channel is %d\n", mgr->channel());
+	snprintf(temp, 1024, "Current channel is %d\n", mgr->channel());
 	write(fd, temp, strlen(temp));
 	return err_no_error;
     }
@@ -698,7 +698,7 @@ int Remote::parse_command(char *buff, int fd)
 	    if (func == NULL) {
 		// do help here since the table is local
 		int j;
-		sprintf(reply, "Commands are:\n");
+		snprintf(reply, 20, "Commands are:\n");
 		write(fd, reply, strlen(reply));
 		for (j=0; j< num_entries; j++) {
 		    write(fd, table[j].command, strlen(table[j].command));
