@@ -22,6 +22,10 @@
 *.x86_64
 *.hex
 
+# Editor droppings/maintainence stuff
+*~
+tags
+
 # wmx/wmx debug dumps
 *.core
 wmx
