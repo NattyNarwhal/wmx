@@ -9,6 +9,7 @@
 
 #include "Portable.h"
 
+#define OPT_LEN 1000
 // 32 is enough to fit even "light goldenrod yellow" comfortably
 #define COLOR_LEN 32
 
@@ -16,8 +17,8 @@ DynamicConfig DynamicConfig::config;
 
 struct DynamicConfigImpl
 {
-    char options[1000];	// Old options-string
-    char path[1000];	// Path to Options-Link
+    char options[OPT_LEN];	// Old options-string
+    char path[OPT_LEN];	// Path to Options-Link
     char focus; 	// 1 = Click , 2 = Raise, 4 = Autoraise
     int  raisedelay;
     char kbd;		// 1 = Keyboard on
@@ -37,7 +38,7 @@ struct DynamicConfigImpl
 
 DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
 {
-    strncpy(m_impl->options, "", 0);
+    strlcpy(m_impl->options, "", OPT_LEN);
     
     char *home = getenv("HOME");
     char *wmxdir = getenv("WMXDIR");
@@ -46,19 +47,19 @@ DynamicConfig::DynamicConfig() : m_impl(new DynamicConfigImpl)
 
 	if (!home) m_impl->path[0] = 0;
 	else {
-	    strlcpy(m_impl->path, getenv("HOME"), 1000);  // Path to Options-Link
-	    strlcat(m_impl->path, "/" CONFIG_COMMAND_MENU "/options", 1000);
+	    strlcpy(m_impl->path, getenv("HOME"), OPT_LEN);  // Path to Options-Link
+	    strlcat(m_impl->path, "/" CONFIG_COMMAND_MENU "/options", OPT_LEN);
 	}
 
     } else {
 
-	if (*wmxdir == '/') strlcpy(m_impl->path, wmxdir, 1000);
+	if (*wmxdir == '/') strlcpy(m_impl->path, wmxdir, OPT_LEN);
 	else {
-	    strlcpy(m_impl->path, home, 1000);
-	    strlcat(m_impl->path, "/", 1000);
-	    strlcat(m_impl->path, wmxdir, 1000);
+	    strlcpy(m_impl->path, home, OPT_LEN);
+	    strlcat(m_impl->path, "/", OPT_LEN);
+	    strlcat(m_impl->path, wmxdir, OPT_LEN);
 	}
-	strlcat(m_impl->path, "/options", 1000);
+	strlcat(m_impl->path, "/options", OPT_LEN);
     }
 
     m_impl->focus = 0;	// 1 = Click , 2 = Raise, 4 = Autoraise
