@@ -13,28 +13,40 @@ MANDIR	= $(PREFIX)/man/man1
 BINDIR	= $(PREFIX)/bin
 APPLDIR	= $(PREFIX)/share/applications
 
-LIBS	= -L$(LIBDIR) -L$(XLIBDIR) -lXext -lX11 -lXt -lXmu -lSM -lICE -lm -lXcomposite -lXpm -lXft $(shell freetype-config --libs) -lfontconfig
-INCS	= -I$(INCDIR) -I$(XINCDIR) $(shell freetype-config --cflags)
+CLIBS	= -L$(LIBDIR)
+CCLIBS	= -L$(LIBDIR) -L$(XLIBDIR) -lXext -lX11 -lXt -lXmu -lSM -lICE -lm -lXcomposite -lXpm -lXft $(shell freetype-config --libs) -lfontconfig
+CINCS	= -I$(INCDIR)
+CCINCS	= -I$(INCDIR) -I$(XINCDIR) $(shell freetype-config --cflags)
 
 
-# Clang doesn't work as of yet
+# Clang for wmx doesn't work as of yet
+CC	= egcc
 CCC	= g++
 # Add -DHAVE_STRLCAT and -DHAVE_STRLCPY if you don't running Linux - BSD has it!
 PLTFLGS	= 
-CFLAGS	= -O2 -g -Wall $ $(INCS) $(PLTFLGS)
+CFLAGS	= -O2 -g -Wall $(CINCS) $(PLTFLGS)
+CCFLAGS	= -O2 -g -Wall $(CCINCS) $(PLTFLGS)
 OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Keybinding.o Main.o Manager.o Menu.o Portable.o Remote.o Rotated.o Session.o
+WMXCOBJ	= wmxc.o
 
 .cpp.o:
-	$(CCC) -c $(CFLAGS) $<
+	$(CCC) -c $(CCFLAGS) $<
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
 
 wmx:	$(OBJECTS)
-	$(CCC) -o wmx $(OBJECTS) $(LIBS)
+	$(CCC) -o wmx $(OBJECTS) $(CCLIBS)
+
+wmxc:	$(WMXCOBJ)
+	$(CC) -o wmxc $(WMXCOBJ) $(CLIBS)
 
 install: wmx
 	install wmx $(BINDIR)
+	install wmxc $(BINDIR)
 	install wmx.1 $(MANDIR)
 	install wmx.desktop $(APPLDIR)
 
 clean:
-	rm -f *.o *.core wmx wmx.old
+	rm -f *.o *.core wmx wmx.old wmxc
 
