@@ -1,0 +1,5 @@
+#! /bin/sh
+# Maximize current window vertically
+
+PORT=6999
+echo maximize $1 0 | socket -q localhost $PORT

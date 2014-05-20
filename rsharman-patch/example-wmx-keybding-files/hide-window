@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# Hide current window
+
+PORT=6999
+echo hide $1 | socket -q localhost $PORT

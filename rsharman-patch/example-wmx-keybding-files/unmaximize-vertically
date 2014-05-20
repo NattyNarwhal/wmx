@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# Unmaximize current window vertically
+PORT=6999
+echo unmaximize $1 0 | socket -q localhost $PORT
+

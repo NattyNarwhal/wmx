@@ -1,0 +1,8 @@
+#! /bin/sh
+
+# Go to next channel
+# bug - it doesn't cycle round
+
+echo channel | socket -q localhost 6999  | \
+	gawk  '/Current channel is/{ n = $4; n++ ; print "channel", n}' | \
+	socket -q localhost 6999

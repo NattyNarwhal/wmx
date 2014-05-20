@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# unhide current window
+
+PORT=6999
+echo unhide $1 | socket -q localhost $PORT

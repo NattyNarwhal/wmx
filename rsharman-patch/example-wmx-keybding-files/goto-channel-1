@@ -1,0 +1,4 @@
+#! /bin/sh
+
+# go to channel 1
+echo channel 1 | socket -q localhost 6999

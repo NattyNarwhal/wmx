@@ -1,0 +1,5 @@
+#! /bin/sh
+
+# move current window right 50 pixels
+xwit -id $1 -rmove 50 0
+

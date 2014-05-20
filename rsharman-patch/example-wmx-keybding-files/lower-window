@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# Lower the current window
+
+PORT=6999
+echo lower $1 | socket -q localhost $PORT

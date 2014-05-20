@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# Raise the current window
+
+PORT=6999
+echo raise $1 | socket -q localhost $PORT

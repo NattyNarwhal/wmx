@@ -1,0 +1,7 @@
+#! /bin/sh
+
+# Move this window to the next channel
+
+echo channel | socket -q localhost 6999  | \
+	gawk  '/Current channel is/{ n = $4; n++ ; print "wchannel",'"$1"', n}' |
+	socket -q localhost 6999

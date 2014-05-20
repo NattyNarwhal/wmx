@@ -1,0 +1,7 @@
+Here are some example files suitable for the
+~/.wmx/.keys or ~/.wmx/.mkeys directories.
+
+In those directories the filename must be a valid KeySym.
+You can find those by using the xev program,  or looking in
+/usr/include/X11/keysymdef.h and removing the "XK_" prefix.
+For example  instead of XK_KP_Subtract use KP_Subtract.
