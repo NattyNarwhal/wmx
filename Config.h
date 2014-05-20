@@ -74,6 +74,11 @@ private:
 // Section I. Straightforward operational parameters
 // =================================================
 
+// The default address & port that the remoting feature (activated by -r)
+// will listen on.
+#define CONFIG_DEFAULT_LISTENER "localhost"
+#define CONFIG_DEFAULT_PORT 6999
+
 // List visible as well as hidden clients on the root menu?  (Visible
 // ones will be towards the bottom of the menu, flush-right.)
 #define CONFIG_EVERYTHING_ON_ROOT_MENU (DynamicConfig::config.fullMenu())

@@ -1,6 +1,3 @@
-
-#define DEFAULT_PORT 6999
-
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -178,7 +175,7 @@ int Remote::setup_socket(char *host, int port)
 
 } /* setup_socket */
 
-void Remote::setup_port(int port, int v)
+void Remote::setup_port(char *listenon, int port, int v)
 {
     verbose = v;
     FD_ZERO(&remote_control_connections);
@@ -187,7 +184,7 @@ void Remote::setup_port(int port, int v)
     remote_control_port = port;
     if (remote_control_port > 0) {
 
-	remote_control_socket = setup_socket("localhost", remote_control_port);
+	remote_control_socket = setup_socket(listenon, remote_control_port);
 	if (remote_control_socket < 0) {
 	    fprintf(stderr, "Cannot setup socket to remote_control_port %d\n",
 		    remote_control_port);

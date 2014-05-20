@@ -8,6 +8,8 @@
 #include "Keybinding.h"
 #include "Remote.h"
 
+#define USAGE "[-o options] [-s session-id] [-r] [-p port] [-v]"
+
 class Client;
 class Remote;
 
@@ -16,6 +18,8 @@ declarePList(ClientList, Client);
 #if CONFIG_GROUPS != False
 declarePList(ListList, ClientList);
 #endif
+
+void usage(char *progname);
 
 class WindowManager {
 public:

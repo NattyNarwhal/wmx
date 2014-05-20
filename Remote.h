@@ -24,7 +24,7 @@ class Remote {
  public:
     Remote(WindowManager *const);
     ~Remote();
-    void setup_port(int port, int verbose);
+    void setup_port(char *listenon, int port, int verbose);
     int RemoteControlIsOn(void) { return remote_control_port; }
     Boolean isRemoteControlFd(int fd);
     Boolean doRemoteControl(int fd);

@@ -71,7 +71,9 @@ implementPList(ListList, ClientList);
 
 implementList(AtomList, Atom);
 
-#define DEFAULT_PORT 6999
+void usage(char *progname) {
+    fprintf(stderr, "usage: %s %s\n", progname, USAGE);
+}
 
 WindowManager::WindowManager(int argc, char **argv) :
     m_focusChanging(False),
@@ -87,7 +89,7 @@ WindowManager::WindowManager(int argc, char **argv) :
     char *wmxdir = getenv("WMXDIR");
     // needed for remote
     max_fd = 0;
-    memset((void *)&active_fds, 0, sizeof(fd_set));
+    FD_ZERO(&active_fds);
 
     fprintf(stderr, "\nwmx: Copyright (c) 1996-2008 Chris Cannam."
 	    "  Not a release\n"
@@ -120,16 +122,17 @@ WindowManager::WindowManager(int argc, char **argv) :
 
 	    {
 		int	c;
-		int	port = DEFAULT_PORT;
+		char	listenon[] = CONFIG_DEFAULT_LISTENER;
+		int	port = CONFIG_DEFAULT_PORT;
 		Boolean	useRemoting = False;
 		int	verbose = 0;
 
-		port = 0;
 		while ( (c = getopt(argc, argv, "o:s:rp:v")) != EOF ) {
 		    switch(c) {
 		    case 'o':
 			printf("wmx: loading config from getopt: %s\n", optarg);
 			DynamicConfig::config.update(optarg);
+			break;
 		    case 's':
 #if CONFIG_USE_SESSION_MANAGER != False
 			oldSessionId = optarg;
@@ -148,8 +151,7 @@ WindowManager::WindowManager(int argc, char **argv) :
 			break ;
 		    case '?':
 		    default:
-			fprintf(stderr, "wmx: bad option\n") ;
-			fprintf(stderr, "usage: wmx [-o options] [-s session-id] [-r] [-p port] [-v]\n");
+			usage(argv[0]);
 			exit(1) ;
 		    }
 		}
@@ -157,17 +159,15 @@ WindowManager::WindowManager(int argc, char **argv) :
 		if (useRemoting == True) {
 		    //remote_control_socket = setup_socket("localhost", port);
 		    // remote_control = Remote::Remote(this, port);
-		    fprintf(stdout, "wmx: will listen on %d for remoting\n", port);
-		    remote_control->setup_port(port, verbose);
+		    fprintf(stdout, "wmx: will listen on %s:%d for remoting\n", listenon, port);
+		    remote_control->setup_port(listenon, port, verbose);
 		}
 
 
 	    }
 
 	if (optind < argc) {
-		for (i = strlen(argv[0])-1; i > 0 && argv[0][i] != '/'; --i);
-		fprintf(stderr, "\nwmx: Usage: %s [-s session-id] [-r] [-p port] [-v]\n",
-			argv[0] + (i > 0) + i);
+		usage(argv[0]);
 		exit(2);
 	}
     }
