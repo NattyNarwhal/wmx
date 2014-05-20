@@ -251,17 +251,20 @@ typedef enum {
 } cmd_errors;
 
 static const char *err_strings[] = {
-    "OK\n\n",
-    "Invalid number\n\n",
-    "No such windowid\n\n",
-    "Missing argument(s)\n\n",
-    "Invalid command\n\n",
-    "Syntax error\n\n",
-    "Bye\n\n",
-    "Unknown error\n\n",
+    "OK\n", // we don't say this anymore, if you have nothing to say...
+    "Invalid number\n",
+    "No such windowid\n",
+    "Missing argument(s)\n",
+    "Invalid command\n",
+    "Syntax error\n",
+    "Bye\n",
+    "Unknown error\n",
 };
 
 void give_reply(int fd, cmd_errors e) {
+    if (!e) {
+        return;
+    }
     int inv_err = sizeof(err_strings)/sizeof(err_strings[0]);
 
     if (e >= inv_err) {
@@ -620,6 +623,13 @@ cmd_errors go_to_channel_cmd(WindowManager * mgr, char *buff, int fd) {
     return err_no_error;
 }
 
+cmd_errors exit_cmd(WindowManager * mgr, char *buff, int fd) {
+    printf("wmx: told to exit by remote\n");
+    // mgr->setSignalled(); // doesn't work?
+    exit(0);
+    return err_quit;
+}
+
 cmd_errors quit_cmd(WindowManager * mgr, char *buff, int fd) {
     return err_quit;
 }
@@ -655,6 +665,7 @@ int Remote::parse_command(char *buff, int fd)
     } table[] = {
 	{ "channel", " [<number>]", go_to_channel_cmd },
 	{ "clients", "", &list_clients },
+	{ "exit", "", exit_cmd },
 	{ "help", "", NULL },
 	{ "hide", " <window id>", hide_client },
 	{ "label", " <window id> <any string>", relabel_cmd },
@@ -763,7 +774,7 @@ Boolean Remote::doRemoteControl(int fd)
     int n;
     int new_fd;
     char welcome_msg[] = 
-	"Welcome to wmx remote control.  Type help for commands\n\n";
+	"Welcome to wmx remote control.  Type help for commands\n";
 
     if (verbose) {
 	printf("WindowManager::doRemoteControl(%d)\n", fd);
