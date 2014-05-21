@@ -20,7 +20,7 @@ CCINCS	= -I$(INCDIR) -I$(XINCDIR) $(shell freetype-config --cflags)
 
 
 # Clang for wmx doesn't work as of yet
-CC	= egcc
+CC	= gcc
 CCC	= g++
 # Add -DHAVE_STRLCAT and -DHAVE_STRLCPY if you don't running Linux - BSD has it!
 PLTFLGS	= 

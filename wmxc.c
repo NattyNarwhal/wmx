@@ -39,8 +39,6 @@ int main(int argc, char **argv) {
 
 	{
 		int i, c;
-		//char *temp = (char*)calloc(BUFF_SIZE, sizeof(char*));
-		char temp[BUFF_SIZE] = "";
 		while((c = getopt(argc, argv, "p:q")) != -1 ) {
 			switch (c) {
 				case 'p':
@@ -57,11 +55,10 @@ int main(int argc, char **argv) {
 		if (optind == argc) usage(argv[0]);
 
 		for (i = optind; i < argc; i++) {
-			strlcat(temp, argv[i], BUFF_SIZE);
-			strlcat(temp, " ", BUFF_SIZE);
+			strlcat(send_buf, argv[i], BUFF_SIZE);
+			strlcat(send_buf, " ", BUFF_SIZE);
 		}
-		temp[strlen(temp) - 1] = '\n'; // newln at end
-		strlcpy(send_buf, temp, BUFF_SIZE);
+		send_buf[strlen(send_buf) - 1] = '\n'; // newln at end
 	}
 
 	getaddrinfo(addr, port, &hint, &r);
@@ -79,7 +76,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	send(fd, "quit", 5, 0); // close it
+	send(fd, "quit\n", 6, 0); // close it
 
 	close(fd);
 	return 0;
