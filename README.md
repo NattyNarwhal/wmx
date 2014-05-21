@@ -28,6 +28,11 @@ edit the Makefile as needed for your platform. By default, it should work
 out of the box on most OSes, but should be tweaked if you're not running a
 typical Linux system. After that, you should be able to simply run make.
 
+## Remote
+
+As of May 2014, wmx supports the ability to be controlled remotely. A `wmxc`
+program is included to make it easier for scripts and other usage.
+
 ## xterm
 
 Some versions of xterm and rxvt run badly with wmx.  If you use xterm

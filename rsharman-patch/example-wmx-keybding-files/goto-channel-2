@@ -1,4 +1,4 @@
 #! /bin/sh
 
 # go to channel 2
-echo channel 2 | socket -q localhost 6999
+wmxc channel 2

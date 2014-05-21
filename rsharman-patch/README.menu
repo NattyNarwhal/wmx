@@ -17,10 +17,10 @@ the emacs ones are connsecutive.
 To turn on class and/or sort you can
 
 1. Change Config.h to have
-#define CLASS_IN_MENU True
+#define CONFIG_CLASS_IN_MENU True
 
 2. With the default setting of
-#define CLASS_IN_MENU	(dConfig.classInMenu())
+#define CONFIG_CLASS_IN_MENU	(dConfig.classInMenu())
 you can turn it on by adding "class:on" to the options string.
 
 E.g.

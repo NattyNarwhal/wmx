@@ -1,0 +1,83 @@
+.Dd $Mdocdate: May 21 2014 $
+.Dt wmx 1
+.Os
+.Sh NAME
+.Nm wmxc
+.Nd control a wmx instance
+.Sh SYNOPSYS
+.Nm
+.Op Fl p Ar port
+.Op Fl q
+.Ar command
+.Op Ar arguments
+.Sh DESCRIPTION
+.Nm
+is a small program that interacts with a 
+.Xr wmx 1 
+instance with the remoting feature enabled. This allows you to probe
+and control wmx from the shell, allowing you to control it from SSH
+sessions, scripts, and so on.
+.Pp
+wmx listens on port 6999 (can be changed) and can be controlled via
+this port, but it can be harder to use interactively - there is no
+shell parsing or readline to make it nice, and it harder to automate.
+.Nm
+should solve these problems.
+.Pp
+The options are as follows:
+.Bl -tag -offset -indent
+.It Fl p Ar port
+A custom port to use. By default, wmx listens on 6999.
+.It Fl q
+Don't output anything.
+.El
+.Sh USING WMXC
+.Nm
+expects a command and optionallly, arguments. The commands are as follows:
+.Bl -tag -offset -indent
+.It channel Op Ar number
+Shows the current channel number. If a channel is given, switches to that channel.
+.It clients
+Show the current windows and their IDs.
+.It exit
+Exits wmx.
+.It hide Ar window
+Hides the window.
+.It label Ar window Ar string
+Changes the window title/label.
+.It lower Ar window
+.It maximize Ar window Ar number
+Maximizes the current window. The number given is 0 for vertical, 1 for horizontal,
+and 3 for full width.
+.It move Ar window Ar x Ar y
+Moves the window to an absolute position. The frame is not accounted for.
+.It open Ar window
+Unhides and raises the window.
+.It options Ar options
+Sets the options given.
+.It raise Ar window
+Raises the window.
+.It raiseorlower Ar window
+Toggles the topness of the window.
+.It rmove Ar window Ar x Ar y
+Move a window relative to its current position.
+.It unhide Ar window
+Unides the window.
+.It unmaximize Ar window Ar number
+Unmaximizes the current window. The number given is 0 for vertical, 1 for horizontal,
+and 3 for full width.
+.It warp Ar window 
+Jump to the window.
+.It wchannel Ar window Ar number
+Warps a window to the given channel.
+.El
+.Pp
+Note that the first parameter given when a script executed via keybinds is the current
+window ID.
+.Sh SEE ALSO
+.Xr wmx 1 
+.El
+.Sh AUTHORS
+wmx was created by Chris Cannam. This fork is maintained by Calvin Buckley.
+.Pp
+See README.md for credits and more informations.

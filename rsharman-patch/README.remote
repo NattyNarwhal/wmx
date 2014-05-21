@@ -21,15 +21,8 @@ have been a good idea to make the above telnet window a sticky one!
 
 By itself the remote control is fun to play with, but what good is it?
 
-Well, with the keybinding patch you can run a command that can send a
-command to the socket.  The easiest way to do this from a shell script
-is using the socket program.  If you don't have this you should!
-
-	http://www.jnickelsen.de/socket/
-
-This is a very handy program which can do many things.  The nice
-feature here is that you can invoke it from a shell script to send
-commands to a socket.
+A new "wmxc" program is included to talk to the remote, instead of hacking
+a script with netcat.
 
 Here is an example file that hides the curent window:
 
@@ -38,8 +31,7 @@ Here is an example file that hides the curent window:
 
 # Hide current window
 
-PORT=6999
-echo hide $1 | socket -q localhost $PORT
+wmxc hide $1
 ------------------------------------------------------------------------
 
 If this file is copied to ~/.wmx/.keys/F1 with execute permission
@@ -56,9 +48,7 @@ Here's a more interesting example:
 # Move this window to the next channel
 
 # go to next channel
-echo channel | socket -q localhost 6999  | \
-	gawk  '/Current channel is/{ n = $4; n++ ; print "wchannel",'"$1"', n}' |
-	socket -q localhost 6999
+wmxc `wmxc channel | gawk '/Current channel is/{ n = $4; n-- ; print "channel", n}'`
 ------------------------------------------------------------------------
 
 As the comment says,  the current window is moved to the next channel
@@ -70,7 +60,8 @@ to the previous channel by moving the pointer away from the window
 and going back to the previous channel.
 
 Cycling amoungst windows often gets ones you're not interested in.
-This file allows cycling between just the same client classes.
+This file allows cycling between just the same client classes, and uses
+netcat instead of wmxc..
 
 ------------------------------------------------------------------------
 #! /bin/sh
@@ -78,7 +69,7 @@ This file allows cycling between just the same client classes.
 # warp to the next client of the same class on the same channel
 # ignoring hidden and withdrawn clients
 
-(echo clients ; echo clients ; echo quit) | socket localhost 6999 | \
+(echo clients ; echo clients ; echo quit) | nc localhost 6999 | \
 
 gawk -v W=$1 '
 
@@ -96,5 +87,5 @@ BEGIN { CLASS = ""; }
 }
 ' | \
   tee -a $HOME/Log | \
-socket -q localhost 6999
+nc localhost 6999
 ------------------------------------------------------------------------

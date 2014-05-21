@@ -3,7 +3,7 @@
 # warp to the next client of the same class on the same channel
 # ignoring hidden and withdrawn clients
 
-(echo clients ; echo clients ; echo quit) | socket localhost 6999 | \
+(echo clients ; echo clients ; echo quit) | nc localhost 6999 | \
 
 gawk -v W=$1 '
 
@@ -19,4 +19,4 @@ BEGIN { CLASS = ""; }
 	CLASS = $4
 	CHANNEL = $2
 }
-' | socket -q localhost 6999
+' | nc localhost 6999

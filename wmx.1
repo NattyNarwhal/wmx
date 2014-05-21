@@ -1,4 +1,4 @@
-.Dd $Mdocdate: May 9 2014 $
+.Dd $Mdocdate: May 21 2014 $
 .Dt wmx 1
 .Os
 .Sh NAME
@@ -25,7 +25,10 @@ Pass options to wmx.
 .It Fl s Ar sm-id
 The ID of the session manager.
 .It Fl r
-Turn on remote. By default, it will listen on port 6999.
+Turn on remote. By default, it will listen on port 6999. This allows
+wmx to be remotely controlled by the
+.Xr wmxc 1 
+program, or via telnet.
 .It Fl p Ar port
 A custom port to use when -r is given.
 .It Fl v
@@ -412,6 +415,8 @@ The modifier used in addition to Alt to remove all windows from a group.
 .It CONFIG_CLOCK
 A clock that lives in the background.
 .El
+.Sh SEE ALSO
+.Xr wmxc 1
 .Sh AUTHORS
 wmx was created by Chris Cannam. This fork is maintained by Calvin Buckley.
 .Pp

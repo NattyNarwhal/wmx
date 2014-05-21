@@ -1,5 +1,4 @@
 #! /bin/sh
 
 # move current window left 50 pixels
-xwit -id $1 -rmove -50 0
-
+wmxc rmove $1 -50 0
