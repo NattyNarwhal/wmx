@@ -5,4 +5,4 @@ compiler:
 before_install:
   - sudo apt-get update -q
   - sudo apt-get install -y libxpm-dev libfreetype6-dev libxcomposite-dev libsm-dev libxext-dev libxft-dev libxmu-dev
-script: make
+script: make; make wmxc

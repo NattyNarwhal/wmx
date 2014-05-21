@@ -29,3 +29,4 @@ tags
 # wmx/wmx debug dumps
 *.core
 wmx
+wmxc
