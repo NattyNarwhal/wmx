@@ -35,16 +35,15 @@ WMXCOBJ	= wmxc.o Portable.o
 .c.o:
 	$(CC) -c $(CFLAGS) $<
 
-wmx:	$(OBJECTS)
-	$(CCC) -o wmx $(OBJECTS) $(CCLIBS)
-
-wmxc:	$(WMXCOBJ)
-	$(CC) -o wmxc $(WMXCOBJ) $(CLIBS)
+wmx:	$(OBJECTS) $(WMXCOBJ)
+	$(CCC) -o wmx $(OBJECTS) $(CCLIBS)	# wmx proper
+	$(CC) -o wmxc $(WMXCOBJ) $(CLIBS)	# wmxc
 
 install: wmx
 	install wmx $(BINDIR)
 	install wmxc $(BINDIR)
 	install wmx.1 $(MANDIR)
+	install wmxc.1 $(MANDIR)
 	install wmx.desktop $(APPLDIR)
 
 clean:
