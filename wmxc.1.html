@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="resource-type" content="document">
+<title>
+wmx(1)</title>
+</head>
+<body>
+<div class="mandoc">
+<table summary="Document Header" class="head" width="100%">
+<col width="30%">
+<col width="30%">
+<col width="30%">
+<tbody>
+<tr>
+<td class="head-ltitle">
+wmx(1)</td>
+<td class="head-vol" align="center">
+OpenBSD Reference Manual</td>
+<td class="head-rtitle" align="right">
+wmx(1)</td>
+</tr>
+</tbody>
+</table>
+<div class="section">
+<h1 id="x4e414d45">NAME</h1> <b class="name">wmxc</b> &#8212; <span class="desc">control a wmx instance</span></div>
+<div class="section">
+<h1 id="x53594e4f50535953">SYNOPSYS</h1> <b class="name">wmxc</b> &#91;<span class="opt"><b class="flag">&#45;p</b> <i class="arg">port</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;q</b></span>&#93; <i class="arg">command</i> &#91;<span class="opt"><i class="arg">arguments</i></span>&#93;</div>
+<div class="section">
+<h1 id="x4445534352495054494f4e">DESCRIPTION</h1> <b class="name">wmxc</b> is a small program that interacts with a <a class="link-man">wmx(1)</a> instance with the remoting feature enabled. This allows you to probe and control wmx from the shell, allowing you to control it from SSH sessions, scripts, and so on.<p>
+wmx listens on port 6999 (can be changed) and can be controlled via this port, but it can be harder to use interactively - there is no shell parsing or readline to make it nice, and it harder to automate. <b class="name">wmxc</b> should solve these problems.<p>
+The options are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 7.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;p</b> <i class="arg">port</i></dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+A custom port to use. By default, wmx listens on 6999.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;q</b></dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+Don't output anything.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x5553494e4720574d5843">USING WMXC</h1> <b class="name">wmxc</b> expects a command and optionallly, arguments. The commands are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 7.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 1.00em;">
+channel &#91;<span class="opt"><i class="arg">number</i></span>&#93;</dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Shows the current channel number. If a channel is given, switches to that channel.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+clients</dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Show the current windows and their IDs.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+exit</dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Exits wmx.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+hide <i class="arg">window</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Hides the window.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+label <i class="arg">window</i> <i class="arg">string</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Changes the window title/label.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+lower <i class="arg">window</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+maximize <i class="arg">window</i> <i class="arg">number</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Maximizes the current window. The number given is 0 for vertical, 1 for horizontal, and 3 for full width.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+move <i class="arg">window</i> <i class="arg">x</i> <i class="arg">y</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Moves the window to an absolute position. The frame is not accounted for.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+open <i class="arg">window</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Unhides and raises the window.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+options <i class="arg">options</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Sets the options given.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+raise <i class="arg">window</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Raises the window.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+raiseorlower <i class="arg">window</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Toggles the topness of the window.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+rmove <i class="arg">window</i> <i class="arg">x</i> <i class="arg">y</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Move a window relative to its current position.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+unhide <i class="arg">window</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Unides the window.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+unmaximize <i class="arg">window</i> <i class="arg">number</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Unmaximizes the current window. The number given is 0 for vertical, 1 for horizontal, and 3 for full width.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+warp <i class="arg">window</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Jump to the window.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+wchannel <i class="arg">window</i> <i class="arg">number</i></dt>
+<dd class="list-tag" style="margin-left: 8.00ex;">
+Warps a window to the given channel.</dd>
+</dl>
+<p>
+Note that the first parameter given when a script executed via keybinds is the current window ID.</div>
+<div class="section">
+<h1 id="x53454520414c534f">SEE ALSO</h1> <a class="link-man">wmx(1)</a></div>
+<div class="section">
+<h1 id="x415554484f5253">AUTHORS</h1> wmx was created by Chris Cannam. This fork is maintained by Calvin Buckley.<p>
+See README.md for credits and more informations.</div>
+<table summary="Document Footer" class="foot" width="100%">
+<col width="50%">
+<col width="50%">
+<tbody>
+<tr>
+<td class="foot-date">
+May 21, 2014</td>
+<td class="foot-os" align="right">
+OpenBSD 5.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
+

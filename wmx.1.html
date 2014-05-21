@@ -41,7 +41,7 @@ The ID of the session manager.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
 <b class="flag">&#45;r</b></dt>
 <dd class="list-tag" style="margin-left: 10.00ex;">
-Turn on remote. By default, it will listen on port 6999.</dd>
+Turn on remote. By default, it will listen on port 6999. This allows wmx to be remotely controlled by the <a class="link-man">wmxc(1)</a> program, or via telnet.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
 <b class="flag">&#45;p</b> <i class="arg">port</i></dt>
 <dd class="list-tag" style="margin-left: 10.00ex;">
@@ -134,6 +134,10 @@ The real problem with this scheme is that it makes Config.h harder to read, beca
 <div class="subsection">
 <h2 id="x434f4e46494755524154494f4e20494e20434f4e4649472e48">CONFIGURATION IN CONFIG.H</h2> The options changeable in Config.h are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 7.00ex;" class="list list-tag">
 <dt class="list-tag" style="margin-top: 1.00em;">
+CONFIG_DEFAULT_LISTENER, CONFIG_DEFAULT_PORT</dt>
+<dd class="list-tag" style="margin-left: 2.00ex;">
+The address and port the remoting feature listens on, by default, localhost:6999</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
 CONFIG_EVERYTHING_ON_ROOT_MENU</dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, show non-hidden clients in the on the menu.</dd>
@@ -173,10 +177,6 @@ The directory in which executables are shown for the middle-click menu.</dd>
 CONFIG_SYSTEM_COMMAND_MENU</dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The other directory to find executables if CONFIG_COMMAND_MENU is invalid.</dd>
-<dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_ADD_SCREEN_TO_COMMAND_MENU</dt>
-<dd class="list-tag" style="margin-left: 2.00ex;">
-If True, adds the screen number to the command menu.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
 CONFIG_CLICK_TO_FOCUS ,CONFIG_RAISE_ON_FOCUS, CONFIG_AUTO_RAISE</dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
@@ -506,6 +506,8 @@ A clock that lives in the background.</dd>
 </div>
 </div>
 <div class="section">
+<h1 id="x53454520414c534f">SEE ALSO</h1> <a class="link-man">wmxc(1)</a></div>
+<div class="section">
 <h1 id="x415554484f5253">AUTHORS</h1> wmx was created by Chris Cannam. This fork is maintained by Calvin Buckley.<p>
 See README.md for credits and more informations.</div>
 <table summary="Document Footer" class="foot" width="100%">
@@ -514,7 +516,7 @@ See README.md for credits and more informations.</div>
 <tbody>
 <tr>
 <td class="foot-date">
-May 9, 2014</td>
+May 21, 2014</td>
 <td class="foot-os" align="right">
 OpenBSD 5.5</td>
 </tr>
