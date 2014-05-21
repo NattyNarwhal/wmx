@@ -27,7 +27,7 @@ PLTFLGS	=
 CFLAGS	= -O2 -g -Wall $(CINCS) $(PLTFLGS)
 CCFLAGS	= -O2 -g -Wall $(CCINCS) $(PLTFLGS)
 OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Keybinding.o Main.o Manager.o Menu.o Portable.o Remote.o Rotated.o Session.o
-WMXCOBJ	= wmxc.o
+WMXCOBJ	= wmxc.o Portable.o
 
 .cpp.o:
 	$(CCC) -c $(CCFLAGS) $<
