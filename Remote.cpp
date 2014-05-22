@@ -400,7 +400,6 @@ cmd_errors move_client(WindowManager * mgr, char *buff, int fd) {
 	if (sig_y == '-') {
 	    y = DisplayHeight(c->display(), 0) - y;
 	}
-	// printf("Moving window 0x%x to (%d, %d)\n", w, x, y);
 	c->move(x, y, False);
 	// c->ensureVisible();
     } else {
@@ -424,7 +423,6 @@ cmd_errors rmove_client(WindowManager * mgr, char *buff, int fd) {
     }
 
     if (get_num(&p, &x) && get_num(&p, &y)) {
-	printf("Moving window 0x%x to (%d, %d)\n", w, x, y);
 	c->move(x, y, True);
 	// c->ensureVisible();
     } else {
@@ -448,7 +446,6 @@ cmd_errors maximize_client(WindowManager * mgr, char *buff, int fd) {
     }
 
     if (get_num(&p, &n)){
-	printf("maximize_client window 0x%x n =  %d\n", w, n);
 	c->maximise(n);
     } else {
 	return err_missing_args;
@@ -471,7 +468,6 @@ cmd_errors unmaximize_client(WindowManager * mgr, char *buff, int fd) {
     }
 
     if (get_num(&p, &n)){
-	printf("unmaximize_client window 0x%x n =  %d\n", w, n);
 	c->unmaximise(n);
     } else {
 	return err_missing_args;

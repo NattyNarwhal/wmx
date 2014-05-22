@@ -1129,7 +1129,7 @@ void WindowManager::print_clients(int fd) {
       char buff[1024];
       Client *c;
       XTextProperty text_prop;
-      char *res_name = "?";
+      char *res_name = (char*)"?";
 
       //      if (SORT_CLIENTS) {
       //	  this->sort_clients();
@@ -1151,7 +1151,7 @@ void WindowManager::print_clients(int fd) {
 	  }
 	  snprintf(buff, 1024,
 		  "0x%x %d %c%c%c (%s) \"%s\"\n", 
-		  c->window(),
+		  (unsigned)c->window(),
 		  c->channel(),
 		  c->isHidden() ? 'H' :  '-',
 		  c->isWithdrawn() ? 'W' :  '-',
