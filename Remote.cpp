@@ -604,11 +604,11 @@ cmd_errors window_to_channel_cmd(WindowManager * mgr, char *buff, int fd) {
 cmd_errors go_to_channel_cmd(WindowManager * mgr, char *buff, int fd) {
     char *p;
     int x;
-    char temp[1024];
+    char temp[BUFF_SIZE];
 
     if (strlen(buff) == 0) {
 	// no channel specified,  show current one
-	snprintf(temp, 1024, "Current channel is %d\n", mgr->channel());
+	snprintf(temp, BUFF_SIZE, "Current channel is %d\n", mgr->channel());
 	write(fd, temp, strlen(temp));
 	return err_no_error;
     }
@@ -797,7 +797,7 @@ Boolean Remote::doRemoteControl(int fd)
 		realloc(connections, size);
 	}
 	// printf("setting connections[%d]\n", new_fd);
-	connections[new_fd] = new Connection(1024, new_fd);
+	connections[new_fd] = new Connection(BUFF_SIZE, new_fd);
 
 	FD_SET(new_fd, &remote_control_connections);
 	wm->add_fd_to_watch(new_fd);

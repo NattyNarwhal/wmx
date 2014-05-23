@@ -1126,10 +1126,11 @@ void WindowManager::sortClients(void)
 
 void WindowManager::print_clients(int fd) {
       int i;
-      char buff[1024];
+      char buff[BUFF_SIZE];
       Client *c;
       XTextProperty text_prop;
-      char *res_name = (char*)"?";
+      char res_name[BUFF_SIZE];
+      strlcpy(res_name, "?", BUFF_SIZE);
 
       //      if (SORT_CLIENTS) {
       //	  this->sort_clients();
@@ -1139,7 +1140,7 @@ void WindowManager::print_clients(int fd) {
       // sprintf(buff, "Number of clients: %d\n", clients().count());
       // write(fd, buff, strlen(buff));
       if (m_clients.count() == 0) {
-	  snprintf(buff, 1024, "No clients!\n");
+	  snprintf(buff, BUFF_SIZE, "No clients!\n");
 	  write(fd, buff, strlen(buff));
       }
       for (i = 0; i < m_clients.count(); ++i) {
@@ -1147,9 +1148,9 @@ void WindowManager::print_clients(int fd) {
 	  c = clients().item(i);
 	  if (XGetTextProperty(c->display(), c->window(), 
 			       &text_prop, XA_WM_CLASS)) {
-	      res_name = (char *)text_prop.value;
+	      strlcpy(res_name, text_prop.value, BUFF_SIZE);
 	  }
-	  snprintf(buff, 1024,
+	  snprintf(buff, BUFF_SIZE,
 		  "0x%x %d %c%c%c (%s) \"%s\"\n", 
 		  (unsigned)c->window(),
 		  c->channel(),
@@ -1380,7 +1381,7 @@ void WindowManager::netwmUpdateStackingOrder()
 void WindowManager::netwmUpdateChannelList()
 {
     unsigned int     i;
-    char  **names, s[1024];
+    char  **names, s[BUFF_SIZE];
     CARD32  chan;
    
     if (m_channels <= 1) return;
@@ -1395,7 +1396,7 @@ void WindowManager::netwmUpdateChannelList()
     names = new char*[chan];
     
     for (i = 0; i < chan; i++) {
-        snprintf(s, 1024, "Channel %i", i + 1);
+        snprintf(s, BUFF_SIZE, "Channel %i", i + 1);
         names[i] = new char [strlen(s) + 1];
         strlcpy(names[i], s, chan);
     }

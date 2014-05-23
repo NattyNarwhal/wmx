@@ -18,7 +18,7 @@ int Keybinding::scan_directory(char *dir_name, bool with_modifier)
     struct dirent *ent;
     struct stat buf;
     int n;
-    char filename[1024];
+    char filename[BUFF_SIZE];
     int pass = 0;
     int count = 0;
     struct key_entry *p;
@@ -40,7 +40,7 @@ int Keybinding::scan_directory(char *dir_name, bool with_modifier)
 	count = 0;
 	while ((ent = readdir(dir))) {
 	    // printf("%s type: %d\n", ent->d_name, ent->d_type);
-	    snprintf(filename, 1024, "%s/%s", dir_name, ent->d_name);
+	    snprintf(filename, BUFF_SIZE, "%s/%s", dir_name, ent->d_name);
 	    n = stat(filename, &buf);
 	    // printf("type 0%o\n", buf.st_mode);
 	    if (n != 0) {
@@ -117,15 +117,15 @@ int Keybinding::scan_directory(char *dir_name, bool with_modifier)
 Keybinding::Keybinding(WindowManager *const w_mgr, char *dir, 
 		       bool with_modifier)
 {
-    char key_dir_name[1024];
+    char key_dir_name[BUFF_SIZE];
     char *home = getenv("HOME");
     const char *keys_name = with_modifier ? ".mkeys" : ".keys";
 
     wm = w_mgr;
     if (dir) {
-	snprintf(key_dir_name, 1024, "%s/%s", dir, keys_name);
+	snprintf(key_dir_name, BUFF_SIZE, "%s/%s", dir, keys_name);
     } else {
-	snprintf(key_dir_name, 1024, "%s/%s/%s", home, CONFIG_COMMAND_MENU, keys_name);
+	snprintf(key_dir_name, BUFF_SIZE, "%s/%s/%s", home, CONFIG_COMMAND_MENU, keys_name);
     }
     scan_directory(key_dir_name, with_modifier);
 
@@ -153,8 +153,8 @@ char *Keybinding::command_for_keysym(KeySym sym)
 
 void Keybinding::spawn(char *command, int windowid)
 {
-    char client_id[1024];
-    snprintf(client_id, 1024, "0x%x", windowid);
+    char client_id[BUFF_SIZE];
+    snprintf(client_id, BUFF_SIZE, "0x%x", windowid);
 
     // printf("arg1 is %s\n", client_id);
     wm->spawn(command, command, client_id);

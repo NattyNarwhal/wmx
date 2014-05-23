@@ -33,6 +33,9 @@
 // True and False are defined in Xlib.h
 typedef char Boolean;
 
+// For all temporary buffers
+#define BUFF_SIZE 1024
+
 #include "Config.h"
 
 #include "listmacro.h"
