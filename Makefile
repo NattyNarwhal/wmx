@@ -24,8 +24,8 @@ CC	= gcc
 CCC	= g++
 CFLAGS	= -O2 -g -Wall $(CINCS) 
 CCFLAGS	= -O2 -g -Wall $(CCINCS) 
-OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Keybinding.o Main.o Manager.o Menu.o Remote.o Rotated.o Session.o
-WMXCOBJ	= wmxc.o
+OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Keybinding.o Main.o Manager.o Menu.o Remote.o Rotated.o Session.o Portable.o
+WMXCOBJ	= wmxc.o Portable.o
 
 .cpp.o:
 	$(CCC) -c $(CCFLAGS) $<

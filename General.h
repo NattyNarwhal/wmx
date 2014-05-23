@@ -33,10 +33,8 @@
 // True and False are defined in Xlib.h
 typedef char Boolean;
 
-// Tell Linux this strl* lives in libbsd
 #ifdef linux
-extern size_t strlcpy(char *, char const *, unsigned long);
-extern size_t strlcat(char *, char const *, unsigned long);
+#include "Portable.h"
 #endif
 
 // For all temporary buffers
