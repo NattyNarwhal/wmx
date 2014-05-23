@@ -35,40 +35,41 @@ Don't output anything.
 .Nm
 expects a command and optionallly, arguments. The commands are as follows:
 .Bl -tag -offset -indent
-.It channel Op Ar number
+.It Ic channel Op Ar number
 Shows the current channel number. If a channel is given, switches to that channel.
-.It clients
+.It Ic clients
 Show the current windows and their IDs.
-.It exit
+.It Ic exit
 Exits wmx.
-.It hide Ar window
+.It Ic hide Ar window
 Hides the window.
-.It label Ar window Ar string
+.It Ic label Ar window Ar string
 Changes the window title/label.
-.It lower Ar window
-.It maximize Ar window Ar number
+.It Ic lower Ar window
+Lowers the window.
+.It Ic maximize Ar window Ar number
 Maximizes the current window. The number given is 0 for vertical, 1 for horizontal,
 and 3 for full width.
-.It move Ar window Ar x Ar y
+.It Ic move Ar window Ar x Ar y
 Moves the window to an absolute position. The frame is not accounted for.
-.It open Ar window
+.It Ic open Ar window
 Unhides and raises the window.
-.It options Ar options
+.It Ic options Ar options
 Sets the options given.
-.It raise Ar window
+.It Ic raise Ar window
 Raises the window.
-.It raiseorlower Ar window
+.It Ic raiseorlower Ar window
 Toggles the topness of the window.
-.It rmove Ar window Ar x Ar y
+.It Ic rmove Ar window Ar x Ar y
 Move a window relative to its current position.
-.It unhide Ar window
+.It Ic unhide Ar window
 Unides the window.
-.It unmaximize Ar window Ar number
+.It Ic unmaximize Ar window Ar number
 Unmaximizes the current window. The number given is 0 for vertical, 1 for horizontal,
 and 3 for full width.
-.It warp Ar window 
+.It Ic warp Ar window 
 Jump to the window.
-.It wchannel Ar window Ar number
+.It Ic wchannel Ar window Ar number
 Warps a window to the given channel.
 .El
 .Pp
@@ -78,6 +79,11 @@ window ID.
 .Xr wmx 1 
 .El
 .Sh AUTHORS
-wmx was created by Chris Cannam. This fork is maintained by Calvin Buckley.
+wmx was created by 
+.An Chris Cannam .
+This fork is maintained by
+.An Calvin Buckley Aq Mt calvin@openmailbox.org .
 .Pp
-See README.md for credits and more informations.
+See
+.Pa README.md
+for credits and more information.
