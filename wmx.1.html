@@ -26,7 +26,7 @@ wmx(1)</td>
 <div class="section">
 <h1 id="x4e414d45">NAME</h1> <b class="name">wmx</b> &#8212; <span class="desc">another window manager</span></div>
 <div class="section">
-<h1 id="x53594e4f50535953">SYNOPSYS</h1> <b class="name">wmx</b> &#91;<span class="opt"><b class="flag">&#45;s</b> <i class="arg">sm-id</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;r</b></span>&#93; &#91;<span class="opt"><b class="flag">&#45;p</b> <i class="arg">port</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;v</b></span>&#93;</div>
+<h1 id="x53594e4f50535953">SYNOPSYS</h1> <b class="name">wmx</b> &#91;<span class="opt"><b class="flag">&#45;o</b> <i class="arg">Options</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;s</b> <i class="arg">sm-id</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;r</b></span>&#93; &#91;<span class="opt"><b class="flag">&#45;p</b> <i class="arg">port</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;v</b></span>&#93;</div>
 <div class="section">
 <h1 id="x4445534352495054494f4e">DESCRIPTION</h1> <b class="name">wmx</b> is another window manager for X. It is based on wm2 and provided a similarily unusual style of window decoration; but in place of wm2's minimal functionality, it offers many of the features of more convential window managers, often in the most simplistic implementations imaginable.<p>
 The options are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 7.00ex;" class="list list-tag">
@@ -53,12 +53,12 @@ Turn on verbosity of output.</dd>
 </dl>
 </div>
 <div class="section">
-<h1 id="x5553494e4720574d58">USING WMX</h1> To run wmx, make sure you're not already running a window manager, make sure the DISPLAY variable is correctly set and the X server is running, and then execute the file "wmx".  There are no command-line options or X resources, and there is no start-up file.  If your X server doesn't support the Shape extension, wmx will exit (and will never work on your server); if it can't find the required fonts or allocate the required colours, it will also exit (but you should be able to fix this by changing the definitions in Config.h and recompiling).<p>
+<h1 id="x5553494e4720574d58">USING WMX</h1> To run wmx, make sure you're not already running a window manager, make sure the <span class="env">DISPLAY</span> variable is correctly set and the X server is running, and then execute wmx. There are no X resources, and there is no start-up file. If your X server doesn't support the Shape extension, wmx will exit (and will never work on your server); if it can't find the required fonts or allocate the required colours, it will also exit (but you should be able to fix this by changing the definitions in <i class="file">Config.h</i> and recompiling).<p>
 Available window manipulations are:<ul style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-item">
 <li class="list-item" style="margin-top: 1.00em;">
-To focus a window: depends on the focus policy you selected in Config.h before compiling.  See "Focus policy", below.</li>
+To focus a window: depends on the focus policy you selected in <i class="file">Config.h</i> before compiling.  See the options for focus policy below.</li>
 <li class="list-item" style="margin-top: 1.00em;">
-To raise a window: click on its tab or frame, unless you have auto-raise on focus set in Config.h.</li>
+To raise a window: click on its tab or frame, unless you have auto-raise on focus set in <i class="file">Config.h</i></li>
 <li class="list-item" style="margin-top: 1.00em;">
 To move a window: make sure it's in focus, then click and drag on its tab, or Alt-click and drag anywhere on it (see Keyboard controls, below, for more about Alt combinations).</li>
 <li class="list-item" style="margin-top: 1.00em;">
@@ -66,9 +66,9 @@ To hide a window: make sure it's in focus, then click on the button at the top o
 <li class="list-item" style="margin-top: 1.00em;">
 To recover a hidden window: hold down left button on the root window for the root menu, and choose the window you want.</li>
 <li class="list-item" style="margin-top: 1.00em;">
-To start a new xterm: use the first item on the left-button root menu ("New"), unless you've disabled it in Config.h.</li>
+To start a new <a class="link-man">xterm(1)</a> : use the first item on the left-button root menu ("New"), unless you've disabled it in <i class="file">Config.h</i>.</li>
 <li class="list-item" style="margin-top: 1.00em;">
-To delete a window: make sure it's in focus, click on the button on the tab, hold the mouse button for at least a second and a half until the cursor changes to a cross, then release.  (I know, it's not very easy.  On the other hand, most modern window managers tend to obscure the fact that most windows already have a perfectly good Close option.  If the default delay doesn't suit you, change it in Config.h and recompile.)</li>
+To delete a window: make sure it's in focus, click on the button on the tab, hold the mouse button for at least a second and a half until the cursor changes to a cross, then release.  (I know, it's not very easy.  On the other hand, most modern window managers tend to obscure the fact that most windows already have a perfectly good Close option.  If the default delay doesn't suit you, change it in <i class="file">Config.h</i> and recompile.)</li>
 <li class="list-item" style="margin-top: 1.00em;">
 To resize a window: make sure it's in focus, then click and drag on its bottom-right corner.  For a constrained resize, click and drag on the bottom-left or top-right corner of the enclosing window frame.</li>
 <li class="list-item" style="margin-top: 1.00em;">
@@ -78,14 +78,14 @@ To switch between desktops (or "Channels"): click with the middle mouse button t
 <li class="list-item" style="margin-top: 1.00em;">
 To move a window from one channel to another: click with the middle mouse button on its frame, and then keep clicking until you reach the channel you want to move it to.</li>
 <li class="list-item" style="margin-top: 1.00em;">
-To start a new application of your choice: use the middle mouse button on the root window, anywhere other than the top-right corner of the root window.  If you have any executable programs in your $HOME/.wmx directory or other directory named in CONFIG_COMMAND_MENU they will be listed on a menu and you can choose one to be started up.  (You can add and remove programs while wmx is running.)  REMEMBER, $HOME/.wmx IS A DIRECTORY, not a file, so please don't write to me asking what the file format is.</li>
+To start a new application of your choice: use the middle mouse button on the root window, anywhere other than the top-right corner of the root window.  If you have any executable programs in your <i class="file">~/.wmx</i> directory or other directory named in <span class="define">CONFIG_COMMAND_MENU</span> they will be listed on a menu and you can choose one to be started up.  (You can add and remove programs while wmx is running.)  REMEMBER, <i class="file">~/.wmx</i> IS A DIRECTORY, not a file, so please don't write to me asking what the file format is.</li>
 <li class="list-item" style="margin-top: 1.00em;">
 To exit from wmx: move the mouse pointer to the very edge of the screen at the bottom corner, and click left button on the root window for the root menu.  The menu should have an extra option labelled "Exit wmx"; select this.</li>
 </ul>
 <p>
 All move and resize operations are opaque.</div>
 <div class="section">
-<h1 id="x4b4559424f41524420434f4e54524f4c53">KEYBOARD CONTROLS</h1> By popular request, there are now some keyboard controls available. The key combinations are configurable in Config.h -- the most important one is that for the Alt modifier. By default, this is bound to Super_L, usually the left Windows key on your keyboard, but can be changed to something else.<p>
+<h1 id="x4b4559424f41524420434f4e54524f4c53">KEYBOARD CONTROLS</h1> By popular request, there are now some keyboard controls available. The key combinations are configurable in <i class="file">Config.h</i> -- the most important one is that for the Alt modifier. By default, this is bound to Super_L, usually the left Windows key on your keyboard, but can be changed to something else.<p>
 The default bindings are:<ul style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-item">
 <li class="list-item" style="margin-top: 1.00em;">
 To raise the focused window in the stacking order: Alt/cursor-Up</li>
@@ -110,63 +110,62 @@ To expand the focused window to the full width of the screen: Alt/KP_Add (numeri
 <li class="list-item" style="margin-top: 1.00em;">
 To contract the focused window after expanding it: Alt/KP_Subtract (numeric pad -)</li>
 <li class="list-item" style="margin-top: 1.00em;">
-If you want the same key to maximise/unmaximise set CONFIG_SAME_KEY_MAX_UNMAX to True in Config.h.</li>
+If you want the same key to maximise/unmaximise set <span class="define">CONFIG_SAME_KEY_MAX_UNMAX</span> to True in <i class="file">Config.h</i>.</li>
 <li class="list-item" style="margin-top: 1.00em;">
 To switch channels: Alt/cursor-Left and Alt/cursor-Right</li>
 <li class="list-item" style="margin-top: 1.00em;">
-To switch directly to channel number N, provided there is a channel N (i.e. some client has been created there already): Alt plus F-key N.  Thus for channel 2 press Alt/F2 and so on. You can choose not to use the function keys for channel switching, and instead use the top row of numbers, set by CONFIG_DONT_USE_FKEYS.</li>
+To switch directly to channel number N, provided there is a channel N (i.e. some client has been created there already): Alt plus F-key N.  Thus for channel 2 press Alt/F2 and so on. You can choose not to use the function keys for channel switching, and instead use the top row of numbers, set by <span class="define">CONFIG_DONT_USE_FKEYS</span>.</li>
 <li class="list-item" style="margin-top: 1.00em;">
 To make the currently focused window "sticky", so it appears on all channels: Alt/Pause.  Repeat to unstick the window.</li>
 <li class="list-item" style="margin-top: 1.00em;">
 To pop up a keyboard-powered client menu: Alt/Menu; for a keyboard-powered new-application menu: Alt/Multi_Key.  (On most modern keyboards, the menu key is right next to the right Windows and Control keys.) You can then use cursor-Up and cursor-Down and cursor-Down, Return, and Escape to choose, select or cancel from the menu.</li>
 </ul>
 <p>
-Some of these bindings (notably the keyboard menu) can be switched off altogether in Config.h.<p>
+Some of these bindings (notably the keyboard menu) can be switched off altogether in <i class="file">Config.h</i>.<p>
+Keybindings can be added via executables in the <i class="file">~/.wmx/.mkeys</i> or <i class="file">~/.wmx/.keys</i> directories. mkeys will be executed when the modifier and the key is held down, and keys is be executed without the modifier. The current client is passed as the first parameter to the script. The filenames are based on X keysym names, but without the XK_ prefix. See the <i class="file">X11/keysymdef.h</i> in the proper include directory for X11.<p>
 If you have a wheel mouse, you can use the wheel to change channels when moved over the root window, and to warp a window to a channel when the tab of a window is hovered over.</div>
 <div class="section">
-<h1 id="x434f4e46494755524154494f4e">CONFIGURATION</h1> <b class="name">wmx</b> is configured either by editing #define statements in Config.h or by a symbolic link in ~/.wmx/options arranged in a "key:value/key:value" fashion. See Config.h and Config.cpp for how to change these.<div class="subsection">
-<h2 id="x434f4e46494755524154494f4e2041542052554e54494d45">CONFIGURATION AT RUNTIME</h2> The configuration is held as the target of a symbolic link residing at ~/.wmx/options (or in whichever directory the CONFIG_COMMAND_MENU is found) or passed via the -o option. When both are used at the same time, the options given by -o take precendence. In addition, configuration can also be set through the remote protocol.<p>
+<h1 id="x434f4e46494755524154494f4e">CONFIGURATION</h1> <b class="name">wmx</b> is configured either by editing <b class="macro">#define</b> statements in <i class="file">Config.h</i> or by a symbolic link in <i class="file">~/.wmx/options arranged in a key:value/key:value</i> fashion. See <i class="file">Config.h</i> and <i class="file">Config.cpp</i> for how to change these.<div class="subsection">
+<h2 id="x434f4e46494755524154494f4e2041542052554e54494d45">CONFIGURATION AT RUNTIME</h2> The configuration is held as the target of a symbolic link residing at <i class="file">~/.wmx/options</i> (or in whichever directory the <span class="define">CONFIG_COMMAND_MENU</span> is found) or passed via the <b class="flag">&#45;o</b> option. When both are used at the same time, the options given by <b class="flag">&#45;o</b> take precendence. In addition, configuration can also be set through the remote protocol.<p>
 This target should be a string of the form a:b/c:d/e:f etc, to set option a to value b, option c to value d, e to f and so on. The available options are currently "menu" (full or part), "new" (on or off), "keyboard" (on or off), "feedback" (on or off), and "focus" (click, raise, delay-raise or follow).  If click focus is used, a "passclick" option can be set (on or off) to regulate whether the focus-giving click is also sent to the newly raised client. "focus:delay-raise" may be optionally followed by a comma and then a delay time in ms.<p>
 For example,<p>
-<div style="margin-left: 0.00ex;" class="display">
-$ ls -l ~/.wmx/options ~/.wmx/options -&gt; menu:full/new:off/focus:delay-raise,100 $ wmx -o tabfg:blue</div>
-The real problem with this scheme is that it makes Config.h harder to read, because the defaults for the dynamically configurable options are now held in Config.cpp instead.</div>
+<pre style="margin-left: 0.00ex;" class="lit display">
+$ ls -l ~/.wmx/options 
+~/.wmx/options -&gt; menu:full/new:off/focus:delay-raise,100 
+$ wmx -o tabfg:blue</pre>
+The real problem with this scheme is that it makes <i class="file">Config.h</i> harder to read, because the defaults for the dynamically configurable options are now held in <i class="file">Config.cpp</i> instead.</div>
 <div class="subsection">
 <h2 id="x434f4e46494755524154494f4e20494e20434f4e4649472e48">CONFIGURATION IN CONFIG.H</h2> The options changeable in Config.h are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 7.00ex;" class="list list-tag">
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_DEFAULT_LISTENER, CONFIG_DEFAULT_PORT</dt>
+<span class="define">CONFIG_DEFAULT_LISTENER</span>, <span class="define">CONFIG_DEFAULT_PORT</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
-The address and port the remoting feature listens on, by default, localhost:6999</dd>
+The address and port the remoting feature listens on, by default, localhost and 6999</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_EVERYTHING_ON_ROOT_MENU</dt>
+<span class="define">CONFIG_EVERYTHING_ON_ROOT_MENU</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, show non-hidden clients in the on the menu.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_EXEC_USING_SHELL</dt>
+<span class="define">CONFIG_EXEC_USING_SHELL</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If to use a shell to wrap the command - this will allow for things like escapes and pipes.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_NEW_WINDOW_LABEL</dt>
+<span class="define">CONFIG_NEW_WINDOW_LABEL</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The label of the New window command.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_NEW_WINDOW_COMMAND</dt>
+<span class="define">CONFIG_NEW_WINDOW_COMMAND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The command used to launch a new window, usually xterm or x-terminal-emulator.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_NEW_WINDOW_COMMAND_OPTIONS</dt>
+<span class="define">CONFIG_NEW_WINDOW_COMMAND_OPTIONS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
-The arguments for the command given in CONFIG_NEW_WINDOW_COMMAND, e.g:</dd>
+The arguments for the command given in <span class="define">CONFIG_NEW_WINDOW_COMMAND</span> , e.g: 'CONFIG_NEW_WINDOW_COMMAND_OPTIONS "-ls","-sb","-sl","1024",0'</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_DISABLE_NEW_WINDOW_COMMAND</dt>
+<span class="define">CONFIG_DISABLE_NEW_WINDOW_COMMAND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, the New window command won't be shown on the menu.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_EXIT_CLICK_SIZE_X</dt>
-<dd class="list-tag" style="margin-left: 2.00ex;">
-</dd>
-<dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_EXIT_CLICK_SIZE_Y</dt>
+<span class="define">CONFIG_EXIT_CLICK_SIZE_X</span>, <span class="define">CONFIG_EXIT_CLICK_SIZE_Y</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Area where the "[Exit wmx]" is shown.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
@@ -178,28 +177,28 @@ CONFIG_SYSTEM_COMMAND_MENU</dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The other directory to find executables if CONFIG_COMMAND_MENU is invalid.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CLICK_TO_FOCUS ,CONFIG_RAISE_ON_FOCUS, CONFIG_AUTO_RAISE</dt>
+<span class="define">CONFIG_CLICK_TO_FOCUS,</span> <span class="define">CONFIG_RAISE_ON_FOCUS,</span> <span class="define">CONFIG_AUTO_RAISE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Focus policy options.<p>
-Config.h contains settings for focus policy.  There are three things you can define to either True or False: CONFIG_CLICK_TO_FOCUS, CONFIG_RAISE_ON_FOCUS and CONFIG_AUTO_RAISE.  The first two are connected: together they define a focus policy.  The third is a separate focus policy on its own and will only work if the first two are both False. CONFIG_AUTO_RAISE differs from (!CONFIG_CLICK_TO_FOCUS &amp;&amp; CONFIG_RAISE_ON_FOCUS) only in that it provides a short delay before raising each window.  The delay is also definable.</dd>
+Config.h contains settings for focus policy.  There are three things you can define to either True or False: <span class="define">CONFIG_CLICK_TO_FOCUS</span>, <span class="define">CONFIG_RAISE_ON_FOCUS</span> and <span class="define">CONFIG_AUTO_RAISE</span>. The first two are connected: together they define a focus policy. The third is a separate focus policy on its own and will only work if the first two are both False. <span class="define">CONFIG_AUTO_RAISE</span> differs from (!CONFIG_CLICK_TO_FOCUS &amp;&amp; CONFIG_RAISE_ON_FOCUS) only in that it provides a short delay before raising each window. The delay is also definable.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_PASS_FOCUS_CLICK</dt>
+<span class="define">CONFIG_PASS_FOCUS_CLICK</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 </dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_AUTO_RAISE_DELAY, CONFIG_POINTER_STOPPED_DELAY, CONFIG_DESTROY_WINDOW_DELAY</dt>
+<span class="define">CONFIG_AUTO_RAISE_DELAY</span>, <span class="define">CONFIG_POINTER_STOPPED_DELAY</span>, <span class="define">CONFIG_DESTROY_WINDOW_DELAY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Delays when using the auto raise focus method..</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_BUMP_DISTANCE</dt>
+<span class="define">CONFIG_BUMP_DISTANCE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Maximum pixels of resistance before you can push a window off-screen.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_BUMP_EVERYWHERE</dt>
+<span class="define">CONFIG_BUMP_EVERYWHERE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, the resistance rule is to be applied to windows nearby as well.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_PROD_SHAPE</dt>
+<span class="define">CONFIG_PROD_SHAPE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Recalcuate the window frame shape - slow, but may be needed on some systems.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
@@ -211,295 +210,291 @@ CONFIG_USE_COMPOSITE</dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Use the Composite extension to speed up rendering.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_RAISELOWER_ON_CLICK</dt>
-<dd class="list-tag" style="margin-left: 2.00ex;">
-</dd>
-<dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_WINDOW_GROUPS</dt>
+<span class="define">CONFIG_RAISELOWER_ON_CLICK</span>, <span class="define">CONFIG_USE_WINDOW_GROUPS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Use window groups - a group leader's fellow grouped windows will have the same action applied to them as the leader does.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_SESSION_MANAGER</dt>
+<span class="define">CONFIG_USE_SESSION_MANAGER</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
-If True and a session manager is running WMX will try to talk to it.</dd>
+If True and a session manager is running, wmx will try to talk to it.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-MENU_ENTRY_MAXLENGTH</dt>
+<span class="define">MENU_ENTRY_MAXLENGTH</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The maximum character length of a menu entry.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CLASS_IN_MENU</dt>
+<span class="define">CLASS_IN_MENU</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Show the class of a window in the menu.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-SORT_CLIENTS</dt>
+<span class="define">CONFIG_SORT_CLIENTS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If to sort the windows in the menu.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_KEYBOARD</dt>
+<span class="define">CONFIG_USE_KEYBOARD</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Boolean value, if the keyboard should be used.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_ALT_KEY</dt>
+<span class="define">CONFIG_ALT_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 What key to use for wmx's keyboard shortcuts. By default, this is XK_Super_L, usually bound to the left Windows key.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_FLIP_UP_KEY, CONFIG_FLIP_DOWN_KEY</dt>
+<span class="define">CONFIG_FLIP_UP_KEY</span>, <span class="define">CONFIG_FLIP_DOWN_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Move to the previous/next channel when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_HIDE_KEY</dt>
+<span class="define">CONFIG_HIDE_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Hides the window when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_STICKY_KEY</dt>
+<span class="define">CONFIG_STICKY_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Makes the window persisent on all channels when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_RAISE_KEY, CONFIG_LOWER_KEY</dt>
+<span class="define">CONFIG_RAISE_KEY</span>, <span class="define">CONFIG_LOWER_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Moves the window up/down when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_FULLHEIGHT_KEY, CONFIG_NORMALHEIGHT_KEY</dt>
+<span class="define">CONFIG_FULLHEIGHT_KEY</span>, <span class="define">CONFIG_NORMALHEIGHT_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Maximize/unmaximize the window's height when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_FULLWIDTH_KEY, CONFIG_NORMALWIDTH_KEY</dt>
+<span class="define">CONFIG_FULLWIDTH_KEY</span>, <span class="define">CONFIG_NORMALWIDTH_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Maximize/unmaximize the window's width when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_MAXIMISE_KEY, CONFIG_UNMAXIMISE_KEY</dt>
+<span class="define">CONFIG_MAXIMISE_KEY</span>, <span class="define">CONFIG_UNMAXIMISE_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Maximize/unmaximize the window when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_SAME_KEY_MAX_UNMAX</dt>
+<span class="define">CONFIG_SAME_KEY_MAX_UNMAX</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, the the maximize/unmaximize key also toggles.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_DEBUG_KEY</dt>
+<span class="define">CONFIG_DEBUG_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Print debug info to stdout when this key is pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CIRCULATE_KEY</dt>
+<span class="define">CONFIG_CIRCULATE_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Cycles windows when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_DESTROY_KEY</dt>
+<span class="define">CONFIG_DESTROY_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Closes the window when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_WANT_KEYBOARD_MENU</dt>
+<span class="define">CONFIG_WANT_KEYBOARD_MENU</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If true, wmx menus can be controlled by the keyboard.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CLIENT_MENU_KEY</dt>
+<span class="define">CONFIG_CLIENT_MENU_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Shows the client menu when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_COMMAND_MENU_KEY</dt>
+<span class="define">CONFIG_COMMAND_MENU_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Shows the command menu when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_EXIT_ON_KBD_MENU</dt>
+<span class="define">CONFIG_EXIT_ON_KBD_MENU</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 </dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_MENU_UP_KEY, CONFIG_MENU_DOWN_KEY, CONFIG_MENU_SELECT_KEY, CONFIG_MENU_CANCEL_KEY</dt>
+<span class="define">CONFIG_MENU_UP_KEY, CONFIG_MENU_DOWN_KEY</span>, <span class="define">CONFIG_MENU_SELECT_KEY</span>, <span class="define">CONFIG_MENU_CANCEL_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Moves around the menu when pressed.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_DONT_USE_FKEYS</dt>
+<span class="define">CONFIG_DONT_USE_FKEYS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, waps the function of the Function keys and the number keys.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_WANT_SUNKEYS</dt>
+<span class="define">CONFIG_WANT_SUNKEYS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True and you have a Sun keyboard, you can allow for more keys to be used.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_WANT_SUNPOWERKEY</dt>
+<span class="define">CONFIG_WANT_SUNPOWERKEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True and you have a Sun keyboard, use the Power key.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_QUICKRAISE_KEY</dt>
+<span class="define">CONFIG_QUICKRAISE_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 </dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_QUICKHIDE_KEY</dt>
+<span class="define">CONFIG_QUICKHIDE_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 </dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_QUICKHEIGHT_KEY</dt>
+<span class="define">CONFIG_QUICKHEIGHT_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 </dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_QUICKCLOSE_KEY</dt>
+<span class="define">CONFIG_QUICKCLOSE_KEY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 </dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_QUICKRAISE_ALSO_LOWERS</dt>
+<span class="define">CONFIG_QUICKRAISE_ALSO_LOWERS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 </dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_SUNPOWER_EXEC</dt>
+<span class="define">CONFIG_SUNPOWER_EXEC</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If you have a Sun keyboard, the program to run when you hit the power key.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_SUNPOWER_OPTIONS</dt>
+<span class="define">CONFIG_SUNPOWER_OPTIONS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The arguments to be passed to the program for CONFIG_SUNPOWER_EXEC.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_SUNPOWER_SHIFTOPTIONS</dt>
+<span class="define">CONFIG_SUNPOWER_SHIFTOPTIONS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The arguments to be passed to the program for CONFIG_SUNPOWER_EXEC when Shift is held.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CLIENTMENU_BUTTON Button1</dt>
+<span class="define">CONFIG_CLIENTMENU_BUTTON Button1</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The menu full of windows.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_COMMANDMENU_BUTTON Button2</dt>
+<span class="define">CONFIG_COMMANDMENU_BUTTON Button2</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The menu full of executables.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CIRCULATE_BUTTON</dt>
+<span class="define">CONFIG_CIRCULATE_BUTTON</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 When you click a frame with the bound button, it switches to another window.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_PREVCHANNEL_BUTTON, CONFIG_NEXTCHANNEL_BUTTON</dt>
+<span class="define">CONFIG_PREVCHANNEL_BUTTON</span>, <span class="define">CONFIG_NEXTCHANNEL_BUTTON</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 When hovering over the desktop, moves to the previous/next channel. When hoving over a frame, warp that frame to the previous/next channel.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_XFT</dt>
+<span class="define">CONFIG_USE_XFT</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
-Use nicer font rendering instead of the built-in bitmap font rendering.</dd>
+Use nicer font rendering instead of the built-in bitmap font rendering. <a class="link-man">Xft(3)</a> allows for using scalable, anti-aliased fonts.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_FRAME_FONT, CONFIG_FRAME_FONT_SIZE</dt>
+<span class="define">CONFIG_FRAME_FONT</span>, <span class="define">CONFIG_FRAME_FONT_SIZE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If using Xft, the font used for frames.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_MENU_FONT, CONFIG_MENU_FONT_SIZE</dt>
+<span class="define">CONFIG_MENU_FONT</span>, <span class="define">CONFIG_MENU_FONT_SIZE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If using Xft, the font to use for menus.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_NICE_FONT</dt>
+<span class="define">CONFIG_NICE_FONT</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If not using Xft, the font to use for frames.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_NICE_MENU_FONT</dt>
+<span class="define">CONFIG_NICE_MENU_FONT</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If not using Xft, the font to use for menus.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_NASTY_FONT</dt>
+<span class="define">CONFIG_NASTY_FONT</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The font used as a fallback.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_TAB_MARGIN</dt>
+<span class="define">CONFIG_TAB_MARGIN</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The padding of the fonts on a frame.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_PLAIN_X_CURSORS</dt>
+<span class="define">CONFIG_USE_PLAIN_X_CURSORS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Boolean value, if true, wmx won't install a custom set of cursors.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_TAB_FOREGROUND</dt>
+<span class="define">CONFIG_TAB_FOREGROUND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of tab text.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_TAB_BACKGROUND</dt>
+<span class="define">CONFIG_TAB_BACKGROUND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the tab.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_FRAME_BACKGROUND</dt>
+<span class="define">CONFIG_FRAME_BACKGROUND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the space between the tab and the window contents.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_BUTTON_BACKGROUND</dt>
+<span class="define">CONFIG_BUTTON_BACKGROUND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the window button.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_BORDERS</dt>
+<span class="define">CONFIG_BORDERS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the 1 pixel border around decorations.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CHANNEL_NUMBER</dt>
+<span class="define">CONFIG_CHANNEL_NUMBER</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the popup when channel surfing.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CLOCK_NUMBER</dt>
+<span class="define">CONFIG_CLOCK_NUMBER</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the numbers of the clock.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_MENU_FOREGROUND</dt>
+<span class="define">CONFIG_MENU_FOREGROUND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the menu text.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_MENU_BACKGROUND</dt>
+<span class="define">CONFIG_MENU_BACKGROUND</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The colour of the</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_MENU_BORDERS</dt>
+<span class="define">CONFIG_MENU_BORDERS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The size of the menu borders.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_FRAME_THICKNESS</dt>
+<span class="define">CONFIG_FRAME_THICKNESS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The size the space between the tab and the window contents.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_PIXMAPS</dt>
+<span class="define">CONFIG_USE_PIXMAPS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Use background images for window frames. The pixmap is from ./background.xpm.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_PIXMAP_MENUS</dt>
+<span class="define">CONFIG_USE_PIXMAP_MENUS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 Use background images for menus.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CHANNEL_SURF</dt>
+<span class="define">CONFIG_CHANNEL_SURF</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, you can change channels by middle-button-clicking the top-right corner.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CHANNEL_CLICK_SIZE</dt>
+<span class="define">CONFIG_CHANNEL_CLICK_SIZE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 How big the area for channel switching with the mouse is.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CHANNEL_NUMBER_SIZE</dt>
+<span class="define">CONFIG_CHANNEL_NUMBER_SIZE</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The size of the channel change window.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_CHANNEL_KEYS</dt>
+<span class="define">CONFIG_USE_CHANNEL_KEYS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, allows the keyboard to change channels.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_USE_CHANNEL_MENU</dt>
+<span class="define">CONFIG_USE_CHANNEL_MENU</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, uses a menu to change channels.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_FLIP_DELAY</dt>
+<span class="define">CONFIG_FLIP_DELAY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 How long the channel display stays on-screen before windows are redrawn.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_QUICK_FLIP_DELAY</dt>
+<span class="define">CONFIG_QUICK_FLIP_DELAY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 How long the channel display stays on-screen before windows are redrawn, when the channel is changed via keyboard/wheel.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_MAD_FEEDBACK, CONFIG_FEEDBACK_DELAY</dt>
+CONFIG_MAD_FEEDBACK, <span class="define">CONFIG_FEEDBACK_DELAY</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
-If you have CONFIG_MAD_FEEDBACK set to True, you will get some natty feedback effects when using the left-button root menu (the Client menu).  Each window selected on the menu will be indicated with a half-frame at the correct position on the screen, to make it easier to distinguish between windows with similar names on the menu.  If you have CONFIG_FEEDBACK_DELAY set to zero or more, then the window itself will be shown on the screen after a delay.  You can use this to speculatively see what a hidden window is showing, without having to restore it and hide it again.</dd>
+If you have <span class="define">CONFIG_MAD_FEEDBACK</span> set to True, you will get some natty feedback effects when using the left-button root menu (the Client menu).  Each window selected on the menu will be indicated with a half-frame at the correct position on the screen, to make it easier to distinguish between windows with similar names on the menu.  If you have <span class="define">CONFIG_FEEDBACK_DELAY</span> set to zero or more, then the window itself will be shown on the screen after a delay.  You can use this to speculatively see what a hidden window is showing, without having to restore it and hide it again.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_GEOMETRY_X_POS, CONFIG_GEOMETRY_Y_POS</dt>
+<span class="define">CONFIG_GEOMETRY_X_POS</span>, <span class="define">CONFIG_GEOMETRY_Y_POS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The relative position of the geometry change window. 0 is centre.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_GROUPS</dt>
+<span class="define">CONFIG_GROUPS</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 If True, enables window grouping.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_GROUP_ADD</dt>
+<span class="define">CONFIG_GROUP_ADD</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The modifier used in addition to Alt to add a window to a group.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_GROUP_REMOVE_ALL</dt>
+<span class="define">CONFIG_GROUP_REMOVE_ALL</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 The modifier used in addition to Alt to remove all windows from a group.</dd>
 <dt class="list-tag" style="margin-top: 1.00em;">
-CONFIG_CLOCK</dt>
+<span class="define">CONFIG_CLOCK</span></dt>
 <dd class="list-tag" style="margin-left: 2.00ex;">
 A clock that lives in the background.</dd>
 </dl>
@@ -508,8 +503,8 @@ A clock that lives in the background.</dd>
 <div class="section">
 <h1 id="x53454520414c534f">SEE ALSO</h1> <a class="link-man">wmxc(1)</a></div>
 <div class="section">
-<h1 id="x415554484f5253">AUTHORS</h1> wmx was created by Chris Cannam. This fork is maintained by Calvin Buckley.<p>
-See README.md for credits and more informations.</div>
+<h1 id="x415554484f5253">AUTHORS</h1> wmx was created by <span class="author">Chris Cannam</span>. This fork is maintained by <span class="author">Calvin Buckley</span> &#60;<a class="link-mail" href="mailto:calvin@openmailbox.org">calvin@openmailbox.org</a>&#62;.<p>
+See <i class="file">README.md</i> for credits and more informations.</div>
 <table summary="Document Footer" class="foot" width="100%">
 <col width="50%">
 <col width="50%">
