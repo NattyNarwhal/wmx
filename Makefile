@@ -19,11 +19,13 @@ CINCS	= -I. -I$(INCDIR)
 CCINCS	= -I. -I$(INCDIR) -I$(XINCDIR) $(shell freetype-config --cflags)
 
 # Clang for wmx doesn't work as of yet
+# Also, have to use g++ even for C as gcc/g++ can't link together
 AR	= ar
-CC	= gcc
-CCC	= g++
+CC	= g++
+CCC	= $(CC)
 CFLAGS	= -O2 -g -Wall $(CINCS) 
 CCFLAGS	= -O2 -g -Wall $(CCINCS) 
+# libobj is shared between the two
 LIBOBJ	= Portable.o
 OBJECTS	= Border.o Buttons.o Channel.o Client.o Config.o Events.o Keybinding.o Main.o Manager.o Menu.o Remote.o Rotated.o Session.o 
 WMXCOBJ	= wmxc.o
