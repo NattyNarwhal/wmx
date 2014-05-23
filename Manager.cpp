@@ -1148,7 +1148,7 @@ void WindowManager::print_clients(int fd) {
 	  c = clients().item(i);
 	  if (XGetTextProperty(c->display(), c->window(), 
 			       &text_prop, XA_WM_CLASS)) {
-	      strlcpy(res_name, text_prop.value, BUFF_SIZE);
+	      strlcpy(res_name, (const char*)text_prop.value, BUFF_SIZE);
 	  }
 	  snprintf(buff, BUFF_SIZE,
 		  "0x%x %d %c%c%c (%s) \"%s\"\n", 
