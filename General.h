@@ -33,9 +33,6 @@
 // True and False are defined in Xlib.h
 typedef char Boolean;
 
-// Due to GNU libc not implementing strl*, we have to do it ourselves
-#include "Portable.h"
-
 #include "Config.h"
 
 #include "listmacro.h"

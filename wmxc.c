@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
-
-#include "Portable.h"
 
 #define CONFIG_DEFAULT_LISTENER "localhost"
 #define CONFIG_DEFAULT_PORT "6999"
