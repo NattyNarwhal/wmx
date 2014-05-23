@@ -6,6 +6,12 @@
 #include <sys/socket.h>
 #include <netdb.h>
 
+// Tell Linux this strl* lives in libbsd
+#ifdef linux
+extern size_t strlcpy(char *, char const *, unsigned long);
+extern size_t strlcat(char *, char const *, unsigned long);
+#endif
+
 #define CONFIG_DEFAULT_LISTENER "localhost"
 #define CONFIG_DEFAULT_PORT "6999"
 

@@ -13,8 +13,8 @@ MANDIR	= $(PREFIX)/man/man1
 BINDIR	= $(PREFIX)/bin
 APPLDIR	= $(PREFIX)/share/applications
 
-CLIBS	= -L$(LIBDIR) $(shell .check.sh)
-CCLIBS	= -L$(LIBDIR) -L$(XLIBDIR) -lXext -lX11 -lXt -lXmu -lSM -lICE -lm -lXcomposite -lXpm -lXft $(shell freetype-config --libs) -lfontconfig $(shell .check.sh)
+CLIBS	= -L$(LIBDIR) $(shell ./.check.sh)
+CCLIBS	= -L$(LIBDIR) -L$(XLIBDIR) -lXext -lX11 -lXt -lXmu -lSM -lICE -lm -lXcomposite -lXpm -lXft $(shell freetype-config --libs) -lfontconfig $(shell ./.check.sh)
 CINCS	= -I$(INCDIR)
 CCINCS	= -I$(INCDIR) -I$(XINCDIR) $(shell freetype-config --cflags)
 
