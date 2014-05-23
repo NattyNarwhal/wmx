@@ -1,4 +1,4 @@
-
+#include "General.h"
 #include "Config.h"
 
 #include <string.h>
@@ -106,12 +106,12 @@ char DynamicConfig::sortClients() { return m_impl->sortClients & 1; }
 
 void DynamicConfig::scan(char startup)
 {
-    char temp[1000];
-    memset(temp, 0, 1000);
+    char temp[BUFF_SIZE];
+    memset(temp, 0, BUFF_SIZE);
 
-    if (m_impl->path[0] && readlink(m_impl->path, temp, 999) > 0) {
+    if (m_impl->path[0] && readlink(m_impl->path, temp, BUFF_SIZE - 1) > 0) {
 	if (strcmp(temp, m_impl->options) != 0) { // Did it change ?
-	    strlcpy(m_impl->options, temp, 1000);
+	    strlcpy(m_impl->options, temp, BUFF_SIZE);
 	    update(temp);
 	}
     } else if (startup) {
