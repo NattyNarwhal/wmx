@@ -699,35 +699,19 @@ void Client::setFocusOnClick(Boolean focusOnClick)
 }
 
 void Client::setNetwmProperty(Atom property, unsigned char state, Boolean to) {
-
-
-    fprintf(stderr, "wmx: Client::setNetwmProperty needs rewriting\n");
-
-/*
-
-    //!!! out of date, + use getProperty
-    Atom returnType;
-    int returnFormat;
-    unsigned long count;
-    unsigned long bytes_remain;
     unsigned char *prop;
-    if(XGetWindowProperty(display(), window(), property, 0, 1,    
-                          False, XA_CARDINAL, &returnType, &returnFormat,
-                          &count, &bytes_remain, &prop) == Success) {
-        if (returnType == XA_CARDINAL && returnFormat == 32 && count == 1) {
-            unsigned char oldProp = *prop;
-            if(to)
-                *prop |= state;
-            else
-                *prop &= !state;
-            
-            if(*prop != oldProp) // Why bother if it's still the same?
-                XChangeProperty(display(), window(), property, 
-                                XA_CARDINAL, 32, PropModeReplace, prop, count);
-        }
+    if((prop = (unsigned char*)getProperty(property)) != NULL) { // getProperty casts from unsigned to signed char, what's the harm?
+        unsigned char oldProp = *prop;
+        if(to)
+            *prop |= state;
+        else
+            *prop &= !state;
+        
+        if(*prop != oldProp) // Why bother if it's still the same?
+            XChangeProperty(display(), window(), property, 
+                            XA_CARDINAL, 32, PropModeReplace, prop, 1);
         if (prop) XFree(prop);
     }
-*/
 }
 
 void Client::setLayer(int newLayer)
