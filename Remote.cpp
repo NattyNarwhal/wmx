@@ -279,6 +279,12 @@ cmd_errors list_clients(WindowManager * mgr, char *buff, int fd) {
     return err_no_error;
 }
 
+cmd_errors print_active_client(WindowManager * mgr, char *buff, int fd) {
+    char windowId[BUFF_SIZE];
+    snprintf(windowId, BUFF_SIZE, "0x%x\n", (unsigned)mgr->activeClient()->window());
+    write(fd, windowId, strlen(windowId));
+    return err_no_error;
+}
 
 Boolean get_num(char **p, int *num) {
     char *q;
@@ -659,6 +665,7 @@ int Remote::parse_command(char *buff, int fd)
 	const char *usage;
 	command_func func;
     } table[] = {
+	{ "activeclient", "", print_active_client },
 	{ "channel", " [<number>]", go_to_channel_cmd },
 	{ "clients", "", &list_clients },
 	{ "exit", "", exit_cmd },
