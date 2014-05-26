@@ -106,12 +106,12 @@ char DynamicConfig::sortClients() { return m_impl->sortClients & 1; }
 
 void DynamicConfig::scan(char startup)
 {
-    char temp[BUFF_SIZE];
-    memset(temp, 0, BUFF_SIZE);
+    char temp[OPT_LEN];
+    memset(temp, 0, OPT_LEN);
 
-    if (m_impl->path[0] && readlink(m_impl->path, temp, BUFF_SIZE - 1) > 0) {
+    if (m_impl->path[0] && readlink(m_impl->path, temp, OPT_LEN - 1) > 0) {
 	if (strcmp(temp, m_impl->options) != 0) { // Did it change ?
-	    strlcpy(m_impl->options, temp, BUFF_SIZE);
+	    strlcpy(m_impl->options, temp, OPT_LEN);
 	    update(temp);
 	}
     } else if (startup) {
