@@ -36,14 +36,16 @@ WMXCOBJ	= wmxc.o
 .c.o:
 	$(CC) -c $(CFLAGS) $<
 
-wmx:	libportable.a $(OBJECTS) $(WMXCOBJ)
+wmx:	libportable.a wmxc $(OBJECTS)
 	$(CCC) -o wmx $(OBJECTS) $(CCLIBS)	# wmx proper
-	$(CC) -o wmxc $(WMXCOBJ) $(CLIBS)	# wmxc
 
 libportable.a:	$(LIBOBJ)
 	$(AR) rcs libportable.a Portable.o
 
-install: wmx
+wmxc:	libportable.a $(WMXCOBJ)
+	$(CC) -o wmxc $(WMXCOBJ) $(CLIBS)	# wmxc
+
+install: wmx wmxc
 	install wmx $(BINDIR)
 	install wmxc $(BINDIR)
 	install wmx.1 $(MANDIR)

@@ -13,13 +13,15 @@
 #define CONFIG_DEFAULT_LISTENER "localhost"
 #define CONFIG_DEFAULT_PORT "6999"
 
-#define BUFF_SIZE 1024
+#define BUFF_SIZE 1024	/* reasonable size for a buffer */
+#define HOST_SIZE 65	/* maximum size for a hostname is 64+null byte, also use for port */
 
 void usage(char *progname) {
 	fprintf(stderr, "usage: %s [-p port] [-q] command [args]\n", progname);
 	exit(1);
 }
 
+// TODO: move fancy strings to wmxc, keeping remote protocol slim
 int main(int argc, char **argv) {
 	struct addrinfo hint, *r;
 	struct timeval t;
@@ -29,8 +31,8 @@ int main(int argc, char **argv) {
 	char	recv_buf[BUFF_SIZE] = "";
 	char	send_buf[BUFF_SIZE] = "";
 
-	char	*addr	= CONFIG_DEFAULT_LISTENER;
-	char	*port	= CONFIG_DEFAULT_PORT;
+	char	addr[HOST_SIZE]	= CONFIG_DEFAULT_LISTENER;
+	char	port[HOST_SIZE]	= CONFIG_DEFAULT_PORT;
 	int	quiet	= 0;
 
 	memset(&hint, 0, sizeof(hint));
@@ -45,7 +47,7 @@ int main(int argc, char **argv) {
 		while((c = getopt(argc, argv, "p:q")) != -1 ) {
 			switch (c) {
 				case 'p':
-					port = optarg;
+					strlcpy(port, optarg, HOST_SIZE);
 					break;
 				case 'q':
 					quiet++;
